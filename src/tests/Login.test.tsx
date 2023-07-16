@@ -21,7 +21,7 @@ describe('login page', () => {
     const buttonEnter = screen.getByTestId('login-submit-btn');
     expect(buttonEnter).toBeDisabled();
   });
-  it('Deve testar se ao clicar no botão de Entrar, a aplicação é redirecionada para a página Meals, na URL /meals', async () => {
+  it('should redirect to /meals page', async () => {
     renderWithRouter(<Login />);
 
     const emailInput = screen.getByTestId(testidEmail);

@@ -18,6 +18,8 @@ export default function Login() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    localStorage.setItem('user', JSON.stringify({ email: emailInput }));
   };
 
   useEffect(() => {
