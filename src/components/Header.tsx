@@ -1,22 +1,27 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-export default function Header() {
-  const history = useHistory();
+interface Props {
+  title:string
+  showSearchIcon?:boolean
+}
 
-  console.log(history);
+export default function Header({ title, showSearchIcon = false }:Props) {
   return (
-    <header>
+    <header className="flex justify-between bg-secondary py-1 px-2">
+      {
+        showSearchIcon && (
+          <button type="button">
+            <img src={ searchIcon } alt="pesquisar" data-testid="search-top-btn" />
+          </button>)
+      }
+      <div className="text-primary font-bold text-center">
+        <h1>CookScript</h1>
+        <h1 data-testid="page-title">{title}</h1>
+      </div>
       <button type="button">
         <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </button>
-      <h1>CookScript</h1>
-      <button type="button">
-        <img src={ searchIcon } alt="pesquisar" data-testid="search-top-btn" />
-      </button>
-      <h1 data-testid="page-title">Title</h1>
     </header>
   );
 }

@@ -1,5 +1,12 @@
+import Header from '../components/Header';
+
 export default function Drinks() {
   return (
-    <div>Drinks</div>
+    <div>
+      <Header title="Drinks" showSearchIcon />
+
+      Drinks
+
+    </div>
   );
 }
