@@ -6,7 +6,7 @@ export default function DoneRecipes() {
       <Header title="Done Recipes" />
 
       DoneRecipes
-
+      <Footer />
     </div>
   );
 }
