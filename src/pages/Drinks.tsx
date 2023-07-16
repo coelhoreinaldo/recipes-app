@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Drinks() {
@@ -6,7 +7,7 @@ export default function Drinks() {
       <Header title="Drinks" showSearchIcon />
 
       Drinks
-
+      <Footer />
     </div>
   );
 }
