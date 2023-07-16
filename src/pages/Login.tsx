@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [userData, setUserData] = useState({
@@ -7,6 +8,7 @@ export default function Login() {
   });
   const { emailInput, passwordInput } = userData;
   const [invalidInputs, setInvalidInputs] = useState(true);
+  const navigate = useNavigate();
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
@@ -20,6 +22,7 @@ export default function Login() {
     event.preventDefault();
 
     localStorage.setItem('user', JSON.stringify({ email: emailInput }));
+    navigate('/meals');
   };
 
   useEffect(() => {
