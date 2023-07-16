@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -19,9 +20,9 @@ export default function Header({ title, showSearchIcon = false }:Props) {
         <h1>CookScript</h1>
         <h1 data-testid="page-title">{title}</h1>
       </div>
-      <button type="button">
+      <Link to="/profile">
         <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
-      </button>
+      </Link>
     </header>
   );
 }
