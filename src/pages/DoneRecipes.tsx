@@ -1,3 +1,4 @@
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function DoneRecipes() {
@@ -6,7 +7,7 @@ export default function DoneRecipes() {
       <Header title="Done Recipes" />
 
       DoneRecipes
-
+      <Footer />
     </div>
   );
 }
