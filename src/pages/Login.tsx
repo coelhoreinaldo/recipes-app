@@ -16,8 +16,9 @@ export default function Login() {
   };
 
   return (
-    <form>
-      <label htmlFor="password-input">
+    <form className="flex flex-col items-center bg-red-400 w-64 gap-4">
+      <label htmlFor="password-input" className="flex flex-col">
+        Email
         <input
           type="email"
           name="emailInput"
@@ -27,7 +28,8 @@ export default function Login() {
         />
       </label>
 
-      <label htmlFor="password-input">
+      <label htmlFor="password-input" className="flex flex-col">
+        Senha
         <input
           type="password"
           name="passwordInput"
@@ -40,6 +42,7 @@ export default function Login() {
       <button
         type="submit"
         data-testid="login-submit-btn"
+        className="bg-blue-400 border-lime-400 border-4"
       >
         Enter
       </button>
