@@ -34,40 +34,58 @@ export default function Login() {
   }, [emailInput, passwordInput]);
 
   return (
-    <form
-      onSubmit={ handleSubmit }
-      className="flex flex-col items-center bg-red-400 w-64 gap-4"
+    <main
+      className="h-screen w-full flex flex-col
+     justify-center items-center"
     >
-      <label htmlFor="password-input" className="flex flex-col">
-        Email
-        <input
-          type="email"
-          name="emailInput"
-          id="email-input"
-          data-testid="email-input"
-          onChange={ handleChange }
-        />
-      </label>
-
-      <label htmlFor="password-input" className="flex flex-col">
-        Senha
-        <input
-          type="password"
-          name="passwordInput"
-          id="password-input"
-          data-testid="password-input"
-          onChange={ handleChange }
-        />
-      </label>
-
-      <button
-        type="submit"
-        data-testid="login-submit-btn"
-        className="bg-blue-400 border-lime-400 border-4 disabled:bg-gray-200"
-        disabled={ invalidInputs }
+      <div
+        className="h-1/2 bg-primary w-full text-white
+       flex justify-center items-center"
       >
-        Enter
-      </button>
-    </form>
+        <h1 className="text-4xl text-center font-bold">Recipes App</h1>
+
+      </div>
+
+      <form
+        onSubmit={ handleSubmit }
+        className="flex flex-col items-center gap-4 h-1/2 justify-center p-6 w-full"
+      >
+        <h3 className="text-primary font-bold italic text-lg">LOGIN</h3>
+        <label htmlFor="password-input" className="flex flex-col w-full">
+          <input
+            type="email"
+            name="emailInput"
+            id="email-input"
+            data-testid="email-input"
+            placeholder="Email"
+            className="border-primary rounded-lg border-2 p-2 placeholder:text-primary"
+            onChange={ handleChange }
+          />
+        </label>
+
+        <label htmlFor="password-input" className="flex flex-col w-full">
+          <input
+            type="password"
+            name="passwordInput"
+            id="password-input"
+            data-testid="password-input"
+            placeholder="Password"
+            className="border-primary rounded-lg border-2 p-2 placeholder:text-primary"
+            onChange={ handleChange }
+          />
+        </label>
+
+        <button
+          type="submit"
+          data-testid="login-submit-btn"
+          className="border-secondary rounded-lg border-2 p-2 w-full text-white
+          bg-secondary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
+          font-bold"
+          disabled={ invalidInputs }
+        >
+          ENTER
+        </button>
+      </form>
+    </main>
   );
 }
