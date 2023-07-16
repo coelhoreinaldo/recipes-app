@@ -1,6 +1,6 @@
 export default function SearchBar() {
   return (
-    <div>
+    <div data-testid="search-input">
       SearchBar
 
     </div>
