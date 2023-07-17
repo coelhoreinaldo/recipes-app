@@ -18,7 +18,7 @@ export default function Recipes() {
   }, []);
 
   if (isFetching) {
-    return <p>Loading</p>;
+    return <p data-testid="loading">Loading</p>;
   }
 
   return (
