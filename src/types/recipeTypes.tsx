@@ -20,3 +20,7 @@ export interface IDrink {
   strDrink: string;
   strDrinkThumb: string;
 }
+
+export type Category = {
+  strCategory: string;
+};
