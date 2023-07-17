@@ -13,6 +13,7 @@ export interface RecipeContextProps {
   mealsCategories: Category[];
   drinksCategories: Category[];
   isFetching: boolean;
+  currCategory: string;
   getData: () => Promise<void>;
   getCategories: () => Promise<void>;
   handleCategoryClick: (query:string) => Promise<void>;
@@ -29,6 +30,7 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
   const [filteredDrinks, setFilteredDrinks] = useState<IDrink[]>([]);
   const [mealsCategories, setMealsCategories] = useState<Category[]>([]);
   const [drinksCategories, setDrinksCategories] = useState<Category[]>([]);
+  const [currCategory, setCurrCategory] = useState('All');
 
   const getData = useCallback(async () => {
     if (pathname === '/meals') {
@@ -53,19 +55,22 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
   }, [fetchApi, pathname]);
 
   const handleCategoryClick = useCallback(async (query:string) => {
-    if (query === 'All') {
+    if (query === 'All' || currCategory === query) {
       setFilteredMeals(mealsData.slice(0, 12));
+      setCurrCategory('All');
       return setFilteredDrinks(drinksData.slice(0, 12));
     }
     const MEALS_BY_CATEGORY = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`;
     const DRINKS_BY_CATEGORY = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${query}`;
     if (pathname === '/meals') {
       const mealsApi = await fetchApi(MEALS_BY_CATEGORY);
+      setCurrCategory(query);
       return setFilteredMeals(mealsApi.meals.slice(0, 12));
     }
     const drinksApi = await fetchApi(DRINKS_BY_CATEGORY);
+    setCurrCategory(query);
     return setFilteredDrinks(drinksApi.drinks.slice(0, 12));
-  }, [drinksData, fetchApi, mealsData, pathname]);
+  }, [drinksData, fetchApi, mealsData, pathname, currCategory]);
 
   const values = useMemo(() => ({
     mealsData,
@@ -78,8 +83,9 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
     getData,
     getCategories,
     handleCategoryClick,
+    currCategory,
   }), [drinksCategories, drinksData, filteredDrinks,
-    filteredMeals, getCategories,
+    filteredMeals, getCategories, currCategory,
     getData, isFetching, mealsCategories, mealsData, handleCategoryClick]);
 
   return (

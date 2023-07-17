@@ -6,10 +6,12 @@ type Props = {
 };
 
 export default function CategoryButton({ strCategory }: Props) {
-  const { handleCategoryClick } = useContext(RecipeContext);
+  const { handleCategoryClick, currCategory } = useContext(RecipeContext);
+  console.log(currCategory);
   return (
     <button
-      className="rounded-full h-10 w-12 bg-secondary text-sm px-2"
+      className={ `rounded-full h-10 w-12  text-sm px-2 
+      ${currCategory === strCategory ? 'bg-primary' : 'bg-secondary'}` }
       data-testid={ `${strCategory}-category-filter` }
       onClick={ () => handleCategoryClick(strCategory) }
     >
