@@ -5,9 +5,7 @@ import Recipes from '../components/Recipes';
 export default function Drinks() {
   return (
     <div>
-      <Header title="Drinks" showSearchIcon />
-
-      Drinks
+      <Header title="Drinks 🍹" showSearchIcon />
       <Recipes />
       <Footer />
     </div>

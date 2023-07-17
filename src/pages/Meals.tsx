@@ -6,8 +6,7 @@ import Recipes from '../components/Recipes';
 export default function Meals() {
   return (
     <main>
-      <Header title="Meals" showSearchIcon />
-      Meals
+      <Header title="Meals 🥗" showSearchIcon />
       <Recipes />
       <Footer />
     </main>

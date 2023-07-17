@@ -12,7 +12,7 @@ interface Props {
 export default function Header({ title, showSearchIcon = false }:Props) {
   const [searchBar, setSearchBar] = useState(false);
   return (
-    <header className="flex justify-between bg-secondary py-1 px-2">
+    <header className="flex justify-between items-center bg-secondary py-1 px-4">
       {
         showSearchIcon && (
           <button type="button" onClick={ () => setSearchBar(!searchBar) }>

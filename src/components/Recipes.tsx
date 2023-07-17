@@ -35,12 +35,12 @@ export default function Recipes() {
   }
 
   return (
-    <section className="grid grid-cols-3 sm:grid-cols-3 gap-8 px-2">
+    <section className="grid grid-cols-2 sm:grid-cols-3 gap-8 px-2 mt-4 mb-16">
       {pathname === '/meals'
         ? filteredMeals.map((meal, index) => (
           <RecipeCard
-            cardClass="flex flex-col items-center shadow-sm shadow-primary
-            rounded-md w-fit group hover:-translate-y-2 transition"
+            cardClass="flex flex-col overflow-hidden items-center shadow-sm shadow-primary
+            rounded-md w-full group hover:-translate-y-2 transition"
             dataTestId={ `${index}-recipe-card` }
             dataTestIdTitle={ `${index}-card-name` }
             key={ meal.idMeal }
@@ -52,8 +52,8 @@ export default function Recipes() {
           />
         )) : filteredDrinks.map((drink, index) => (
           <RecipeCard
-            cardClass="flex flex-col items-center shadow-sm shadow-primary
-            rounded-md w-fit group hover:-translate-y-2 transition"
+            cardClass="flex flex-col overflow-hidden items-center shadow-sm shadow-primary
+            rounded-md w-full group hover:-translate-y-2 transition"
             dataTestId={ `${index}-recipe-card` }
             dataTestIdTitle={ `${index}-card-name` }
             key={ drink.idDrink }

@@ -16,6 +16,7 @@ function RecipeCard({
         src={ strRecipeThumb }
         alt={ strRecipe }
         data-testid={ `${index}-card-img` }
+        className="w-full"
       />
       <h3 data-testid={ dataTestIdTitle }>{strRecipe}</h3>
     </Link>
