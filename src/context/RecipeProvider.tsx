@@ -34,24 +34,22 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
     if (pathname === '/meals') {
       const mealsApi = await fetchApi(MEALS_URL);
       setMealsData(mealsApi.meals);
-      const filteredMealsApi = mealsApi.meals.filter((_e:IMeal, i:number) => i < 12);
+      const filteredMealsApi = mealsApi.meals.slice(0, 12);
       return setFilteredMeals(filteredMealsApi);
     }
     const drinksApi = await fetchApi(DRINKS_URL);
     setDrinksData(drinksApi.drinks);
-    const filteredDrinksApi = drinksApi.drinks.filter((_e:IDrink, i:number) => i < 12);
+    const filteredDrinksApi = drinksApi.drinks.slice(0, 12);
     return setFilteredDrinks(filteredDrinksApi);
   }, [fetchApi, pathname]);
 
   const getCategories = useCallback(async () => {
     if (pathname === '/meals') {
       const mealsCategoriesData = await fetchApi(MEALS_CATEGORIES_URL);
-      return setMealsCategories(mealsCategoriesData.meals
-        .filter((_:string, i:number) => i < 5));
+      return setMealsCategories(mealsCategoriesData.meals.slice(0, 5));
     }
     const drinksCategoriesData = await fetchApi(DRINKS_CATEGORIES_URL);
-    setDrinksCategories(drinksCategoriesData.drinks
-      .filter((_:string, i:number) => i < 5));
+    setDrinksCategories(drinksCategoriesData.drinks.slice(0, 5));
   }, [fetchApi, pathname]);
 
   const handleCategoryClick = useCallback(async (query:string) => {
