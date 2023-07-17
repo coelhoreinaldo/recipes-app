@@ -15,6 +15,7 @@ export interface RecipeContextProps {
   isFetching: boolean;
   getData: () => Promise<void>;
   getCategories: () => Promise<void>;
+  handleCategoryClick: (query:string) => Promise<void>;
 }
 
 export const RecipeContext = createContext<RecipeContextProps>({} as RecipeContextProps);
@@ -32,12 +33,12 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
   const getData = useCallback(async () => {
     if (pathname === '/meals') {
       const mealsApi = await fetchApi(MEALS_URL);
-      setMealsData(mealsApi);
+      setMealsData(mealsApi.meals);
       const filteredMealsApi = mealsApi.meals.filter((_e:IMeal, i:number) => i < 12);
       return setFilteredMeals(filteredMealsApi);
     }
     const drinksApi = await fetchApi(DRINKS_URL);
-    setDrinksData(drinksApi);
+    setDrinksData(drinksApi.drinks);
     const filteredDrinksApi = drinksApi.drinks.filter((_e:IDrink, i:number) => i < 12);
     return setFilteredDrinks(filteredDrinksApi);
   }, [fetchApi, pathname]);
@@ -53,6 +54,21 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
       .filter((_:string, i:number) => i < 5));
   }, [fetchApi, pathname]);
 
+  const handleCategoryClick = useCallback(async (query:string) => {
+    if (query === 'All') {
+      setFilteredMeals(mealsData.slice(0, 12));
+      return setFilteredDrinks(drinksData.slice(0, 12));
+    }
+    const MEALS_BY_CATEGORY = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`;
+    const DRINKS_BY_CATEGORY = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${query}`;
+    if (pathname === '/meals') {
+      const mealsApi = await fetchApi(MEALS_BY_CATEGORY);
+      return setFilteredMeals(mealsApi.meals.slice(0, 12));
+    }
+    const drinksApi = await fetchApi(DRINKS_BY_CATEGORY);
+    return setFilteredDrinks(drinksApi.drinks.slice(0, 12));
+  }, [drinksData, fetchApi, mealsData, pathname]);
+
   const values = useMemo(() => ({
     mealsData,
     drinksData,
@@ -63,8 +79,10 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
     isFetching,
     getData,
     getCategories,
+    handleCategoryClick,
   }), [drinksCategories, drinksData, filteredDrinks,
-    filteredMeals, getCategories, getData, isFetching, mealsCategories, mealsData]);
+    filteredMeals, getCategories,
+    getData, isFetching, mealsCategories, mealsData, handleCategoryClick]);
 
   return (
     <RecipeContext.Provider value={ values }>

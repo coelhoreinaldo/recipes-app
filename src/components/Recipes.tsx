@@ -15,6 +15,7 @@ export default function Recipes() {
   useEffect(() => {
     getData();
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isFetching) {
@@ -30,7 +31,7 @@ export default function Recipes() {
           )) : drinksCategories.map(({ strCategory }:Category) => (
             <CategoryButton key={ strCategory } strCategory={ strCategory } />
           ))}
-
+        <CategoryButton strCategory="All" data-testid="All-category-filter" />
       </section>
       <section className="grid grid-cols-2 sm:grid-cols-3 gap-8 px-2 mt-4">
         {pathname === '/meals'
