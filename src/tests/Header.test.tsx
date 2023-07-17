@@ -7,6 +7,7 @@ import Drinks from '../pages/Drinks';
 import RecipeProvider from '../context/RecipeProvider';
 import fetchMock from '../../cypress/mocks/fetch.js';
 
+console.log(fetchMock);
 describe('header component', () => {
   beforeEach(() => {
     vi.spyOn(global, 'fetch').mockImplementation(fetchMock);
@@ -22,7 +23,11 @@ describe('header component', () => {
     expect(title).toBeInTheDocument();
   });
   it('should exist on Drinks page', () => {
-    renderWithRouter(<Drinks />);
+    renderWithRouter(
+      <RecipeProvider>
+        <Drinks />
+      </RecipeProvider>,
+    );
 
     const title = screen.getByRole('heading', { name: /drinks/i });
     expect(title).toBeInTheDocument();
