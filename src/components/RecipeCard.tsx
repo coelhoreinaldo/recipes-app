@@ -3,7 +3,7 @@ import { IRecipeCard } from '../types/recipeTypes';
 
 function RecipeCard({
   index, pathname, idRecipe, strRecipe, strRecipeThumb,
-  dataTestId, dataTestIdTitle, cardClass,
+  dataTestId, dataTestIdTitle,
 }:IRecipeCard) {
   return (
     <Link

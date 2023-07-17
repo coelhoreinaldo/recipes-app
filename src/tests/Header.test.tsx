@@ -1,11 +1,16 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import renderWithRouter from './helpers/renderWith';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
 import RecipeProvider from '../context/RecipeProvider';
+import fetchMock from '../../cypress/mocks/fetch.js';
 
 describe('header component', () => {
+  beforeEach(() => {
+    vi.spyOn(global, 'fetch').mockImplementation(fetchMock);
+  });
   it('should exist on Meals page', () => {
     renderWithRouter(
       <RecipeProvider>
