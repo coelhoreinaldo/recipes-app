@@ -3,10 +3,15 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWith';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
+import RecipeProvider from '../context/RecipeProvider';
 
 describe('header component', () => {
   it('should exist on Meals page', () => {
-    renderWithRouter(<Meals />);
+    renderWithRouter(
+      <RecipeProvider>
+        <Meals />
+      </RecipeProvider>,
+    );
 
     const title = screen.getByRole('heading', { name: /meals/i });
     expect(title).toBeInTheDocument();
@@ -18,7 +23,12 @@ describe('header component', () => {
     expect(title).toBeInTheDocument();
   });
   it('should show search bar on search button click', async () => {
-    renderWithRouter(<Drinks />);
+    renderWithRouter(
+      <RecipeProvider>
+        <Drinks />
+      </RecipeProvider>,
+
+    );
 
     const searchBtn = screen.getByRole('img', { name: /pesquisar/i });
     userEvent.click(searchBtn);

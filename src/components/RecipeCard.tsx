@@ -7,7 +7,8 @@ function RecipeCard({
 }:IRecipeCard) {
   return (
     <Link
-      className={ cardClass }
+      className="flex flex-col overflow-hidden items-center shadow-sm
+      shadow-primary rounded-md w-full group hover:-translate-y-2 transition"
       data-testid={ dataTestId }
       to={ `${pathname}/${idRecipe}` }
     >
