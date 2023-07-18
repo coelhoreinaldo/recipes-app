@@ -14,6 +14,8 @@ export interface RecipeContextProps {
   drinksCategories: Category[];
   isFetching: boolean;
   currCategory: string;
+  setFilteredMeals: (value: IMeal[]) => void;
+  setFilteredDrinks: (value: IDrink[]) => void; //
   getData: () => Promise<void>;
   getCategories: () => Promise<void>;
   handleCategoryClick: (query:string) => Promise<void>;
@@ -84,9 +86,12 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
     getCategories,
     handleCategoryClick,
     currCategory,
+    setFilteredDrinks,
+    setFilteredMeals,
   }), [drinksCategories, drinksData, filteredDrinks,
     filteredMeals, getCategories, currCategory,
-    getData, isFetching, mealsCategories, mealsData, handleCategoryClick]);
+    getData, isFetching, mealsCategories,
+    mealsData, handleCategoryClick, setFilteredMeals, setFilteredDrinks]);
 
   return (
     <RecipeContext.Provider value={ values }>
