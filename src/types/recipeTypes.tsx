@@ -23,3 +23,15 @@ export interface IDrink {
 export type Category = {
   strCategory: string;
 };
+
+export interface IRecipeDetails {
+  strThumb: string;
+  strName: string;
+  strCategory: string;
+  strAlcoholic?: string;
+  // recipeIngredients: string[];
+  // recipeMeasures: string[];
+  strInstructions: string;
+  strYoutube?: string;
+  isMeal?: boolean;
+}
