@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { IRecipeCard } from '../types/recipeTypes';
 
 function RecipeCard({
-  index, pathname, idRecipe, strRecipe, strRecipeThumb,
+  index, idRecipe, strRecipe, strRecipeThumb,
   dataTestId, dataTestIdTitle,
 }:IRecipeCard) {
   return (
@@ -10,7 +10,7 @@ function RecipeCard({
       className="flex flex-col overflow-hidden items-center shadow-sm
       shadow-primary rounded-md w-full group hover:-translate-y-2 transition"
       data-testid={ dataTestId }
-      to={ `${pathname}/${idRecipe}` }
+      to={ `${idRecipe}` }
     >
       <img
         width={ 150 }
