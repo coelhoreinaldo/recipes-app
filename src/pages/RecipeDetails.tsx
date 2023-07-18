@@ -29,7 +29,6 @@ export default function RecipeDetails() {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
     const recipeData = await fetchApi(API_URL);
     const recipeInfo = recipeData[recipeType][0];
-    console.log(recipeInfo);
     const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
     if (pathname.includes('meals')) {
       const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
@@ -53,32 +52,29 @@ export default function RecipeDetails() {
   }, []);
 
   return (
-    <div>
-      RecipeDetails
-      {
-      pathname.includes('meals')
-        ? <RecipeDetailsCard
-            strThumb={ strThumb }
-            strName={ strName }
-            strCategory={ strCategory }
-            strAlcoholic={ strAlcoholic }
-            recipeIngredients={ recipeIngredients }
-            recipeMeasures={ recipeMeasures }
-            strInstructions={ strInstructions }
-            strYoutube={ strYoutube }
-            isMeal
-        />
-        : <RecipeDetailsCard
-            strThumb={ strThumb }
-            strName={ strName }
-            strCategory={ strCategory }
-            strAlcoholic={ strAlcoholic }
-            recipeIngredients={ recipeIngredients }
-            recipeMeasures={ recipeMeasures }
-            strInstructions={ strInstructions }
-            strYoutube={ strYoutube }
-        />
-    }
-    </div>
+
+    pathname.includes('meals')
+      ? <RecipeDetailsCard
+          strThumb={ strThumb }
+          strName={ strName }
+          strCategory={ strCategory }
+          strAlcoholic={ strAlcoholic }
+          recipeIngredients={ recipeIngredients }
+          recipeMeasures={ recipeMeasures }
+          strInstructions={ strInstructions }
+          strYoutube={ strYoutube }
+          isMeal
+      />
+      : <RecipeDetailsCard
+          strThumb={ strThumb }
+          strName={ strName }
+          strCategory={ strCategory }
+          strAlcoholic={ strAlcoholic }
+          recipeIngredients={ recipeIngredients }
+          recipeMeasures={ recipeMeasures }
+          strInstructions={ strInstructions }
+          strYoutube={ strYoutube }
+      />
+
   );
 }

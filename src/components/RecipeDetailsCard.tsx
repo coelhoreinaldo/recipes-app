@@ -13,26 +13,41 @@ function RecipeDetailsCard({
   isMeal = false,
 }:IRecipeDetails) {
   return (
-    <>
-      <section>
+    <main className="text-sm flex flex-col gap-2 relative">
+      <section className="relative h-64 flex items-center justify-center">
         <img
           src={ strThumb }
           alt={ strName }
           data-testid="recipe-photo"
+          className="w-full h-full object-cover absolute"
         />
-        <h2 data-testid="recipe-title">{strName}</h2>
+        <h2
+          className="bottom-0 left-0 text-4xl font-bold w-full flex
+          uppercase justify-center items-center text-center bg-black
+          bg-opacity-60 h-full text-white p-2 z-50"
+          data-testid="recipe-title"
+        >
+          {strName}
+
+        </h2>
+        <h4
+          data-testid="recipe-category"
+          className="z-50 absolute top-4 text-secondary font-bold left-4"
+        >
+          {strCategory}
+          {strAlcoholic && ` - ${strAlcoholic}`}
+        </h4>
       </section>
-      <h3 data-testid="recipe-category">
-        {strCategory}
-        {strAlcoholic && ` - ${strAlcoholic}`}
-      </h3>
-      <hr />
-      <section>
-        <h3>Ingredients</h3>
-        <ul className="flex gap-2">
+      <section className="mx-4 text-sm">
+        <h3 className="text-lg font-extrabold">Ingredients</h3>
+        <ul className="flex gap-2 px-6 py-2 border-primary border-2">
           <div>
             {recipeIngredients.map((ing, i) => (
-              <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>
+              <li
+                className="list-disc"
+                data-testid={ `${i}-ingredient-name-and-measure` }
+                key={ i }
+              >
                 {ing}
               </li>
             ))}
@@ -46,23 +61,28 @@ function RecipeDetailsCard({
           </div>
         </ul>
       </section>
-      <section>
-        <h3>Instructions</h3>
-        <p data-testid="instructions">{strInstructions}</p>
+      <section className="mx-4">
+        <h3 className="text-lg font-extrabold">Instructions</h3>
+        <p
+          className="flex gap-2 p-2 border-primary border-2"
+          data-testid="instructions"
+        >
+          {strInstructions}
+        </p>
       </section>
       {isMeal && strYoutube && (
         <section>
-          <h3>Video</h3>
+          <h3 className="text-lg font-extrabold px-4 text-center">Video</h3>
           <iframe
             title="Recipe"
-            width="280px"
             data-testid="video"
+            className="aspect-auto w-full h-full"
             allowFullScreen
             src={ strYoutube }
           />
         </section>
       )}
-    </>
+    </main>
   );
 }
 

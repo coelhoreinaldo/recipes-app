@@ -145,6 +145,6 @@ describe('searchBar component', () => {
     await userEvent.type(inputField, 'Aquamarine');
     await userEvent.click(searchBtn);
 
-    // expect(await screen.findByRole('heading', { name: /aquamarine/i }));
+    expect(await screen.findByRole('heading', { name: /aquamarine/i }));
   });
 });
