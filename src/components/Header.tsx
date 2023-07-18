@@ -12,20 +12,22 @@ interface Props {
 export default function Header({ title, showSearchIcon = false }:Props) {
   const [searchBar, setSearchBar] = useState(false);
   return (
-    <header className="flex justify-between items-center bg-secondary py-1 px-4">
-      {
+    <header className="flex flex-col items-center bg-secondary py-1 px-4">
+      <section className="flex justify-between items-center w-full">
+        {
         showSearchIcon && (
           <button type="button" onClick={ () => setSearchBar(!searchBar) }>
             <img src={ searchIcon } alt="pesquisar" data-testid="search-top-btn" />
           </button>)
       }
-      <div className="text-primary font-bold text-center">
-        <h1>CookScript</h1>
-        <h1 data-testid="page-title">{title}</h1>
-      </div>
-      <Link to="/profile">
-        <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
-      </Link>
+        <div className="text-primary font-bold text-center">
+          <h1>CookScript</h1>
+          <h1 data-testid="page-title">{title}</h1>
+        </div>
+        <Link to="/profile">
+          <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
+        </Link>
+      </section>
       {searchBar && <SearchBar />}
     </header>
   );
