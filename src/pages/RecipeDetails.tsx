@@ -1,26 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import RecipeCard from '../components/RecipeCard';
+import { getApiInfo } from '../utils/apiInfo';
 
 export default function RecipeDetails() {
   const params = useParams();
-  const { pathname } = useLocation();
-  console.log(pathname);
   const { fetchApi } = useFetch();
+  const { pathname } = useLocation();
+  const [currRecipe, setCurrRecipe] = useState([]);
 
   const getData = async () => {
-    const isMealsPage = pathname.includes('meals');
-    let recipeApi = 'cocktail';
-    let recipeType = 'drinks';
-    // let recipeId = 'idDrink';
-    if (isMealsPage) {
-      recipeApi = 'meal';
-      recipeType = 'meals';
-      // recipeId = 'idMeal';
-    }
+    const { recipeApi, recipeType } = getApiInfo(pathname);
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
     const recipeData = await fetchApi(API_URL);
-    console.log(recipeData[recipeType]);
+    return setCurrRecipe(recipeData[recipeType]);
   };
 
   useEffect(() => {
@@ -28,6 +22,34 @@ export default function RecipeDetails() {
   }, []);
 
   return (
-    <div>RecipeDetails</div>
+    <div>
+      RecipeDetails
+      {/* {
+      pathname.includes('meals')
+        ? currRecipe.map((meal, index) => (
+          <RecipeCard
+            dataTestId={ `${index}-recipe-card` }
+            dataTestIdTitle={ `${index}-card-name` }
+            key={ meal.idMeal }
+            index={ index }
+            pathname="meals"
+            idRecipe={ meal.idMeal }
+            strRecipe={ meal.strMeal }
+            strRecipeThumb={ meal.strMealThumb }
+          />
+        )) : currRecipe.map((drink, index) => (
+          <RecipeCard
+            dataTestId={ `${index}-recipe-card` }
+            dataTestIdTitle={ `${index}-card-name` }
+            key={ drink.idDrink }
+            index={ index }
+            pathname="drinks"
+            idRecipe={ drink.idDrink }
+            strRecipe={ drink.strDrink }
+            strRecipeThumb={ drink.strDrinkThumb }
+          />
+        ))
+    } */}
+    </div>
   );
 }

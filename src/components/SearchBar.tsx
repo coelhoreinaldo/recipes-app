@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeProvider';
 import useFetch from '../hooks/useFetch';
+import { getApiInfo } from '../utils/apiInfo';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState<string>('');
@@ -28,16 +29,8 @@ export default function SearchBar() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const isMealsPage = pathname === '/meals';
-    let recipeApi = 'cocktail';
-    let recipeType = 'drinks';
-    let recipeId = 'idDrink';
-    if (isMealsPage) {
-      recipeApi = 'meal';
-      recipeType = 'meals';
-      recipeId = 'idMeal';
-    }
+    const { recipeApi, recipeType, recipeId } = getApiInfo(pathname);
     const tags = {
       ingredient: `https://www.the${recipeApi}db.com/api/json/v1/1/filter.php?i=${searchInput}`,
       name: `https://www.the${recipeApi}db.com/api/json/v1/1/search.php?s=${searchInput}`,
