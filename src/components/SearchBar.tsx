@@ -28,28 +28,30 @@ export default function SearchBar() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (pathname === '/meals') {
-      const tags = {
-        ingredient: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchInput}`,
-        name: `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchInput}`,
-        firstLetter: `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`,
-      };
-      const data = await fetchApi(tags[searchTag as keyof typeof tags]);
-      if (data.meals.length === 1) {
-        return navigate(`/meals/${data.meals[0].idMeal}`);
-      }
-      return setFilteredMeals(data.meals.slice(0, 12));
+
+    const isMealsPage = pathname === '/meals';
+    let recipeApi = 'cocktail';
+    let recipeType = 'drinks';
+    let recipeId = 'idDrink';
+    if (isMealsPage) {
+      recipeApi = 'meal';
+      recipeType = 'meals';
+      recipeId = 'idMeal';
     }
     const tags = {
-      ingredient: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`,
-      name: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`,
-      firstLetter: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`,
+      ingredient: `https://www.the${recipeApi}db.com/api/json/v1/1/filter.php?i=${searchInput}`,
+      name: `https://www.the${recipeApi}db.com/api/json/v1/1/search.php?s=${searchInput}`,
+      firstLetter: `https://www.the${recipeApi}db.com/api/json/v1/1/search.php?f=${searchInput}`,
     };
     const data = await fetchApi(tags[searchTag as keyof typeof tags]);
-    if (data.drinks.length === 1) {
-      return navigate(`/drinks/${data.drinks[0].idDrink}`);
+    if (!data[recipeType]) {
+      return window.alert("Sorry, we haven't found any recipes for these filters.");
     }
-    return setFilteredDrinks(data.drinks.slice(0, 12));
+    if (data[recipeType].length === 1) {
+      return navigate(`/${recipeType}/${data[recipeType][0][recipeId]}`);
+    }
+    return isMealsPage ? setFilteredMeals(data[recipeType].slice(0, 12))
+      : setFilteredDrinks(data[recipeType].slice(0, 12));
   };
 
   return (
