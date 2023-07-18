@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeProvider';
 import useFetch from '../hooks/useFetch';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchTag, setSearchTag] = useState<string>('');
+  const navigate = useNavigate();
 
   const { setFilteredMeals, setFilteredDrinks } = useContext(RecipeContext);
   const { pathname } = useLocation();
@@ -34,6 +35,9 @@ export default function SearchBar() {
         firstLetter: `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchInput}`,
       };
       const data = await fetchApi(tags[searchTag as keyof typeof tags]);
+      if (data.meals.length === 1) {
+        return navigate(`/meals/${data.meals[0].idMeal}`);
+      }
       return setFilteredMeals(data.meals.slice(0, 12));
     }
     const tags = {
@@ -41,8 +45,10 @@ export default function SearchBar() {
       name: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`,
       firstLetter: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`,
     };
-    console.log(tags.ingredient);
     const data = await fetchApi(tags[searchTag as keyof typeof tags]);
+    if (data.drinks.length === 1) {
+      return navigate(`/drinks/${data.drinks[0].idDrink}`);
+    }
     return setFilteredDrinks(data.drinks.slice(0, 12));
   };
 
@@ -97,6 +103,7 @@ export default function SearchBar() {
         font-bold"
           type="submit"
           data-testid="exec-search-btn"
+          disabled={ !searchInput }
         >
           Search
 
