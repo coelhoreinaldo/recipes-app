@@ -37,10 +37,11 @@ export default function SearchBar() {
       return setFilteredMeals(data.meals.slice(0, 12));
     }
     const tags = {
-      ingredient: `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${searchInput}`,
+      ingredient: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchInput}`,
       name: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}`,
       firstLetter: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${searchInput}`,
     };
+    console.log(tags.ingredient);
     const data = await fetchApi(tags[searchTag as keyof typeof tags]);
     return setFilteredDrinks(data.drinks.slice(0, 12));
   };
@@ -51,7 +52,7 @@ export default function SearchBar() {
         <input
           type="text"
           data-testid="search-input"
-          placeholder="Chicken"
+          placeholder={ pathname === '/meals' ? 'Chicken...' : 'Vodka...' }
           name="searchInput"
           value={ searchInput }
           onChange={ handleSearchInput }
