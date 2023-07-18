@@ -3,10 +3,15 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWith';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
+import RecipeProvider from '../context/RecipeProvider';
 
 describe('footer component', () => {
   it('should redirect to Drinks page', async () => {
-    renderWithRouter(<Drinks />);
+    renderWithRouter(
+      <RecipeProvider>
+        <Drinks />
+      </RecipeProvider>,
+    );
 
     const drinksBtn = screen.getByTestId('drink-btn-link');
     expect(drinksBtn).toBeInTheDocument();
@@ -17,7 +22,11 @@ describe('footer component', () => {
     })).toBeInTheDocument();
   });
   it('should redirect to Meals page', async () => {
-    renderWithRouter(<Meals />);
+    renderWithRouter(
+      <RecipeProvider>
+        <Meals />
+      </RecipeProvider>,
+    );
 
     const drinksBtn = screen.getByTestId('meal-btn-link');
     expect(drinksBtn).toBeInTheDocument();
