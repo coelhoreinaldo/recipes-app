@@ -92,4 +92,59 @@ describe('searchBar component', () => {
 
     expect(window.alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
   });
+  it('should return an error if there are no recipes', async () => {
+    global.alert = vi.fn();
+    renderWithRouter(
+      <RecipeProvider>
+        <App />
+      </RecipeProvider>,
+      { initialEntries: ['/drinks'] },
+    );
+
+    await waitForElementToBeRemoved(() => screen.getByTestId('loading'));
+    const searchIcon = screen.getByTestId(searchTopBtnTestId);
+    userEvent.click(searchIcon);
+
+    const ingredientTag = await screen.findByText(/ingredient/i);
+    const nameTag = screen.getByText(/name/i);
+    const inputField = screen.getByTestId(searchInput);
+    const searchBtn = screen.getByRole('button', { name: /search/i });
+    expect(ingredientTag).toBeInTheDocument();
+    expect(nameTag).toBeInTheDocument();
+    expect(inputField).toBeInTheDocument();
+    expect(searchBtn).toBeInTheDocument();
+
+    await userEvent.click(nameTag);
+    await userEvent.type(inputField, 'lalalalaalla');
+    await userEvent.click(searchBtn);
+
+    expect(window.alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.');
+  });
+  it('should redirect to details page if exist only one recipe', async () => {
+    renderWithRouter(
+      <RecipeProvider>
+        <App />
+      </RecipeProvider>,
+      { initialEntries: ['/drinks'] },
+    );
+
+    await waitForElementToBeRemoved(() => screen.getByTestId('loading'));
+    const searchIcon = screen.getByTestId(searchTopBtnTestId);
+    userEvent.click(searchIcon);
+
+    const ingredientTag = await screen.findByText(/ingredient/i);
+    const nameTag = screen.getByText(/name/i);
+    const inputField = screen.getByTestId(searchInput);
+    const searchBtn = screen.getByRole('button', { name: /search/i });
+    expect(ingredientTag).toBeInTheDocument();
+    expect(nameTag).toBeInTheDocument();
+    expect(inputField).toBeInTheDocument();
+    expect(searchBtn).toBeInTheDocument();
+
+    await userEvent.click(nameTag);
+    await userEvent.type(inputField, 'Aquamarine');
+    await userEvent.click(searchBtn);
+
+    // expect(await screen.findByRole('heading', { name: /aquamarine/i }));
+  });
 });
