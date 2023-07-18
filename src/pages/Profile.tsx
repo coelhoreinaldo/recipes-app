@@ -3,7 +3,8 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default function Profile() {
-  const userEmail = JSON.parse(localStorage.getItem('user') || '');
+  const userEmail = JSON.parse(localStorage.getItem('user')
+   || '{"email": "test@test.com"}');
   return (
     <div>
       <Header title="Profile" />
@@ -29,9 +30,10 @@ export default function Profile() {
             Favorite Recipes
           </Link>
           <Link
-            to="/done-recipes"
+            to="/"
             className="w-full text-center"
             data-testid="profile-logout-btn"
+            onClick={ () => localStorage.clear() }
           >
             Logout
 
