@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeProvider';
 import useFetch from '../hooks/useFetch';
-import { getApiInfo } from '../utils/apiInfo';
+import { getApiInfo } from '../utils/apiFunctions';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState<string>('');

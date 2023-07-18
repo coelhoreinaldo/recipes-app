@@ -6,8 +6,8 @@ function RecipeDetailsCard({
   strName,
   strCategory,
   strAlcoholic = '',
-  // recipeIngredients,
-  // recipeMeasures,
+  recipeIngredients,
+  recipeMeasures,
   strInstructions,
   strYoutube = '',
   isMeal = false,
@@ -27,9 +27,9 @@ function RecipeDetailsCard({
         {strAlcoholic && ` - ${strAlcoholic}`}
       </h3>
       <hr />
-      {/* <section>
+      <section>
         <h3>Ingredients</h3>
-        <ul>
+        <ul className="flex gap-2">
           <div>
             {recipeIngredients.map((ing, i) => (
               <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>
@@ -38,14 +38,14 @@ function RecipeDetailsCard({
             ))}
           </div>
           <div>
-            {recipeMeasures.map((ing, i) => (
+            {recipeMeasures.map((mea, i) => (
               <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>
-                {ing}
+                {mea}
               </li>
             ))}
           </div>
         </ul>
-      </section> */}
+      </section>
       <section>
         <h3>Instructions</h3>
         <p data-testid="instructions">{strInstructions}</p>

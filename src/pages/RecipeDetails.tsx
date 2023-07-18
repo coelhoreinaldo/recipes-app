@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
-import RecipeCard from '../components/RecipeCard';
-import { getApiInfo } from '../utils/apiInfo';
+import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IRecipeDetails } from '../types/recipeTypes';
 
@@ -14,12 +13,15 @@ export default function RecipeDetails() {
     strThumb: '',
     strName: '',
     strCategory: '',
+    recipeIngredients: [],
+    recipeMeasures: [],
+    strAlcoholic: '',
     strInstructions: '',
     strYoutube: '',
-    strAlcoholic: '',
   });
   const {
-    strThumb, strName, strCategory, strInstructions, strYoutube, strAlcoholic,
+    strThumb, strName, strCategory, recipeIngredients,
+    recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
 
   const getData = async () => {
@@ -28,20 +30,26 @@ export default function RecipeDetails() {
     const recipeData = await fetchApi(API_URL);
     const recipeInfo = recipeData[recipeType][0];
     console.log(recipeInfo);
+    const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
+    if (pathname.includes('meals')) {
+      const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
+      recipeInfo.strYoutube = embed;
+    }
     return setCurrRecipe({
       strThumb: recipeInfo.strMealThumb || recipeInfo.strDrinkThumb,
-      strName: recipeInfo.strMeal || recipeInfo.strThumb,
+      strName: recipeInfo.strMeal || recipeInfo.strDrink,
       strCategory: recipeInfo.strCategory,
       strAlcoholic: recipeInfo.strAlcoholic || '',
-      // recipeIngredients: recipeInfo.recipeIngredients,
-      // recipeMeasures: recipeInfo.recipeMeasures,
+      recipeIngredients: ingredients,
+      recipeMeasures: measures,
       strInstructions: recipeInfo.strInstructions,
-      strYoutube: recipeInfo.youtubeLink || '',
+      strYoutube: recipeInfo.strYoutube || '',
     });
   };
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -54,18 +62,19 @@ export default function RecipeDetails() {
             strName={ strName }
             strCategory={ strCategory }
             strAlcoholic={ strAlcoholic }
-            // recipeIngredients={ recipeIngredients }
-            // recipeMeasures={ recipeMeasures }
+            recipeIngredients={ recipeIngredients }
+            recipeMeasures={ recipeMeasures }
             strInstructions={ strInstructions }
             strYoutube={ strYoutube }
+            isMeal
         />
         : <RecipeDetailsCard
             strThumb={ strThumb }
             strName={ strName }
             strCategory={ strCategory }
             strAlcoholic={ strAlcoholic }
-            // recipeIngredients={ recipeIngredients }
-            // recipeMeasures={ recipeMeasures }
+            recipeIngredients={ recipeIngredients }
+            recipeMeasures={ recipeMeasures }
             strInstructions={ strInstructions }
             strYoutube={ strYoutube }
         />

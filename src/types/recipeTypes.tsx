@@ -29,8 +29,8 @@ export interface IRecipeDetails {
   strName: string;
   strCategory: string;
   strAlcoholic?: string;
-  // recipeIngredients: string[];
-  // recipeMeasures: string[];
+  recipeIngredients: string[];
+  recipeMeasures: string[];
   strInstructions: string;
   strYoutube?: string;
   isMeal?: boolean;
