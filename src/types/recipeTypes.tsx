@@ -6,6 +6,7 @@ export interface IRecipeCard {
   strRecipeThumb: string,
   dataTestId: string,
   dataTestIdTitle: string,
+  minWidth: string,
 }
 
 export interface IMeal {

@@ -3,21 +3,21 @@ import { IRecipeCard } from '../types/recipeTypes';
 
 function RecipeCard({
   index, idRecipe, strRecipe, strRecipeThumb,
-  dataTestId, dataTestIdTitle,
+  dataTestId, dataTestIdTitle, minWidth = '',
 }:IRecipeCard) {
   return (
     <Link
-      className="flex flex-col overflow-hidden items-center shadow-sm
-      shadow-primary rounded-md w-full group hover:-translate-y-2 transition"
+      className={ `flex flex-col overflow-hidden items-center shadow-sm
+      shadow-primary rounded-md w-full group
+       hover:-translate-y-2 transition ${minWidth}` }
       data-testid={ dataTestId }
       to={ `${idRecipe}` }
     >
       <img
-        width={ 150 }
         src={ strRecipeThumb }
         alt={ strRecipe }
         data-testid={ `${index}-card-img` }
-        className="w-full"
+        className="aspect-auto"
       />
       <h3 data-testid={ dataTestIdTitle }>{strRecipe}</h3>
     </Link>

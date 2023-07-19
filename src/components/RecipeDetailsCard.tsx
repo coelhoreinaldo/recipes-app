@@ -76,7 +76,7 @@ function RecipeDetailsCard({
           <iframe
             title="Recipe"
             data-testid="video"
-            className="aspect-auto w-full h-full"
+            className="aspect-auto w-full"
             allowFullScreen
             src={ strYoutube }
           />

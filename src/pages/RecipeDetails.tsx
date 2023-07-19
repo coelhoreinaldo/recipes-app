@@ -3,7 +3,8 @@ import { useLocation, useParams } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
-import { IRecipeDetails } from '../types/recipeTypes';
+import { IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
+import RecipeCard from '../components/RecipeCard';
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -25,7 +26,7 @@ export default function RecipeDetails() {
     strThumb, strName, strCategory, recipeIngredients,
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
-  // const [recomendations, setRecomendations] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
 
   const getData = async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
@@ -53,7 +54,8 @@ export default function RecipeDetails() {
     if (!isMeal) {
       recommendationsData = await fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
-    return recommendationsData;
+    recommendationsData = recommendationsData.meals || recommendationsData.drinks;
+    return setRecommendations(recommendationsData.slice(0, 6));
   };
 
   useEffect(() => {
@@ -63,29 +65,65 @@ export default function RecipeDetails() {
   }, []);
 
   return (
+    <>
+      {isMeal
+        ? <RecipeDetailsCard
+            strThumb={ strThumb }
+            strName={ strName }
+            strCategory={ strCategory }
+            strAlcoholic={ strAlcoholic }
+            recipeIngredients={ recipeIngredients }
+            recipeMeasures={ recipeMeasures }
+            strInstructions={ strInstructions }
+            strYoutube={ strYoutube }
+            isMeal
+        />
+        : <RecipeDetailsCard
+            strThumb={ strThumb }
+            strName={ strName }
+            strCategory={ strCategory }
+            strAlcoholic={ strAlcoholic }
+            recipeIngredients={ recipeIngredients }
+            recipeMeasures={ recipeMeasures }
+            strInstructions={ strInstructions }
+            strYoutube={ strYoutube }
+        />}
+      <section
+        className="flex items-center m-4 rounded-lg
+        min-h-[190px] overflow-x-auto max-w-full gap-x-4"
+      >
+        {
+        !isMeal
+          ? recommendations.map((meal:IMeal, index) => (
+            <RecipeCard
+              minWidth="min-w-[160px]"
+              dataTestId={ `${index}-recommendation-card` }
+              dataTestIdTitle={ `${index}-recommendation-title` }
+              key={ meal.idMeal }
+              index={ index }
+              pathname="meals"
+              idRecipe={ meal.idMeal }
+              strRecipe={ meal.strMeal }
+              strRecipeThumb={ meal.strMealThumb }
+            />
+          ))
+          : recommendations.map((drink:IDrink, index) => (
+            <RecipeCard
+              minWidth="min-w-[160px]"
+              dataTestId={ `${index}-recommendation-card` }
+              dataTestIdTitle={ `${index}-recommendation-title` }
+              key={ drink.idDrink }
+              index={ index }
+              pathname="drinks"
+              idRecipe={ drink.idDrink }
+              strRecipe={ drink.strDrink }
+              strRecipeThumb={ drink.strDrinkThumb }
+            />
 
-    pathname.includes('meals')
-      ? <RecipeDetailsCard
-          strThumb={ strThumb }
-          strName={ strName }
-          strCategory={ strCategory }
-          strAlcoholic={ strAlcoholic }
-          recipeIngredients={ recipeIngredients }
-          recipeMeasures={ recipeMeasures }
-          strInstructions={ strInstructions }
-          strYoutube={ strYoutube }
-          isMeal
-      />
-      : <RecipeDetailsCard
-          strThumb={ strThumb }
-          strName={ strName }
-          strCategory={ strCategory }
-          strAlcoholic={ strAlcoholic }
-          recipeIngredients={ recipeIngredients }
-          recipeMeasures={ recipeMeasures }
-          strInstructions={ strInstructions }
-          strYoutube={ strYoutube }
-      />
+          ))
+      }
+      </section>
+    </>
 
   );
 }
