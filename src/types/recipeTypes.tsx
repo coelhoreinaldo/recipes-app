@@ -2,11 +2,10 @@ export interface IRecipeCard {
   index: number,
   idRecipe: string,
   strRecipe: string,
-  pathname: string,
   strRecipeThumb: string,
   dataTestId: string,
   dataTestIdTitle: string,
-  minWidth: string,
+  minWidth?: string,
 }
 
 export interface IMeal {

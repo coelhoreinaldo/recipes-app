@@ -101,7 +101,6 @@ export default function RecipeDetails() {
               dataTestIdTitle={ `${index}-recommendation-title` }
               key={ meal.idMeal }
               index={ index }
-              pathname="meals"
               idRecipe={ meal.idMeal }
               strRecipe={ meal.strMeal }
               strRecipeThumb={ meal.strMealThumb }
@@ -114,7 +113,6 @@ export default function RecipeDetails() {
               dataTestIdTitle={ `${index}-recommendation-title` }
               key={ drink.idDrink }
               index={ index }
-              pathname="drinks"
               idRecipe={ drink.idDrink }
               strRecipe={ drink.strDrink }
               strRecipeThumb={ drink.strDrinkThumb }
