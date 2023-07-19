@@ -9,6 +9,8 @@ export default function RecipeDetails() {
   const params = useParams();
   const { fetchApi } = useFetch();
   const { pathname } = useLocation();
+  const isMeal = pathname.includes('meals');
+  const { recipeApi, recipeType } = getApiInfo(pathname);
   const [currRecipe, setCurrRecipe] = useState<IRecipeDetails>({
     strThumb: '',
     strName: '',
@@ -23,14 +25,14 @@ export default function RecipeDetails() {
     strThumb, strName, strCategory, recipeIngredients,
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
+  // const [recomendations, setRecomendations] = useState([]);
 
   const getData = async () => {
-    const { recipeApi, recipeType } = getApiInfo(pathname);
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
     const recipeData = await fetchApi(API_URL);
     const recipeInfo = recipeData[recipeType][0];
     const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
-    if (pathname.includes('meals')) {
+    if (isMeal) {
       const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
       recipeInfo.strYoutube = embed;
     }
@@ -46,8 +48,17 @@ export default function RecipeDetails() {
     });
   };
 
+  const getRecommendations = async () => {
+    let recommendationsData = await fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    if (!isMeal) {
+      recommendationsData = await fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+    return recommendationsData;
+  };
+
   useEffect(() => {
     getData();
+    getRecommendations();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
