@@ -13,7 +13,7 @@ function RecipeDetailsCard({
   isMeal = false,
 }:IRecipeDetails) {
   return (
-    <main className="text-sm flex flex-col gap-2 relative">
+    <section className="text-sm flex flex-col gap-2 relative">
       <section className="relative h-64 flex items-center justify-center">
         <img
           src={ strThumb }
@@ -82,7 +82,7 @@ function RecipeDetailsCard({
           />
         </section>
       )}
-    </main>
+    </section>
   );
 }
 

@@ -89,7 +89,7 @@ export default function RecipeDetails() {
             strYoutube={ strYoutube }
         />}
       <section
-        className="flex items-center m-4 rounded-lg
+        className="flex items-center mt-4 rounded-lg
         min-h-[190px] overflow-x-auto max-w-full gap-x-4"
       >
         {
@@ -121,6 +121,17 @@ export default function RecipeDetails() {
           ))
       }
       </section>
+
+      <button
+        className="border-primary rounded-lg border-2 p-1 w-full text-white
+        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
+        font-bold bottom-0 fixed"
+        type="submit"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+
+      </button>
     </>
 
   );
