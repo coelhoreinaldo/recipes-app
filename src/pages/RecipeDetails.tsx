@@ -6,6 +6,9 @@ import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
 import { getLocalStorageDoneRecipes } from '../utils/localStorageFunctions';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -29,6 +32,7 @@ export default function RecipeDetails() {
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
   const [isDone, setIsDone] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const getData = async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
@@ -63,6 +67,14 @@ export default function RecipeDetails() {
     return setRecommendations(recommendationsData.slice(0, 6));
   };
 
+  const handleShareClick = () => {
+    console.log('copy');
+  };
+
+  const handleFavoriteClick = () => {
+    return setIsFavorite(!isFavorite);
+  };
+
   useEffect(() => {
     getData();
     getRecommendations();
@@ -70,7 +82,7 @@ export default function RecipeDetails() {
   }, []);
 
   return (
-    <>
+    <div className="pb-12">
       {isMeal
         ? <RecipeDetailsCard
             strThumb={ strThumb }
@@ -94,7 +106,7 @@ export default function RecipeDetails() {
             strYoutube={ strYoutube }
         />}
       <section
-        className="flex items-center mt-4 rounded-lg
+        className="flex items-center m-4 rounded-lg
         min-h-[190px] overflow-x-auto max-w-full gap-x-4"
       >
         {
@@ -127,6 +139,20 @@ export default function RecipeDetails() {
       }
       </section>
 
+      <section>
+        <button data-testid="share-btn" onClick={ handleShareClick }>
+          {/* {showLinkCopied ? <p>Link copied!</p> : (
+            )} */}
+          <img src={ shareIcon } alt="share icon" />
+        </button>
+        <button onClick={ handleFavoriteClick }>
+          <img
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            data-testid="favorite-btn"
+            alt="favorite icon"
+          />
+        </button>
+      </section>
       <Link
         to={ `/${recipeType}/${params.id}/in-progress` }
         className="border-primary rounded-lg border-2 p-1 w-full text-white
@@ -138,7 +164,7 @@ export default function RecipeDetails() {
         {!isDone && 'Start Recipe'}
 
       </Link>
-    </>
+    </div>
 
   );
 }
