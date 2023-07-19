@@ -5,6 +5,7 @@ import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
+import { getLocalStorageDoneRecipes } from '../utils/localStorageFunctions';
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -27,11 +28,15 @@ export default function RecipeDetails() {
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
+  const [isDone, setIsDone] = useState(false);
 
   const getData = async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
     const recipeData = await fetchApi(API_URL);
     const recipeInfo = recipeData[recipeType][0];
+    setIsDone(getLocalStorageDoneRecipes(recipeInfo));
+    console.log(recipeInfo);
+
     const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
     if (isMeal) {
       const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
@@ -129,7 +134,7 @@ export default function RecipeDetails() {
         type="submit"
         data-testid="start-recipe-btn"
       >
-        Start Recipe
+        {!isDone && 'Start Recipe'}
 
       </button>
     </>
