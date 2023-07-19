@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams, Link } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
@@ -127,7 +127,8 @@ export default function RecipeDetails() {
       }
       </section>
 
-      <button
+      <Link
+        to={ `/${recipeType}/${params.id}/in-progress` }
         className="border-primary rounded-lg border-2 p-1 w-full text-white
         bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
         font-bold bottom-0 fixed"
@@ -136,7 +137,7 @@ export default function RecipeDetails() {
       >
         {!isDone && 'Start Recipe'}
 
-      </button>
+      </Link>
     </>
 
   );

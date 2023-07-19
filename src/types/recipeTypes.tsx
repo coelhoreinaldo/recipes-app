@@ -47,3 +47,13 @@ export interface IDoneRecipe {
   doneDate: string;
   tags: string[];
 }
+
+export interface IFavoriteRecipe {
+  id: string;
+  type: 'meal' | 'drink';
+  nationality: string;
+  category: string;
+  alcoholicOrNot: 'alcoholic' | 'non-alcoholic' | string;
+  name: string;
+  image: string;
+}
