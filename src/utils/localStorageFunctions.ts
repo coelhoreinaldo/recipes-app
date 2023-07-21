@@ -16,10 +16,15 @@ export const getLocalStorageDoneRecipes = (currRecipe: IMeal | IDrink) => {
   }
 };
 
-// const getLocalStorageInProgressRecipes = async (currRecipe: IMeal | IDrink) => {
-//   if (localStorage.getItem('inProgressRecipes')) {
-//     const inProgressLocal = JSON.parse(localStorage.getItem('inProgressRecipes') || '[]');
-//     const inProgressRecipes = Object.keys(inProgressLocal[pathname.split('/')[1]]);
-//     return inProgressRecipes.includes(currRecipe.idDrink || currRecipe.idMeal);
-//   }
-// };
+export const getLocalStorageInProgressRecipes = (
+  currRecipe: IMeal | IDrink,
+  recipeType:string,
+) => {
+  if (localStorage.getItem('inProgressRecipes')) {
+    const inProgressLocal = JSON.parse(localStorage.getItem('inProgressRecipes') || '[]');
+    const inProgressRecipes = Object.keys(inProgressLocal[recipeType]);
+    return inProgressRecipes.includes((isMealRecipe(currRecipe)
+      ? currRecipe.idMeal : currRecipe.idDrink));
+  }
+  return false;
+};

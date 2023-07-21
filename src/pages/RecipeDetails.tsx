@@ -5,7 +5,7 @@ import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
-import { getLocalStorageDoneRecipes } from '../utils/localStorageFunctions';
+import { getLocalStorageDoneRecipes, getLocalStorageInProgressRecipes } from '../utils/localStorageFunctions';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -31,16 +31,16 @@ export default function RecipeDetails() {
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
-  const [isDone, setIsDone] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+  const [isInProgress, setIsInProgress] = useState(false);
 
   const getData = async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
     const recipeData = await fetchApi(API_URL);
     const recipeInfo = recipeData[recipeType][0];
     setIsDone(getLocalStorageDoneRecipes(recipeInfo));
-    console.log(recipeInfo);
-
+    setIsInProgress(getLocalStorageInProgressRecipes(recipeInfo, recipeType));
     const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
     if (isMeal) {
       const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
@@ -153,17 +153,22 @@ export default function RecipeDetails() {
           />
         </button>
       </section>
-      <Link
-        to={ `/${recipeType}/${params.id}/in-progress` }
-        className="border-primary rounded-lg border-2 p-1 w-full text-white
-        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
-        font-bold bottom-0 fixed"
-        type="submit"
-        data-testid="start-recipe-btn"
-      >
-        {!isDone && 'Start Recipe'}
 
-      </Link>
+      {!isDone
+      && (
+        <Link
+          to={ `/${recipeType}/${params.id}/in-progress` }
+          className="border-primary rounded-lg border-2 p-1 w-full text-white
+        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
+        font-bold bottom-0 fixed text-center"
+          type="submit"
+          data-testid="start-recipe-btn"
+        >
+          $
+          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
+
+        </Link>)}
+
     </div>
 
   );
