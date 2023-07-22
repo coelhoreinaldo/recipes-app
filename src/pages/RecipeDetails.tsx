@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
-import { getLocalStorageDoneRecipes, getLocalStorageInProgressRecipes } from '../utils/localStorageFunctions';
+import { getLocalStorageDoneRecipes,
+  getLocalStorageInProgressRecipes } from '../utils/localStorageFunctions';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -25,6 +28,7 @@ export default function RecipeDetails() {
     strAlcoholic: '',
     strInstructions: '',
     strYoutube: '',
+    strArea: '',
   });
   const {
     strThumb, strName, strCategory, recipeIngredients,
@@ -34,6 +38,8 @@ export default function RecipeDetails() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [isInProgress, setIsInProgress] = useState(false);
+  const [showLinkCopied, setShowLinkCopied] = useState(false);
+  const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
 
   const getData = async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
@@ -55,6 +61,7 @@ export default function RecipeDetails() {
       recipeMeasures: measures,
       strInstructions: recipeInfo.strInstructions,
       strYoutube: recipeInfo.strYoutube || '',
+      strArea: recipeInfo.strArea || '',
     });
   };
 
@@ -68,10 +75,21 @@ export default function RecipeDetails() {
   };
 
   const handleShareClick = () => {
-    console.log('copy');
+    setShowLinkCopied(true);
+    copy(window.location.href);
   };
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (item: IRecipeDetails) => {
+    const recipeInfo = {
+      id: params.id,
+      type: isMeal ? 'meal' : 'drink',
+      nationality: item.strArea,
+      category: item.strCategory,
+      alcoholicOrNot: item.strAlcoholic || '',
+      name: item.strName,
+      image: item.strThumb,
+    };
+    setFavorites([...favorites, recipeInfo]);
     return setIsFavorite(!isFavorite);
   };
 
@@ -141,11 +159,11 @@ export default function RecipeDetails() {
 
       <section>
         <button data-testid="share-btn" onClick={ handleShareClick }>
-          {/* {showLinkCopied ? <p>Link copied!</p> : (
-            )} */}
-          <img src={ shareIcon } alt="share icon" />
+          {showLinkCopied ? <p>Link copied!</p> : (
+            <img src={ shareIcon } alt="share icon" />
+          )}
         </button>
-        <button onClick={ handleFavoriteClick }>
+        <button onClick={ () => handleFavoriteClick(currRecipe) }>
           <img
             src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
             data-testid="favorite-btn"
@@ -164,7 +182,7 @@ export default function RecipeDetails() {
           type="submit"
           data-testid="start-recipe-btn"
         >
-          $
+
           {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
 
         </Link>)}

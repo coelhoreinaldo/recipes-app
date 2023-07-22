@@ -34,6 +34,7 @@ export interface IRecipeDetails {
   strInstructions: string;
   strYoutube?: string;
   isMeal?: boolean;
+  strArea?: string;
 }
 
 export interface IDoneRecipe {

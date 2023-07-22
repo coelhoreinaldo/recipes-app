@@ -28,3 +28,15 @@ export const getLocalStorageInProgressRecipes = (
   }
   return false;
 };
+
+export const verifyFavoriteInStorage = (currRecipe: IMeal | IDrink) => {
+  if (localStorage.getItem('favoriteRecipes')) {
+    const favoriteRecipesStorage = JSON.parse(
+      localStorage.getItem('favoriteRecipes') || '[]',
+    );
+    const check = favoriteRecipesStorage
+      .some((e:IDoneRecipe) => e.id === (isMealRecipe(currRecipe)
+        ? currRecipe.idMeal : currRecipe.idDrink));
+    return check;
+  }
+};
