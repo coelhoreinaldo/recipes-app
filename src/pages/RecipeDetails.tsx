@@ -4,10 +4,11 @@ import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
-import { IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
+import { IDoneRecipe, IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
 import { getLocalStorageDoneRecipes,
-  getLocalStorageInProgressRecipes } from '../utils/localStorageFunctions';
+  getLocalStorageInProgressRecipes,
+  verifyFavoriteInStorage } from '../utils/localStorageFunctions';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -47,6 +48,7 @@ export default function RecipeDetails() {
     const recipeInfo = recipeData[recipeType][0];
     setIsDone(getLocalStorageDoneRecipes(recipeInfo));
     setIsInProgress(getLocalStorageInProgressRecipes(recipeInfo, recipeType));
+    setIsFavorite(verifyFavoriteInStorage(recipeInfo));
     const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
     if (isMeal) {
       const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
@@ -89,7 +91,14 @@ export default function RecipeDetails() {
       name: item.strName,
       image: item.strThumb,
     };
-    setFavorites([...favorites, recipeInfo]);
+    if (isFavorite) {
+      const favoritesUpdated = favorites
+        .filter((favorite:IDoneRecipe) => favorite.id !== params.id);
+      setFavorites([...favoritesUpdated]);
+    }
+    if (!isFavorite) {
+      setFavorites([...favorites, recipeInfo]);
+    }
     return setIsFavorite(!isFavorite);
   };
 
