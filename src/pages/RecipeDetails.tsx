@@ -152,6 +152,7 @@ export default function RecipeDetails() {
               idRecipe={ meal.idMeal }
               strRecipe={ meal.strMeal }
               strRecipeThumb={ meal.strMealThumb }
+              pathname="meals/"
             />
           ))
           : recommendations.map((drink:IDrink, index) => (
@@ -164,6 +165,7 @@ export default function RecipeDetails() {
               idRecipe={ drink.idDrink }
               strRecipe={ drink.strDrink }
               strRecipeThumb={ drink.strDrinkThumb }
+              pathname="drinks/"
             />
 
           ))

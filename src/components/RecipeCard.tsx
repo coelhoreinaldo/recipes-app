@@ -3,7 +3,7 @@ import { IRecipeCard } from '../types/recipeTypes';
 
 function RecipeCard({
   index, idRecipe, strRecipe, strRecipeThumb,
-  dataTestId, dataTestIdTitle, minWidth = '',
+  dataTestId, dataTestIdTitle, minWidth = '', pathname = 'meals/',
 }:IRecipeCard) {
   return (
     <Link
@@ -11,7 +11,7 @@ function RecipeCard({
       shadow-primary rounded-md w-full group
        hover:-translate-y-2 transition ${minWidth}` }
       data-testid={ dataTestId }
-      to={ `${idRecipe}` }
+      to={ `/${pathname}${idRecipe}` }
     >
       <img
         src={ strRecipeThumb }
