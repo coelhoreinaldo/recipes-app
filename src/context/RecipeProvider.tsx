@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { Category, IDrink, IMeal } from '../types/recipeTypes';
 import { DRINKS_CATEGORIES_URL, DRINKS_URL,
-  MEALS_CATEGORIES_URL, MEALS_URL } from '../utils/apiInfo';
+  MEALS_CATEGORIES_URL, MEALS_URL } from '../utils/apiFunctions';
 
 export interface RecipeContextProps {
   mealsData: IMeal[];
