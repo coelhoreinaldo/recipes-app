@@ -170,7 +170,7 @@ export default function RecipeDetails() {
       }
       </section>
 
-      <section>
+      <section className="flex justify-between mx-6">
         <button data-testid="share-btn" onClick={ handleShareClick }>
           {showLinkCopied ? <p>Link copied!</p> : (
             <img src={ shareIcon } alt="share icon" />
