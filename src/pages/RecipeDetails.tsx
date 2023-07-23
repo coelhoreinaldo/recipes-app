@@ -16,7 +16,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function RecipeDetails() {
   const params = useParams();
-  const { fetchApi } = useFetch();
+  const { fetchApi, isFetching } = useFetch();
   const { pathname } = useLocation();
   const isMeal = pathname.includes('meals');
   const { recipeApi, recipeType } = getApiInfo(pathname);
@@ -107,6 +107,10 @@ export default function RecipeDetails() {
     getRecommendations();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isFetching) {
+    return <p data-testid="loading">Loading</p>;
+  }
 
   return (
     <div className="pb-12">

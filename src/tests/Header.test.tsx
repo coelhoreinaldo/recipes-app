@@ -7,7 +7,6 @@ import Drinks from '../pages/Drinks';
 import RecipeProvider from '../context/RecipeProvider';
 import fetchMock from '../../cypress/mocks/fetch.js';
 
-console.log(fetchMock);
 describe('header component', () => {
   beforeEach(() => {
     vi.spyOn(global, 'fetch').mockImplementation(fetchMock);

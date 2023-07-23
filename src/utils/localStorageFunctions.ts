@@ -11,7 +11,6 @@ export const getLocalStorageDoneRecipes = (currRecipe: IMeal | IDrink) => {
       (e: IDoneRecipe) => e.id === (isMealRecipe(currRecipe)
         ? currRecipe.idMeal : currRecipe.idDrink),
     );
-    console.log(currRecipe);
     return hasInLocalStorage;
   }
 };
