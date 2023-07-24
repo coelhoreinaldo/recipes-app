@@ -9,7 +9,6 @@ export default function DoneRecipes() {
 
   const getData = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
-    console.log(doneRecipes);
 
     setRecipes(doneRecipes);
   };
@@ -21,13 +20,31 @@ export default function DoneRecipes() {
   return (
     <div className="pb-16">
       <Header title="Done Recipes" />
-      <section className="flex gap-4 w-full items-center justify-center">
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-meal-btn">Meals</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+      <section className="flex gap-4 w-full items-center justify-center mt-6">
+        <button
+          className="rounded-full h-10 w-12  text-sm px-2 bg-primary"
+          type="button"
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          className="rounded-full h-10 w-12  text-sm px-2 bg-primary"
+          type="button"
+          data-testid="filter-by-meal-btn"
+        >
+          Meals
+        </button>
+        <button
+          className="rounded-full h-10 w-12  text-sm px-2 bg-primary"
+          type="button"
+          data-testid="filter-by-drink-btn"
+        >
+          Drinks
+        </button>
       </section>
 
-      <section className="flex flex-col relative mx-6 gap-y-4 ">
+      <section className="flex flex-col relative m-6 gap-y-4 ">
         {recipes.map((recipe, index) => (
           <section
             className="grid grid-cols-2 relative
@@ -41,7 +58,7 @@ export default function DoneRecipes() {
               height={ 144 }
               data-testid={ `${index}-horizontal-image` }
             />
-            <div className="pr-4">
+            <div className="pr-4 grid">
               <h3
                 className="text-lg font-bold"
                 data-testid={ `${index}-horizontal-name` }
@@ -63,12 +80,12 @@ export default function DoneRecipes() {
                 {recipe.doneDate}
 
               </p>
-              <div className="flex gap-4 text-sm">
+              <div className="flex text-sm space-x-2 flex-wrap">
                 {
               recipe.tags.map((tag, i) => (
                 <p
                   key={ i }
-                  className="bg-secondary rounded-full px-1"
+                  className="bg-secondary rounded-full "
                   data-testid={ `${index}-${tag}-horizontal-tag` }
                 >
                   {tag}
