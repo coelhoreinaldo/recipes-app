@@ -2,7 +2,7 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import renderWithRouter from './helpers/renderWith';
-import RecipeProvider from '../context/RecipeProvider';
+import Provider from '../context/Provider';
 import fetchMock from '../../cypress/mocks/fetch.js';
 import App from '../App';
 
@@ -15,9 +15,9 @@ describe('searchBar component', () => {
   });
   it('should filter meals by name tag', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/meals'] },
     );
 
@@ -48,9 +48,9 @@ describe('searchBar component', () => {
   });
   it('should filter drinks by ingredient tag', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/drinks'] },
     );
 
@@ -74,9 +74,9 @@ describe('searchBar component', () => {
   it('should not accept input with more than 2 letters with first letter tag', async () => {
     global.alert = vi.fn();
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/drinks'] },
     );
 
@@ -95,9 +95,9 @@ describe('searchBar component', () => {
   it('should return an error if there are no recipes', async () => {
     global.alert = vi.fn();
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/drinks'] },
     );
 
@@ -122,9 +122,9 @@ describe('searchBar component', () => {
   });
   it('should redirect to details page if exist only one recipe', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/drinks'] },
     );
 

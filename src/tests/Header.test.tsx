@@ -4,8 +4,8 @@ import { vi } from 'vitest';
 import renderWithRouter from './helpers/renderWith';
 import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
-import RecipeProvider from '../context/RecipeProvider';
 import fetchMock from '../../cypress/mocks/fetch.js';
+import Provider from '../context/Provider';
 
 describe('header component', () => {
   beforeEach(() => {
@@ -13,9 +13,9 @@ describe('header component', () => {
   });
   it('should exist on Meals page', () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <Meals />
-      </RecipeProvider>,
+      </Provider>,
     );
 
     const title = screen.getByRole('heading', { name: /meals/i });
@@ -23,9 +23,9 @@ describe('header component', () => {
   });
   it('should exist on Drinks page', () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <Drinks />
-      </RecipeProvider>,
+      </Provider>,
     );
 
     const title = screen.getByRole('heading', { name: /drinks/i });
@@ -33,9 +33,9 @@ describe('header component', () => {
   });
   it('should show search bar on search button click', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <Drinks />
-      </RecipeProvider>,
+      </Provider>,
 
     );
 

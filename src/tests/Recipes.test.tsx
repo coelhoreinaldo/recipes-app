@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import renderWithRouter from './helpers/renderWith';
-import RecipeProvider from '../context/RecipeProvider';
+import Provider from '../context/Provider';
 import fetchMock from '../../cypress/mocks/fetch.js';
 import App from '../App';
 
@@ -12,9 +12,9 @@ describe('recipe component', () => {
   });
   it('should exist on Meals page', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/meals'] },
     );
 
@@ -25,9 +25,9 @@ describe('recipe component', () => {
   });
   it('should filter meals by category', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/meals'] },
     );
 
@@ -56,9 +56,9 @@ describe('recipe component', () => {
   });
   it('should filter drinks by category', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/drinks'] },
     );
 

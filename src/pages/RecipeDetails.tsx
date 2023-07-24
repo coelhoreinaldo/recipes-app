@@ -1,71 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
-import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
-import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
+import { getApiInfo } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
-import { IDoneRecipe, IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
+import { IDrink, IMeal } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
-import { getLocalStorageDoneRecipes,
-  getLocalStorageInProgressRecipes,
-  verifyFavoriteInStorage } from '../utils/localStorageFunctions';
-import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
+import ShareFavoriteButtons from '../components/ShareFavoriteButtons';
 
 export default function RecipeDetails() {
   const params = useParams();
   const { fetchApi, isFetching } = useFetch();
   const { pathname } = useLocation();
   const isMeal = pathname.includes('meals');
-  const { recipeApi, recipeType } = getApiInfo(pathname);
-  const [currRecipe, setCurrRecipe] = useState<IRecipeDetails>({
-    strThumb: '',
-    strName: '',
-    strCategory: '',
-    recipeIngredients: [],
-    recipeMeasures: [],
-    strAlcoholic: '',
-    strInstructions: '',
-    strYoutube: '',
-    strArea: '',
-  });
+  const { recipeType } = getApiInfo(pathname);
+  const { currRecipe, isInProgress, isDone, getData } = useContext(RecipeDetailsContext);
   const {
     strThumb, strName, strCategory, recipeIngredients,
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isDone, setIsDone] = useState(false);
-  const [isInProgress, setIsInProgress] = useState(false);
-  const [showLinkCopied, setShowLinkCopied] = useState(false);
-  const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
-
-  const getData = async () => {
-    const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
-    const recipeData = await fetchApi(API_URL);
-    const recipeInfo = recipeData[recipeType][0];
-    setIsDone(getLocalStorageDoneRecipes(recipeInfo));
-    setIsInProgress(getLocalStorageInProgressRecipes(recipeInfo, recipeType));
-    setIsFavorite(verifyFavoriteInStorage(recipeInfo));
-    const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
-    if (isMeal) {
-      const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
-      recipeInfo.strYoutube = embed;
-    }
-    return setCurrRecipe({
-      strThumb: recipeInfo.strMealThumb || recipeInfo.strDrinkThumb,
-      strName: recipeInfo.strMeal || recipeInfo.strDrink,
-      strCategory: recipeInfo.strCategory,
-      strAlcoholic: recipeInfo.strAlcoholic || '',
-      recipeIngredients: ingredients,
-      recipeMeasures: measures,
-      strInstructions: recipeInfo.strInstructions,
-      strYoutube: recipeInfo.strYoutube || '',
-      strArea: recipeInfo.strArea || '',
-    });
-  };
 
   const getRecommendations = async () => {
     let recommendationsData = await fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -74,32 +28,6 @@ export default function RecipeDetails() {
     }
     recommendationsData = recommendationsData.meals || recommendationsData.drinks;
     return setRecommendations(recommendationsData.slice(0, 6));
-  };
-
-  const handleShareClick = () => {
-    setShowLinkCopied(true);
-    copy(window.location.href);
-  };
-
-  const handleFavoriteClick = (item: IRecipeDetails) => {
-    const recipeInfo = {
-      id: params.id,
-      type: isMeal ? 'meal' : 'drink',
-      nationality: item.strArea,
-      category: item.strCategory,
-      alcoholicOrNot: item.strAlcoholic || '',
-      name: item.strName,
-      image: item.strThumb,
-    };
-    if (isFavorite) {
-      const favoritesUpdated = favorites
-        .filter((favorite:IDoneRecipe) => favorite.id !== params.id);
-      setFavorites([...favoritesUpdated]);
-    }
-    if (!isFavorite) {
-      setFavorites([...favorites, recipeInfo]);
-    }
-    return setIsFavorite(!isFavorite);
   };
 
   useEffect(() => {
@@ -152,6 +80,7 @@ export default function RecipeDetails() {
               idRecipe={ meal.idMeal }
               strRecipe={ meal.strMeal }
               strRecipeThumb={ meal.strMealThumb }
+              pathname="meals/"
             />
           ))
           : recommendations.map((drink:IDrink, index) => (
@@ -164,27 +93,13 @@ export default function RecipeDetails() {
               idRecipe={ drink.idDrink }
               strRecipe={ drink.strDrink }
               strRecipeThumb={ drink.strDrinkThumb }
+              pathname="drinks/"
             />
 
           ))
       }
       </section>
-
-      <section className="flex justify-between mx-6">
-        <button data-testid="share-btn" onClick={ handleShareClick }>
-          {showLinkCopied ? <p>Link copied!</p> : (
-            <img src={ shareIcon } alt="share icon" />
-          )}
-        </button>
-        <button onClick={ () => handleFavoriteClick(currRecipe) }>
-          <img
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            data-testid="favorite-btn"
-            alt="favorite icon"
-          />
-        </button>
-      </section>
-
+      <ShareFavoriteButtons />
       {!isDone
       && (
         <Link

@@ -6,6 +6,7 @@ export interface IRecipeCard {
   dataTestId: string,
   dataTestIdTitle: string,
   minWidth?: string,
+  pathname?: string,
 }
 
 export interface IMeal {
@@ -35,6 +36,7 @@ export interface IRecipeDetails {
   strYoutube?: string;
   isMeal?: boolean;
   strArea?: string;
+  strTags?: string[];
 }
 
 export interface IDoneRecipe {

@@ -44,6 +44,7 @@ export default function Recipes() {
               idRecipe={ meal.idMeal }
               strRecipe={ meal.strMeal }
               strRecipeThumb={ meal.strMealThumb }
+              pathname="meals/"
             />
           )) : filteredDrinks.map((drink:IDrink, index:number) => (
             <RecipeCard
@@ -54,6 +55,7 @@ export default function Recipes() {
               idRecipe={ drink.idDrink }
               strRecipe={ drink.strDrink }
               strRecipeThumb={ drink.strDrinkThumb }
+              pathname="drinks/"
             />
           ))}
       </section>
