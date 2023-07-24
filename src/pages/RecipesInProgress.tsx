@@ -74,7 +74,7 @@ Se salva o progresso de uma receita de comida em andamento.
 Se salva o progresso de uma receita de bebida em andamento. */
 
   return (
-    <div>
+    <div className="pb-12">
       <section className="relative h-64 flex items-center justify-center">
         <img
           src={ strThumb }

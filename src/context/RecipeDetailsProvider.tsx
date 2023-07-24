@@ -78,7 +78,7 @@ export default function RecipeDetailsProvider({ children }:
 
   const handleShareClick = () => {
     setShowLinkCopied(true);
-    copy(window.location.href);
+    copy(window.location.href.split('/').slice(0, 5).join('/'));
   };
 
   const handleFavoriteClick = useCallback((item: IRecipeDetails) => {
