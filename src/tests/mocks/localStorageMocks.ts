@@ -18,3 +18,12 @@ export const favoriteRecipesMock = [
     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
   },
 ];
+
+export const inProgressRecipesMock = {
+  drinks: {
+    178319: ['Hpnotiq', 'Pineapple Juice'],
+  },
+  meals: {
+    52771: ['Penne', 'Arrabiata'],
+  },
+};

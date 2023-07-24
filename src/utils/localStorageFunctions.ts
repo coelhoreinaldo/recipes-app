@@ -20,7 +20,7 @@ export const getLocalStorageInProgressRecipes = (
   recipeType:string,
 ) => {
   if (localStorage.getItem('inProgressRecipes')) {
-    const inProgressLocal = JSON.parse(localStorage.getItem('inProgressRecipes') || '[]');
+    const inProgressLocal = JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
     const inProgressRecipes = Object.keys(inProgressLocal[recipeType]);
     return inProgressRecipes.includes((isMealRecipe(currRecipe)
       ? currRecipe.idMeal : currRecipe.idDrink));

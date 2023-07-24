@@ -1,29 +1,77 @@
-import { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 import ShareFavoriteButtons from '../components/ShareFavoriteButtons';
+import { getApiInfo } from '../utils/apiFunctions';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function RecipesInProgress() {
   const { currRecipe, getData,
   } = useContext(RecipeDetailsContext);
   const { strThumb,
     strName, strCategory, strAlcoholic, strInstructions, recipeIngredients } = currRecipe;
+  const [checkedIngredients, setCheckedIngredients] = useState<string[]>([]);
+  const [inProgressStorage, setInProgressStorage] = useLocalStorage(
+    'inProgressRecipes',
+    {},
+  );
+  const { pathname } = useLocation();
+  const { recipeType } = getApiInfo(pathname);
+  const { id } = useParams();
+
+  const handleIngredientClick = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    ing:string,
+  ) => {
+    if (event.target.checked) {
+      setInProgressStorage({
+        ...inProgressStorage,
+        [recipeType]: {
+          ...inProgressStorage[recipeType],
+          [id || 0]: [...checkedIngredients, ing],
+        },
+      });
+      return setCheckedIngredients([...checkedIngredients, ing]);
+    }
+    setInProgressStorage({
+      ...inProgressStorage,
+      [recipeType]: {
+        ...inProgressStorage[recipeType],
+        [id || 0]: checkedIngredients.filter((e) => e !== ing),
+      },
+    });
+    return setCheckedIngredients(checkedIngredients.filter((e) => e !== ing));
+  };
+
+  const getLocalStorageInProgressRecipes = () => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')
+    || '{}');
+    if (Object.keys(inProgressRecipes).length > 0
+    && inProgressRecipes[recipeType][id || 0]) {
+      setCheckedIngredients(inProgressRecipes[recipeType][id || 0]);
+    }
+  };
 
   useEffect(() => {
     getData();
+    getLocalStorageInProgressRecipes();
   }, []);
 
-  /* 38 – Desenvolva um checkbox para cada item da lista de ingredientes
+  // useEffect(() => {
+  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')
+  //    || '{}');
+  //   if (Object.keys(inProgressRecipes).length > 0) {
+  //     console.log(inProgressRecipes);
+  //   }
+  // }, [checkedIngredients]);
+  /* 40 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita
 
 Observações técnicas
-Verifica se os atributos data-testid estão presentes na tela com suas respectivas quantidades.
-Os ingredientes deverão ser exibidos em uma label:
-Cada label deve ter o atributo data-testid=${index}-ingredient-step.
-Dentro de cada label deverá existir um input checkbox.
+Após clicar no checkbox em um dos ingredientes da receita, é esperado que o ingrediente permaneça marcado após a página recarregar. Para isso, desenvolva a lógica de verificação de acordo com a chave inProgressRecipes no localStorage.
 
 O que será verificado
-Se todos os ingredientes estão sendo exibidos corretamente.
-Se cada ingrediente de uma receita de comida/bebida possui um checkbox. */
+Se salva o progresso de uma receita de comida em andamento.
+Se salva o progresso de uma receita de bebida em andamento. */
 
   return (
     <div>
@@ -66,18 +114,21 @@ Se cada ingrediente de uma receita de comida/bebida possui um checkbox. */
           {recipeIngredients.map((ingredient, index) => (
             <li
               key={ index }
-              data-testid={ `${index}-ingredient-step` }
             >
               <label
                 htmlFor={ ingredient }
-                className="flex items-center gap-2"
+                className={ `flex items-center gap-2 
+                ${checkedIngredients.includes(ingredient) ? 'line-through' : ''}` }
+                data-testid={ `${index}-ingredient-step` }
               >
                 <input
                   type="checkbox"
                   id={ ingredient }
                   name={ ingredient }
                   value={ ingredient }
+                  checked={ checkedIngredients.includes(ingredient) }
                   className="form-checkbox h-5 w-5 text-primary"
+                  onChange={ (event) => handleIngredientClick(event, ingredient) }
                 />
                 {ingredient}
               </label>
