@@ -6,7 +6,7 @@ import { getApiInfo } from '../utils/apiFunctions';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { IDoneRecipe } from '../types/recipeTypes';
 
-export default function RecipesInProgress() {
+export default function RecipeInProgress() {
   const { currRecipe, getData,
   } = useContext(RecipeDetailsContext);
   const { strThumb,
@@ -20,6 +20,7 @@ export default function RecipesInProgress() {
   const { pathname } = useLocation();
   const { recipeType } = getApiInfo(pathname);
   const { id } = useParams();
+  const recipeId = id || pathname.split('/')[2];
   const isMeal = pathname.includes('meals');
   const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ export default function RecipesInProgress() {
         ...inProgressStorage,
         [recipeType]: {
           ...inProgressStorage[recipeType],
-          [id || 0]: [...checkedIngredients, ing],
+          [recipeId]: [...checkedIngredients, ing],
         },
       });
       return setCheckedIngredients([...checkedIngredients, ing]);
@@ -41,7 +42,7 @@ export default function RecipesInProgress() {
       ...inProgressStorage,
       [recipeType]: {
         ...inProgressStorage[recipeType],
-        [id || 0]: checkedIngredients.filter((e) => e !== ing),
+        [recipeId]: checkedIngredients.filter((e) => e !== ing),
       },
     });
     return setCheckedIngredients(checkedIngredients.filter((e) => e !== ing));
@@ -51,8 +52,8 @@ export default function RecipesInProgress() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')
     || '{}');
     if (Object.keys(inProgressRecipes).length > 0
-    && inProgressRecipes[recipeType][id || 0]) {
-      setCheckedIngredients(inProgressRecipes[recipeType][id || 0]);
+    && inProgressRecipes[recipeType][recipeId]) {
+      setCheckedIngredients(inProgressRecipes[recipeType][recipeId]);
     }
   };
 
@@ -65,13 +66,13 @@ export default function RecipesInProgress() {
     const doneRecipe = {
       id,
       type: isMeal ? 'meal' : 'drink',
-      nationality: currRecipe.strArea || '',
-      category: currRecipe.strCategory || '',
-      alcoholicOrNot: currRecipe.strAlcoholic || '',
+      nationality: currRecipe.strArea,
+      category: currRecipe.strCategory,
+      alcoholicOrNot: currRecipe.strAlcoholic,
       name: currRecipe.strName,
       image: currRecipe.strThumb,
       doneDate: doneDate.toISOString(),
-      tags: currRecipe.strTags || [],
+      tags: currRecipe.strTags,
     };
     setDoneRecipes([...doneRecipes, doneRecipe]);
     navigate('/done-recipes');
