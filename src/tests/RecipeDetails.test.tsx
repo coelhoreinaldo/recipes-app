@@ -125,7 +125,6 @@ describe('recipe details page', () => {
     await userEvent.click(favoriteBtn);
 
     const updatedFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
-    console.log(updatedFavoriteRecipes);
     expect(updatedFavoriteRecipes).toHaveLength(1);
     expect(updatedFavoriteRecipes[0]).toEqual(favoriteRecipesMock[1]);
   });
