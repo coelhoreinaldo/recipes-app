@@ -1,15 +1,3 @@
-// /* 37 – Desenvolva a tela de modo que ela contenha uma imagem da receita, um título, a categoria (em caso de comidas) e se é ou não alcoólico (em caso de bebidas), uma lista de ingredientes (com as quantidades e instruções necessárias)
-// Observações técnicas
-// Verifica se os atributos data-testid estão presentes na tela:
-
-// A foto deve ter o atributo data-testid="recipe-photo".
-// O título deve ter o atributo data-testid="recipe-title".
-// O botão de compartilhar deve ter o atributo data-testid="share-btn".
-// O botão de favoritar deve ter o atributo data-testid="favorite-btn".
-// O texto da categoria deve ter o atributo data-testid="recipe-category".
-// O elemento de instruções deve ter o atributo data-testid="instructions".
-// O botão para finalizar a receita deve ter o atributo data-testid="finish-recipe-btn". */
-
 import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
@@ -19,11 +7,23 @@ export default function RecipesInProgress() {
   const { currRecipe, getData,
   } = useContext(RecipeDetailsContext);
   const { strThumb,
-    strName, strCategory, strAlcoholic, strInstructions } = currRecipe;
+    strName, strCategory, strAlcoholic, strInstructions, recipeIngredients } = currRecipe;
 
   useEffect(() => {
     getData();
   }, []);
+
+  /* 38 – Desenvolva um checkbox para cada item da lista de ingredientes
+
+Observações técnicas
+Verifica se os atributos data-testid estão presentes na tela com suas respectivas quantidades.
+Os ingredientes deverão ser exibidos em uma label:
+Cada label deve ter o atributo data-testid=${index}-ingredient-step.
+Dentro de cada label deverá existir um input checkbox.
+
+O que será verificado
+Se todos os ingredientes estão sendo exibidos corretamente.
+Se cada ingrediente de uma receita de comida/bebida possui um checkbox. */
 
   return (
     <div>
@@ -59,6 +59,31 @@ export default function RecipesInProgress() {
         >
           {strInstructions}
         </p>
+      </section>
+      <section className="mx-4">
+        <h3 className="text-lg font-extrabold">Ingredients</h3>
+        <ul className="flex flex-col gap-2 p-2 border-primary border-2">
+          {recipeIngredients.map((ingredient, index) => (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <label
+                htmlFor={ ingredient }
+                className="flex items-center gap-2"
+              >
+                <input
+                  type="checkbox"
+                  id={ ingredient }
+                  name={ ingredient }
+                  value={ ingredient }
+                  className="form-checkbox h-5 w-5 text-primary"
+                />
+                {ingredient}
+              </label>
+            </li>
+          ))}
+        </ul>
       </section>
       <ShareFavoriteButtons />
       <Link
