@@ -14,7 +14,9 @@ export default function RecipeDetails() {
   const { pathname } = useLocation();
   const isMeal = pathname.includes('meals');
   const { recipeType } = getApiInfo(pathname);
-  const { currRecipe, isInProgress, isDone, getData } = useContext(RecipeDetailsContext);
+  const {
+    currRecipe, isInProgress, isDone, getRecipeDetailsById,
+  } = useContext(RecipeDetailsContext);
   const {
     strThumb, strName, strCategory, recipeIngredients,
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
@@ -31,7 +33,7 @@ export default function RecipeDetails() {
   };
 
   useEffect(() => {
-    getData();
+    getRecipeDetailsById();
     getRecommendations();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

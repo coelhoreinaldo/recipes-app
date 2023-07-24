@@ -14,7 +14,7 @@ export interface RecipeDetailsContextProps {
   isInProgress: boolean;
   isFavorite: boolean;
   currRecipe: IRecipeDetails;
-  getData: () => Promise<void>;
+  getRecipeDetailsById: () => Promise<void>;
   setIsFavorite: (value: boolean) => void;
   showLinkCopied: boolean;
   handleShareClick: () => void;
@@ -52,7 +52,7 @@ export default function RecipeDetailsProvider({ children }:
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
 
-  const getData = useCallback(async () => {
+  const getRecipeDetailsById = useCallback(async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${recipeId}`;
     const recipeData = await fetchApi(API_URL);
     const recipeInfo = recipeData[recipeType][0];
@@ -110,13 +110,13 @@ export default function RecipeDetailsProvider({ children }:
     isInProgress,
     isFavorite,
     currRecipe,
-    getData,
+    getRecipeDetailsById,
     setIsFavorite,
     showLinkCopied,
     handleShareClick,
     handleFavoriteClick,
   }), [isDone, isInProgress,
-    isFavorite, currRecipe, getData, showLinkCopied, handleFavoriteClick]);
+    isFavorite, currRecipe, getRecipeDetailsById, showLinkCopied, handleFavoriteClick]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>

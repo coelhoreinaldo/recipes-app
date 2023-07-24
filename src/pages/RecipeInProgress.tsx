@@ -7,7 +7,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import { IDoneRecipe } from '../types/recipeTypes';
 
 export default function RecipeInProgress() {
-  const { currRecipe, getData,
+  const { currRecipe, getRecipeDetailsById,
   } = useContext(RecipeDetailsContext);
   const { strThumb,
     strName, strCategory, strAlcoholic, strInstructions, recipeIngredients } = currRecipe;
@@ -79,7 +79,7 @@ export default function RecipeInProgress() {
   };
 
   useEffect(() => {
-    getData();
+    getRecipeDetailsById();
     getLocalStorageInProgressRecipes();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
