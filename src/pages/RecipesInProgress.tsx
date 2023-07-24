@@ -10,23 +10,19 @@
 // O elemento de instruções deve ter o atributo data-testid="instructions".
 // O botão para finalizar a receita deve ter o atributo data-testid="finish-recipe-btn". */
 
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { IRecipeDetails } from '../types/recipeTypes';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
-import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ShareFavoriteButtons from '../components/ShareFavoriteButtons';
 
 export default function RecipesInProgress() {
-  const [recipeInProgress, setRecipeInProgress] = useState({} as IRecipeDetails);
-  const { currRecipe, handleShareClick, showLinkCopied, handleFavoriteClick, isFavorite,
+  const { currRecipe, getData,
   } = useContext(RecipeDetailsContext);
   const { strThumb,
-    strName, strCategory, strAlcoholic, strInstructions } = recipeInProgress;
+    strName, strCategory, strAlcoholic, strInstructions } = currRecipe;
 
   useEffect(() => {
-    setRecipeInProgress(currRecipe);
+    getData();
   }, []);
 
   return (
@@ -64,20 +60,7 @@ export default function RecipesInProgress() {
           {strInstructions}
         </p>
       </section>
-      <section className="flex justify-between mx-6">
-        <button data-testid="share-btn" onClick={ handleShareClick }>
-          {showLinkCopied ? <p>Link copied!</p> : (
-            <img src={ shareIcon } alt="share icon" />
-          )}
-        </button>
-        <button onClick={ () => handleFavoriteClick(currRecipe) }>
-          <img
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            data-testid="favorite-btn"
-            alt="favorite icon"
-          />
-        </button>
-      </section>
+      <ShareFavoriteButtons />
       <Link
         to="/profile"
         className="border-primary rounded-lg border-2 p-1 w-full text-white

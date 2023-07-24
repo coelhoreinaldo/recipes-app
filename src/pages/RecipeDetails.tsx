@@ -5,10 +5,8 @@ import { getApiInfo } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDrink, IMeal } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
-import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
+import ShareFavoriteButtons from '../components/ShareFavoriteButtons';
 
 export default function RecipeDetails() {
   const params = useParams();
@@ -16,14 +14,7 @@ export default function RecipeDetails() {
   const { pathname } = useLocation();
   const isMeal = pathname.includes('meals');
   const { recipeType } = getApiInfo(pathname);
-  const { currRecipe,
-    isInProgress,
-    isDone,
-    isFavorite,
-    getData,
-    handleFavoriteClick,
-    handleShareClick,
-    showLinkCopied } = useContext(RecipeDetailsContext);
+  const { currRecipe, isInProgress, isDone, getData } = useContext(RecipeDetailsContext);
   const {
     strThumb, strName, strCategory, recipeIngredients,
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
@@ -108,22 +99,7 @@ export default function RecipeDetails() {
           ))
       }
       </section>
-
-      <section className="flex justify-between mx-6">
-        <button data-testid="share-btn" onClick={ handleShareClick }>
-          {showLinkCopied ? <p>Link copied!</p> : (
-            <img src={ shareIcon } alt="share icon" />
-          )}
-        </button>
-        <button onClick={ () => handleFavoriteClick(currRecipe) }>
-          <img
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-            data-testid="favorite-btn"
-            alt="favorite icon"
-          />
-        </button>
-      </section>
-
+      <ShareFavoriteButtons />
       {!isDone
       && (
         <Link
