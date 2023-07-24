@@ -11,12 +11,17 @@
 // O botão para finalizar a receita deve ter o atributo data-testid="finish-recipe-btn". */
 
 import { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { IRecipeDetails } from '../types/recipeTypes';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
+import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function RecipesInProgress() {
   const [recipeInProgress, setRecipeInProgress] = useState({} as IRecipeDetails);
-  const { currRecipe } = useContext(RecipeDetailsContext);
+  const { currRecipe, handleShareClick, showLinkCopied, handleFavoriteClick, isFavorite,
+  } = useContext(RecipeDetailsContext);
   const { strThumb,
     strName, strCategory, strAlcoholic, strInstructions } = recipeInProgress;
 
@@ -59,6 +64,31 @@ export default function RecipesInProgress() {
           {strInstructions}
         </p>
       </section>
+      <section className="flex justify-between mx-6">
+        <button data-testid="share-btn" onClick={ handleShareClick }>
+          {showLinkCopied ? <p>Link copied!</p> : (
+            <img src={ shareIcon } alt="share icon" />
+          )}
+        </button>
+        <button onClick={ () => handleFavoriteClick(currRecipe) }>
+          <img
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            data-testid="favorite-btn"
+            alt="favorite icon"
+          />
+        </button>
+      </section>
+      <Link
+        to="/profile"
+        className="border-primary rounded-lg border-2 p-1 w-full text-white
+        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
+        font-bold bottom-0 fixed text-center"
+        type="submit"
+        data-testid="finish-recipe-btn"
+      >
+        Finish Recipe
+
+      </Link>
     </div>
   );
 }
