@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 import ShareFavoriteButtons from '../components/ShareFavoriteButtons';
 import { getApiInfo } from '../utils/apiFunctions';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { IDoneRecipe } from '../types/recipeTypes';
 
 export default function RecipesInProgress() {
   const { currRecipe, getData,
@@ -15,9 +16,12 @@ export default function RecipesInProgress() {
     'inProgressRecipes',
     {},
   );
+  const [doneRecipes, setDoneRecipes] = useLocalStorage('doneRecipes', []);
   const { pathname } = useLocation();
   const { recipeType } = getApiInfo(pathname);
   const { id } = useParams();
+  const isMeal = pathname.includes('meals');
+  const navigate = useNavigate();
 
   const handleIngredientClick = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -52,26 +56,32 @@ export default function RecipesInProgress() {
     }
   };
 
+  const handleFinishRecipe = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (doneRecipes.some((recipe:IDoneRecipe) => recipe.id === id)) {
+      return navigate('/done-recipes');
+    }
+    const doneDate = new Date();
+    const doneRecipe = {
+      id,
+      type: isMeal ? 'meal' : 'drink',
+      nationality: currRecipe.strArea || '',
+      category: currRecipe.strCategory || '',
+      alcoholicOrNot: currRecipe.strAlcoholic || '',
+      name: currRecipe.strName,
+      image: currRecipe.strThumb,
+      doneDate: doneDate.toISOString(),
+      tags: currRecipe.strTags || [],
+    };
+    setDoneRecipes([...doneRecipes, doneRecipe]);
+    navigate('/done-recipes');
+  };
+
   useEffect(() => {
     getData();
     getLocalStorageInProgressRecipes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')
-  //    || '{}');
-  //   if (Object.keys(inProgressRecipes).length > 0) {
-  //     console.log(inProgressRecipes);
-  //   }
-  // }, [checkedIngredients]);
-  /* 40 - Salve o estado do progresso, que deve ser mantido caso a pessoa atualize a página ou volte para a mesma receita
-
-Observações técnicas
-Após clicar no checkbox em um dos ingredientes da receita, é esperado que o ingrediente permaneça marcado após a página recarregar. Para isso, desenvolva a lógica de verificação de acordo com a chave inProgressRecipes no localStorage.
-
-O que será verificado
-Se salva o progresso de uma receita de comida em andamento.
-Se salva o progresso de uma receita de bebida em andamento. */
 
   return (
     <div className="pb-12">
@@ -137,17 +147,18 @@ Se salva o progresso de uma receita de bebida em andamento. */
         </ul>
       </section>
       <ShareFavoriteButtons />
-      <Link
-        to="/profile"
+      <button
         className="border-primary rounded-lg border-2 p-1 w-full text-white
         bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
         font-bold bottom-0 fixed text-center"
+        disabled={ checkedIngredients.length !== recipeIngredients.length }
         type="submit"
         data-testid="finish-recipe-btn"
+        onClick={ handleFinishRecipe }
       >
         Finish Recipe
 
-      </Link>
+      </button>
     </div>
   );
 }

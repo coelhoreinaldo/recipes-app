@@ -46,6 +46,7 @@ export default function RecipeDetailsProvider({ children }:
     strInstructions: '',
     strYoutube: '',
     strArea: '',
+    strTags: [],
   });
 
   const [showLinkCopied, setShowLinkCopied] = useState(false);
@@ -73,6 +74,8 @@ export default function RecipeDetailsProvider({ children }:
       strInstructions: recipeInfo.strInstructions,
       strYoutube: recipeInfo.strYoutube || '',
       strArea: recipeInfo.strArea || '',
+      strTags: (recipeInfo.strTags && recipeInfo.strTags.length)
+        ? recipeInfo.strTags.split(',') : [],
     });
   }, [fetchApi, isMeal, recipeApi, recipeType, recipeId]);
 
