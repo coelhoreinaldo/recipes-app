@@ -1,71 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
-import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
+import { getApiInfo } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDoneRecipe, IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
-import { getLocalStorageDoneRecipes,
-  getLocalStorageInProgressRecipes,
-  verifyFavoriteInStorage } from '../utils/localStorageFunctions';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import useLocalStorage from '../hooks/useLocalStorage';
+import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 
 export default function RecipeDetails() {
   const params = useParams();
   const { fetchApi, isFetching } = useFetch();
   const { pathname } = useLocation();
   const isMeal = pathname.includes('meals');
-  const { recipeApi, recipeType } = getApiInfo(pathname);
-  const [currRecipe, setCurrRecipe] = useState<IRecipeDetails>({
-    strThumb: '',
-    strName: '',
-    strCategory: '',
-    recipeIngredients: [],
-    recipeMeasures: [],
-    strAlcoholic: '',
-    strInstructions: '',
-    strYoutube: '',
-    strArea: '',
-  });
+  const { recipeType } = getApiInfo(pathname);
+  const { currRecipe, isInProgress, isDone,
+    isFavorite, getData, setIsFavorite } = useContext(RecipeDetailsContext);
   const {
     strThumb, strName, strCategory, recipeIngredients,
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isDone, setIsDone] = useState(false);
-  const [isInProgress, setIsInProgress] = useState(false);
   const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
-
-  const getData = async () => {
-    const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${params.id}`;
-    const recipeData = await fetchApi(API_URL);
-    const recipeInfo = recipeData[recipeType][0];
-    setIsDone(getLocalStorageDoneRecipes(recipeInfo));
-    setIsInProgress(getLocalStorageInProgressRecipes(recipeInfo, recipeType));
-    setIsFavorite(verifyFavoriteInStorage(recipeInfo));
-    const { ingredients, measures } = getIngredientsAndMeasures(recipeInfo);
-    if (isMeal) {
-      const embed = recipeInfo.strYoutube.replace('watch?v=', 'embed/');
-      recipeInfo.strYoutube = embed;
-    }
-    return setCurrRecipe({
-      strThumb: recipeInfo.strMealThumb || recipeInfo.strDrinkThumb,
-      strName: recipeInfo.strMeal || recipeInfo.strDrink,
-      strCategory: recipeInfo.strCategory,
-      strAlcoholic: recipeInfo.strAlcoholic || '',
-      recipeIngredients: ingredients,
-      recipeMeasures: measures,
-      strInstructions: recipeInfo.strInstructions,
-      strYoutube: recipeInfo.strYoutube || '',
-      strArea: recipeInfo.strArea || '',
-    });
-  };
 
   const getRecommendations = async () => {
     let recommendationsData = await fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');

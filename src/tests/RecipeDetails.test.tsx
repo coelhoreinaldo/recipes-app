@@ -2,7 +2,7 @@ import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import renderWithRouter from './helpers/renderWith';
-import RecipeProvider from '../context/RecipeProvider';
+import Provider from '../context/Provider';
 import fetchMock from '../../cypress/mocks/fetch.js';
 import App from '../App';
 import { favoriteRecipesMock } from './mocks/localStorageMocks';
@@ -20,9 +20,9 @@ describe('recipe details page', () => {
 
   it('should show image, name and instructions', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: [initialEntry] },
     );
 
@@ -37,9 +37,9 @@ describe('recipe details page', () => {
   });
   it('should copy the recipe\'s link on share button click', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: [initialEntry] },
     );
 
@@ -54,9 +54,9 @@ describe('recipe details page', () => {
   });
   it('should favorite recipe on favorite button click', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: [initialEntry] },
     );
 
@@ -72,9 +72,9 @@ describe('recipe details page', () => {
   });
   it('should show ingredients and measures', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: [initialEntry] },
     );
 
@@ -88,9 +88,9 @@ describe('recipe details page', () => {
   });
   it('should save meal recipe on favorite storage', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: [initialEntry] },
     );
 
@@ -109,9 +109,9 @@ describe('recipe details page', () => {
   });
   it('should save drink recipe on favorite storage', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/drinks/178319'] },
     );
 

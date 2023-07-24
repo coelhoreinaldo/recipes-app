@@ -1,16 +1,16 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWith';
-import RecipeProvider from '../context/RecipeProvider';
+import Provider from '../context/Provider';
 import App from '../App';
 
 describe('profile page', () => {
   it('should show the buttons', async () => {
     localStorage.setItem('user', JSON.stringify({ user: 'teste@teste.com' }));
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/profile'] },
     );
 
@@ -29,9 +29,9 @@ describe('profile page', () => {
   });
   it('should show the default email', async () => {
     renderWithRouter(
-      <RecipeProvider>
+      <Provider>
         <App />
-      </RecipeProvider>,
+      </Provider>,
       { initialEntries: ['/profile'] },
     );
     const emailEl = screen.getByRole('heading', { name: /test@test/i });
