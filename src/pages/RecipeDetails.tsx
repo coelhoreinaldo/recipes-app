@@ -1,15 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams, Link } from 'react-router-dom';
-import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
-import { IDoneRecipe, IDrink, IMeal, IRecipeDetails } from '../types/recipeTypes';
+import { IDrink, IMeal } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import useLocalStorage from '../hooks/useLocalStorage';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 
 export default function RecipeDetails() {
@@ -18,15 +16,19 @@ export default function RecipeDetails() {
   const { pathname } = useLocation();
   const isMeal = pathname.includes('meals');
   const { recipeType } = getApiInfo(pathname);
-  const { currRecipe, isInProgress, isDone,
-    isFavorite, getData, setIsFavorite } = useContext(RecipeDetailsContext);
+  const { currRecipe,
+    isInProgress,
+    isDone,
+    isFavorite,
+    getData,
+    handleFavoriteClick,
+    handleShareClick,
+    showLinkCopied } = useContext(RecipeDetailsContext);
   const {
     strThumb, strName, strCategory, recipeIngredients,
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
-  const [showLinkCopied, setShowLinkCopied] = useState(false);
-  const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
 
   const getRecommendations = async () => {
     let recommendationsData = await fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -35,32 +37,6 @@ export default function RecipeDetails() {
     }
     recommendationsData = recommendationsData.meals || recommendationsData.drinks;
     return setRecommendations(recommendationsData.slice(0, 6));
-  };
-
-  const handleShareClick = () => {
-    setShowLinkCopied(true);
-    copy(window.location.href);
-  };
-
-  const handleFavoriteClick = (item: IRecipeDetails) => {
-    const recipeInfo = {
-      id: params.id,
-      type: isMeal ? 'meal' : 'drink',
-      nationality: item.strArea,
-      category: item.strCategory,
-      alcoholicOrNot: item.strAlcoholic || '',
-      name: item.strName,
-      image: item.strThumb,
-    };
-    if (isFavorite) {
-      const favoritesUpdated = favorites
-        .filter((favorite:IDoneRecipe) => favorite.id !== params.id);
-      setFavorites([...favoritesUpdated]);
-    }
-    if (!isFavorite) {
-      setFavorites([...favorites, recipeInfo]);
-    }
-    return setIsFavorite(!isFavorite);
   };
 
   useEffect(() => {

@@ -1,11 +1,13 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import { getLocalStorageDoneRecipes,
   getLocalStorageInProgressRecipes,
   verifyFavoriteInStorage } from '../utils/localStorageFunctions';
-import { IRecipeDetails } from '../types/recipeTypes';
+import { IDoneRecipe, IRecipeDetails } from '../types/recipeTypes';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export interface RecipeDetailsContextProps {
   isDone: boolean;
@@ -14,6 +16,9 @@ export interface RecipeDetailsContextProps {
   currRecipe: IRecipeDetails;
   getData: () => Promise<void>;
   setIsFavorite: (value: boolean) => void;
+  showLinkCopied: boolean;
+  handleShareClick: () => void;
+  handleFavoriteClick: (item: IRecipeDetails) => void;
 }
 
 export const RecipeDetailsContext = createContext<RecipeDetailsContextProps>(
@@ -43,6 +48,9 @@ export default function RecipeDetailsProvider({ children }:
     strArea: '',
   });
 
+  const [showLinkCopied, setShowLinkCopied] = useState(false);
+  const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
+
   const getData = useCallback(async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${recipeId}`;
     const recipeData = await fetchApi(API_URL);
@@ -68,6 +76,32 @@ export default function RecipeDetailsProvider({ children }:
     });
   }, [fetchApi, isMeal, recipeApi, recipeType, recipeId]);
 
+  const handleShareClick = () => {
+    setShowLinkCopied(true);
+    copy(window.location.href);
+  };
+
+  const handleFavoriteClick = useCallback((item: IRecipeDetails) => {
+    const recipeInfo = {
+      id: recipeId,
+      type: isMeal ? 'meal' : 'drink',
+      nationality: item.strArea,
+      category: item.strCategory,
+      alcoholicOrNot: item.strAlcoholic || '',
+      name: item.strName,
+      image: item.strThumb,
+    };
+    if (isFavorite) {
+      const favoritesUpdated = favorites
+        .filter((favorite:IDoneRecipe) => favorite.id !== recipeId);
+      setFavorites([...favoritesUpdated]);
+    }
+    if (!isFavorite) {
+      setFavorites([...favorites, recipeInfo]);
+    }
+    return setIsFavorite(!isFavorite);
+  }, [favorites, isFavorite, isMeal, recipeId, setFavorites]);
+
   const values = useMemo(() => ({
     isDone,
     isInProgress,
@@ -75,7 +109,11 @@ export default function RecipeDetailsProvider({ children }:
     currRecipe,
     getData,
     setIsFavorite,
-  }), [isDone, isInProgress, isFavorite, currRecipe, getData]);
+    showLinkCopied,
+    handleShareClick,
+    handleFavoriteClick,
+  }), [isDone, isInProgress,
+    isFavorite, currRecipe, getData, showLinkCopied, handleFavoriteClick]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>
