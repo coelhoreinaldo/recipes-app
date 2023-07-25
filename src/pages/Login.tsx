@@ -58,7 +58,8 @@ export default function Login() {
             id="email-input"
             data-testid="email-input"
             placeholder="Email"
-            className="border-primary rounded-lg border-2 p-2 placeholder:text-primary"
+            className="border-primary rounded-lg border-2 p-2
+            placeholder:text-primary caret-primary outline-blue-400"
             onChange={ handleChange }
           />
         </label>
@@ -70,7 +71,8 @@ export default function Login() {
             id="password-input"
             data-testid="password-input"
             placeholder="Password"
-            className="border-primary rounded-lg border-2 p-2 placeholder:text-primary"
+            className="border-primary rounded-lg border-2 p-2
+            placeholder:text-primary caret-primary outline-blue-400"
             onChange={ handleChange }
           />
         </label>
