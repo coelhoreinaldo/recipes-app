@@ -16,6 +16,8 @@ export interface RecipeDetailsContextProps {
   getRecipeDetailsById: () => Promise<void>;
   setIsFavorite: (value: boolean) => void;
   handleFavoriteClick: (item: IRecipeDetails) => void;
+  favorites: IDoneRecipe[];
+  setFavorites: React.Dispatch<React.SetStateAction<IDoneRecipe[]>>;
 }
 
 export const RecipeDetailsContext = createContext<RecipeDetailsContextProps>(
@@ -104,9 +106,10 @@ export default function RecipeDetailsProvider({ children }:
     getRecipeDetailsById,
     setIsFavorite,
     handleFavoriteClick,
-  }), [isDone, isInProgress,
-    isFavorite, currRecipe, getRecipeDetailsById,
-    handleFavoriteClick]);
+    favorites,
+    setFavorites,
+  }), [isDone, isInProgress, isFavorite, currRecipe,
+    getRecipeDetailsById, handleFavoriteClick, favorites, setFavorites]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>

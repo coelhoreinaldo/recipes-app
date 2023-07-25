@@ -16,8 +16,6 @@ export default function ShareButton({
 
   const handleShareClick = () => {
     copy(`${window.location.origin}/${recipeType}/${recipeId}`);
-    console.log(`${window.location.origin}/${recipeType}/${recipeId}`);
-
     setShowLinkCopied(recipeId);
   };
 

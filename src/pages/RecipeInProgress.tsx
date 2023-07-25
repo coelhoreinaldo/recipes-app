@@ -25,7 +25,6 @@ export default function RecipeInProgress() {
   if (id) {
     recipeId = id;
   }
-  const isMeal = pathname.includes('meals');
   const navigate = useNavigate();
 
   const handleIngredientClick = (
@@ -66,10 +65,11 @@ export default function RecipeInProgress() {
     if (doneRecipes.some((recipe:IDoneRecipe) => recipe.id === id)) {
       return navigate('/done-recipes');
     }
+
     const doneDate = new Date();
     const doneRecipe = {
       id,
-      type: isMeal ? 'meal' : 'drink',
+      type: recipeType.slice(0, -1),
       nationality: currRecipe.strArea,
       category: currRecipe.strCategory,
       alcoholicOrNot: currRecipe.strAlcoholic,

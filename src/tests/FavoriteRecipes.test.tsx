@@ -5,16 +5,16 @@ import renderWithRouter from './helpers/renderWith';
 import Provider from '../context/Provider';
 import fetchMock from '../../cypress/mocks/fetch.js';
 import App from '../App';
-import { doneRecipesMock } from './mocks/localStorageMocks';
+import { favoriteRecipesMock } from './mocks/localStorageMocks';
 
-const initialEntry = '/done-recipes';
+const initialEntry = '/favorite-recipes';
 
-describe('done recipes page', () => {
+describe('favorite recipes page', () => {
   vi.mock('clipboard-copy');
 
   beforeEach(() => {
     vi.spyOn(global, 'fetch').mockImplementation(fetchMock);
-    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipesMock));
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipesMock));
     renderWithRouter(
       <Provider>
         <App />
@@ -28,14 +28,15 @@ describe('done recipes page', () => {
   });
 
   it('should show the elements', async () => {
-    const pageTitle = screen.getByRole('heading', { name: /done recipes/i });
+    const pageTitle = screen.getByRole('heading', { name: /favorite recipes/i });
     const filterAllBtn = screen.getByTestId('filter-by-all-btn');
     const filterMealBtn = screen.getByTestId('filter-by-meal-btn');
     const filterDrinkBtn = screen.getByTestId('filter-by-drink-btn');
     const recipeImg = screen.getByTestId('0-horizontal-image');
     const recipeName = screen.getByTestId('0-horizontal-name');
     const recipeCategory = screen.getByTestId('0-horizontal-top-text');
-    const recipeDate = screen.getByTestId('0-horizontal-done-date');
+    const favoriteBtn = screen.getByTestId('0-horizontal-favorite-btn');
+    const shareBtn = screen.getByTestId('0-horizontal-share-btn');
 
     expect(pageTitle).toBeInTheDocument();
     expect(filterAllBtn).toBeInTheDocument();
@@ -44,7 +45,8 @@ describe('done recipes page', () => {
     expect(recipeImg).toBeInTheDocument();
     expect(recipeName).toBeInTheDocument();
     expect(recipeCategory).toBeInTheDocument();
-    expect(recipeDate).toBeInTheDocument();
+    expect(favoriteBtn).toBeInTheDocument();
+    expect(shareBtn).toBeInTheDocument();
   });
 
   it('should filter by meal', async () => {
@@ -77,9 +79,20 @@ describe('done recipes page', () => {
     const mealElAfterClickAll = screen.getByRole('img', { name: /spicy arrabiata penne/i });
     expect(mealElAfterClickAll).toBeInTheDocument();
   });
+
+  it('should dislike a recipe after favorite btn click', async () => {
+    const mealEl = screen.getByRole('img', { name: /spicy arrabiata penne/i });
+    expect(mealEl).toBeInTheDocument();
+
+    const favoriteBtn = screen.getByTestId('0-horizontal-favorite-btn');
+    await userEvent.click(favoriteBtn);
+
+    const mealElAfterClick = screen.queryByRole('img', { name: /spicy arrabiata penne/i });
+    expect(mealElAfterClick).not.toBeInTheDocument();
+  });
 });
 
-it('should be empty if there is no done recipes', async () => {
+it('should be empty if there is no favorite recipes', async () => {
   localStorage.clear();
   renderWithRouter(
     <Provider>
@@ -87,6 +100,6 @@ it('should be empty if there is no done recipes', async () => {
     </Provider>,
     { initialEntries: [initialEntry] },
   );
-  const emptyMsg = await screen.findByText(/you haven't finished any recipe yet/i);
+  const emptyMsg = await screen.findByText(/you don't have any favorite recipe yet/i);
   expect(emptyMsg).toBeInTheDocument();
 });

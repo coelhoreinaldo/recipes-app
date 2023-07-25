@@ -10,10 +10,5 @@ export default function useLocalStorage(key:string, initialValue:any) {
     setStoredValue(value);
   };
 
-  const clearValue = () => {
-    localStorage.removeItem(key);
-    setStoredValue(initialValue);
-  };
-
-  return [storedValue, setValue, clearValue];
+  return [storedValue, setValue];
 }
