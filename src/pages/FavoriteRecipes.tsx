@@ -56,7 +56,10 @@ export default function FavoriteRecipes() {
           testId="filter-by-drink-btn"
         />
       </section>
-      <DoneFavRecipeCard filteredRecipes={ filteredRecipes } />
+      <DoneFavRecipeCard
+        filteredRecipes={ filteredRecipes }
+        setFilteredRecipes={ setFilteredRecipes }
+      />
       <Footer />
     </div>
   );

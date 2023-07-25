@@ -1,15 +1,28 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import { IDoneRecipe } from '../types/recipeTypes';
 import ShareButton from './Buttons/ShareButton';
+
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 
 type Props = {
   filteredRecipes: IDoneRecipe[];
   isDoneRecipe?: boolean;
+  setFilteredRecipes: React.Dispatch<React.SetStateAction<IDoneRecipe[]>>;
 };
 
-export default function DoneFavRecipeCard({ filteredRecipes, isDoneRecipe = false,
+export default function DoneFavRecipeCard({
+  filteredRecipes, isDoneRecipe = false, setFilteredRecipes,
 }: Props) {
+  const { favorites, setFavorites } = useContext(RecipeDetailsContext);
+
+  const handleFavoriteClick = (item: IDoneRecipe) => {
+    const newFavorites = favorites.filter((recipe: IDoneRecipe) => recipe.id !== item.id);
+    setFavorites(newFavorites);
+    setFilteredRecipes(newFavorites);
+  };
+
   return (
     <section className="flex flex-col relative m-6 gap-y-4 ">
       {filteredRecipes && filteredRecipes.length === 0 && (
@@ -74,12 +87,22 @@ export default function DoneFavRecipeCard({ filteredRecipes, isDoneRecipe = fals
                 </p>
               ))}
             </div>
-            <ShareButton
-              customClass="absolute top-2 right-2 z-50"
-              recipeType={ `${recipe.type}s` }
-              recipeId={ recipe.id }
-              testId={ `${index}-horizontal-share-btn` }
-            />
+            <section>
+              <ShareButton
+                customClass="absolute top-2 right-2 z-50"
+                recipeType={ `${recipe.type}s` }
+                recipeId={ recipe.id }
+                testId={ `${index}-horizontal-share-btn` }
+              />
+              {!isDoneRecipe && (
+                <button onClick={ () => handleFavoriteClick(recipe) }>
+                  <img
+                    src={ blackHeartIcon }
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    alt="favorite icon"
+                  />
+                </button>)}
+            </section>
           </div>
         </section>
       ))}
