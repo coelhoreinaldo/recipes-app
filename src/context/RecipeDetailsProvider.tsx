@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import { getLocalStorageDoneRecipes,
@@ -16,8 +15,6 @@ export interface RecipeDetailsContextProps {
   currRecipe: IRecipeDetails;
   getRecipeDetailsById: () => Promise<void>;
   setIsFavorite: (value: boolean) => void;
-  showLinkCopied: boolean;
-  handleShareClick: () => void;
   handleFavoriteClick: (item: IRecipeDetails) => void;
 }
 
@@ -49,7 +46,6 @@ export default function RecipeDetailsProvider({ children }:
     strTags: [],
   });
 
-  const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
 
   const getRecipeDetailsById = useCallback(async () => {
@@ -79,11 +75,6 @@ export default function RecipeDetailsProvider({ children }:
     });
   }, [fetchApi, isMeal, recipeApi, recipeType, recipeId]);
 
-  const handleShareClick = useCallback(() => {
-    setShowLinkCopied(true);
-    copy(`${window.location.origin}/${recipeType}/${recipeId}`);
-  }, [recipeId, recipeType]);
-
   const handleFavoriteClick = useCallback((item: IRecipeDetails) => {
     const recipeInfo = {
       id: recipeId,
@@ -112,12 +103,10 @@ export default function RecipeDetailsProvider({ children }:
     currRecipe,
     getRecipeDetailsById,
     setIsFavorite,
-    showLinkCopied,
-    handleShareClick,
     handleFavoriteClick,
   }), [isDone, isInProgress,
     isFavorite, currRecipe, getRecipeDetailsById,
-    showLinkCopied, handleShareClick, handleFavoriteClick]);
+    handleFavoriteClick]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>

@@ -1,25 +1,18 @@
 import { useEffect, useState } from 'react';
-import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { IDoneRecipe } from '../types/recipeTypes';
-import shareIcon from '../images/shareIcon.svg';
+import ShareButton from '../components/Buttons/ShareButton';
 
 export default function DoneRecipes() {
   const [recipes, setRecipes] = useState<IDoneRecipe[]>([]);
   const [filteredRecipes, setFilteredRecipes] = useState<IDoneRecipe[]>([]);
-  const [showLinkCopied, setShowLinkCopied] = useState('');
 
   const getDoneRecipesFromStorage = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
     setFilteredRecipes(doneRecipes);
     return setRecipes(doneRecipes);
-  };
-
-  const handleShareClick = (recipeType:string, recipeId:string) => {
-    copy(`${window.location.origin}/${recipeType}/${recipeId}`);
-    setShowLinkCopied(recipeId);
   };
 
   const handleFilterClick = (filter:string) => {
@@ -116,19 +109,12 @@ export default function DoneRecipes() {
               ))
             }
               </div>
-              <button
-                className="absolute top-2 right-2 z-50"
-                type="button"
-                onClick={ () => handleShareClick(`${recipe.type}s`, recipe.id) }
-              >
-                {
-                  showLinkCopied === recipe.id ? <p>Link copied!</p> : <img
-                    src={ shareIcon }
-                    alt="Share"
-                    data-testid={ `${index}-horizontal-share-btn` }
-                  />
-                }
-              </button>
+              <ShareButton
+                customClass="absolute top-2 right-2 z-50"
+                recipeType={ `${recipe.type}s` }
+                recipeId={ recipe.id }
+                testId={ `${index}-horizontal-share-btn` }
+              />
             </div>
           </section>
         ))}
