@@ -30,7 +30,9 @@ export default function DoneFavRecipeCard({
           className="text-center text-2xl font-bold"
           data-testid="text-for-no-done-recipes"
         >
-          {'You haven\'t finished any recipe yet'}
+          {isDoneRecipe
+            ? 'You haven\'t finished any recipe yet'
+            : 'You don\'t have any favorite recipe yet'}
         </p>
       )}
       {filteredRecipes && filteredRecipes.map((recipe, index) => (
