@@ -79,10 +79,10 @@ export default function RecipeDetailsProvider({ children }:
     });
   }, [fetchApi, isMeal, recipeApi, recipeType, recipeId]);
 
-  const handleShareClick = () => {
+  const handleShareClick = useCallback(() => {
     setShowLinkCopied(true);
-    copy(window.location.href.split('/').slice(0, 5).join('/'));
-  };
+    copy(`${window.location.origin}/${recipeType}/${recipeId}`);
+  }, [recipeId, recipeType]);
 
   const handleFavoriteClick = useCallback((item: IRecipeDetails) => {
     const recipeInfo = {
@@ -116,7 +116,8 @@ export default function RecipeDetailsProvider({ children }:
     handleShareClick,
     handleFavoriteClick,
   }), [isDone, isInProgress,
-    isFavorite, currRecipe, getRecipeDetailsById, showLinkCopied, handleFavoriteClick]);
+    isFavorite, currRecipe, getRecipeDetailsById,
+    showLinkCopied, handleShareClick, handleFavoriteClick]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>

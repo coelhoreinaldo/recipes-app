@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import copy from 'clipboard-copy';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { IDoneRecipe } from '../types/recipeTypes';
@@ -6,17 +7,21 @@ import shareIcon from '../images/shareIcon.svg';
 
 export default function DoneRecipes() {
   const [recipes, setRecipes] = useState<IDoneRecipe[]>([]);
+  const [showLinkCopied, setShowLinkCopied] = useState('');
 
   const getDoneRecipesFromStorage = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
     setRecipes(doneRecipes);
   };
 
+  const handleShareClick = (recipeType:string, recipeId:string) => {
+    copy(`${window.location.origin}/${recipeType}/${recipeId}`);
+    setShowLinkCopied(recipeId);
+  };
+
   useEffect(() => {
     getDoneRecipesFromStorage();
   }, []);
-
-  console.log(recipes);
 
   return (
     <div className="pb-16">
@@ -95,14 +100,17 @@ export default function DoneRecipes() {
             }
               </div>
               <button
-                className="absolute top-2 right-2"
+                className="absolute top-2 right-2 z-50"
                 type="button"
+                onClick={ () => handleShareClick(`${recipe.type}s`, recipe.id) }
               >
-                <img
-                  src={ shareIcon }
-                  alt="Share"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                />
+                {
+                  showLinkCopied === recipe.id ? <p>Link copied!</p> : <img
+                    src={ shareIcon }
+                    alt="Share"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                  />
+                }
               </button>
             </div>
           </section>
