@@ -14,8 +14,9 @@ export default function RecipeInProgress() {
   const [checkedIngredients, setCheckedIngredients] = useState<string[]>([]);
   const [inProgressStorage, setInProgressStorage] = useLocalStorage(
     'inProgressRecipes',
-    {},
+    { meals: {}, drinks: {} },
   );
+
   const [doneRecipes, setDoneRecipes] = useLocalStorage('doneRecipes', []);
   const { pathname } = useLocation();
   const { recipeType } = getApiInfo(pathname);

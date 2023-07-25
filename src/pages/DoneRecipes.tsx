@@ -9,8 +9,6 @@ export default function DoneRecipes() {
 
   const getDoneRecipesFromStorage = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
-    console.log(doneRecipes);
-
     setRecipes(doneRecipes);
   };
 
