@@ -16,6 +16,8 @@ export default function DoneRecipes() {
     getDoneRecipesFromStorage();
   }, []);
 
+  console.log(recipes);
+
   return (
     <div className="pb-16">
       <Header title="Done Recipes" />
@@ -69,8 +71,7 @@ export default function DoneRecipes() {
                 className="text-sm text-gray-400"
                 data-testid={ `${index}-horizontal-top-text` }
               >
-                {recipe.category}
-
+                {`${recipe.nationality} - ${recipe.category} ${recipe.alcoholicOrNot}`}
               </h4>
               <p
                 className="text-sm"
@@ -96,9 +97,12 @@ export default function DoneRecipes() {
               <button
                 className="absolute top-2 right-2"
                 type="button"
-                data-testid={ `${index}-horizontal-share-btn` }
               >
-                <img src={ shareIcon } alt="Share" />
+                <img
+                  src={ shareIcon }
+                  alt="Share"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
               </button>
             </div>
           </section>
