@@ -1,22 +1,37 @@
-import React, { useContext } from 'react';
-import { RecipeDetailsContext } from '../../context/RecipeDetailsProvider';
+import React, { useState } from 'react';
+import copy from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
 
 type Props = {
   customClass?: string;
+  testId?: string;
+  recipeType: string;
+  recipeId: string;
 };
 
-export default function ShareButton({ customClass = '' }: Props) {
-  const { handleShareClick, showLinkCopied } = useContext(RecipeDetailsContext);
+export default function ShareButton({
+  customClass = '', recipeType, recipeId, testId = '',
+}: Props) {
+  const [showLinkCopied, setShowLinkCopied] = useState('');
+
+  const handleShareClick = () => {
+    copy(`${window.location.origin}/${recipeType}/${recipeId}`);
+    console.log(`${window.location.origin}/${recipeType}/${recipeId}`);
+
+    setShowLinkCopied(recipeId);
+  };
+
   return (
     <button
-      data-testid="share-btn"
-      onClick={ handleShareClick }
       className={ customClass }
+      type="button"
+      onClick={ handleShareClick }
     >
-      {showLinkCopied ? <p>Link copied!</p> : (
-        <img src={ shareIcon } alt="share icon" />
-      )}
+      { showLinkCopied === recipeId ? <p>Link copied!</p> : <img
+        src={ shareIcon }
+        alt="Share"
+        data-testid={ testId }
+      />}
     </button>
   );
 }

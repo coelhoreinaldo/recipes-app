@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
-import ShareFavoriteButtons from '../components/ShareFavoriteButtons';
+import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
 import { getApiInfo } from '../utils/apiFunctions';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { IDoneRecipe } from '../types/recipeTypes';
@@ -21,7 +21,10 @@ export default function RecipeInProgress() {
   const { pathname } = useLocation();
   const { recipeType } = getApiInfo(pathname);
   const { id } = useParams();
-  const recipeId = id || pathname.split('/')[2];
+  let recipeId = pathname.split('/')[2];
+  if (id) {
+    recipeId = id;
+  }
   const isMeal = pathname.includes('meals');
   const navigate = useNavigate();
 
@@ -148,7 +151,11 @@ export default function RecipeInProgress() {
           ))}
         </ul>
       </section>
-      <ShareFavoriteButtons />
+      <ShareFavoriteButtons
+        testId="share-btn"
+        recipeType={ recipeType }
+        recipeId={ recipeId }
+      />
       <button
         className="border-primary rounded-lg border-2 p-1 w-full text-white
         bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple

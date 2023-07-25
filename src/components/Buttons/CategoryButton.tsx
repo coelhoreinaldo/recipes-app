@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { RecipeContext } from '../context/RecipeProvider';
+import { RecipeContext } from '../../context/RecipeProvider';
 
 type Props = {
   strCategory: string,

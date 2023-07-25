@@ -6,12 +6,16 @@ import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDrink, IMeal } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
-import ShareFavoriteButtons from '../components/ShareFavoriteButtons';
+import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
 
 export default function RecipeDetails() {
-  const params = useParams();
+  const { id } = useParams();
   const { fetchApi, isFetching } = useFetch();
   const { pathname } = useLocation();
+  let recipeId = pathname.split('/')[2];
+  if (id) {
+    recipeId = id;
+  }
   const isMeal = pathname.includes('meals');
   const { recipeType } = getApiInfo(pathname);
   const {
@@ -101,11 +105,15 @@ export default function RecipeDetails() {
           ))
       }
       </section>
-      <ShareFavoriteButtons />
+      <ShareFavoriteButtons
+        testId="share-btn"
+        recipeType={ recipeType }
+        recipeId={ recipeId }
+      />
       {!isDone
       && (
         <Link
-          to={ `/${recipeType}/${params.id}/in-progress` }
+          to={ `/${recipeType}/${recipeId}/in-progress` }
           className="border-primary rounded-lg border-2 p-1 w-full text-white
         bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
         font-bold bottom-0 fixed text-center"
