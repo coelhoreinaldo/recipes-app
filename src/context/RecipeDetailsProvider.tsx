@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import copy from 'clipboard-copy';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo, getIngredientsAndMeasures } from '../utils/apiFunctions';
 import { getLocalStorageDoneRecipes,
@@ -14,10 +13,8 @@ export interface RecipeDetailsContextProps {
   isInProgress: boolean;
   isFavorite: boolean;
   currRecipe: IRecipeDetails;
-  getData: () => Promise<void>;
+  getRecipeDetailsById: () => Promise<void>;
   setIsFavorite: (value: boolean) => void;
-  showLinkCopied: boolean;
-  handleShareClick: () => void;
   handleFavoriteClick: (item: IRecipeDetails) => void;
 }
 
@@ -49,10 +46,9 @@ export default function RecipeDetailsProvider({ children }:
     strTags: [],
   });
 
-  const [showLinkCopied, setShowLinkCopied] = useState(false);
   const [favorites, setFavorites] = useLocalStorage('favoriteRecipes', []);
 
-  const getData = useCallback(async () => {
+  const getRecipeDetailsById = useCallback(async () => {
     const API_URL = `https://www.the${recipeApi}db.com/api/json/v1/1/lookup.php?i=${recipeId}`;
     const recipeData = await fetchApi(API_URL);
     const recipeInfo = recipeData[recipeType][0];
@@ -78,11 +74,6 @@ export default function RecipeDetailsProvider({ children }:
         ? recipeInfo.strTags.split(',') : [],
     });
   }, [fetchApi, isMeal, recipeApi, recipeType, recipeId]);
-
-  const handleShareClick = () => {
-    setShowLinkCopied(true);
-    copy(window.location.href.split('/').slice(0, 5).join('/'));
-  };
 
   const handleFavoriteClick = useCallback((item: IRecipeDetails) => {
     const recipeInfo = {
@@ -110,13 +101,12 @@ export default function RecipeDetailsProvider({ children }:
     isInProgress,
     isFavorite,
     currRecipe,
-    getData,
+    getRecipeDetailsById,
     setIsFavorite,
-    showLinkCopied,
-    handleShareClick,
     handleFavoriteClick,
   }), [isDone, isInProgress,
-    isFavorite, currRecipe, getData, showLinkCopied, handleFavoriteClick]);
+    isFavorite, currRecipe, getRecipeDetailsById,
+    handleFavoriteClick]);
 
   return (
     <RecipeDetailsContext.Provider value={ values }>

@@ -59,6 +59,9 @@ describe('recipe in progress page', () => {
       drinks: {
         178319: ['Hpnotiq', 'Pineapple Juice', 'Banana Liqueur'],
       },
+      meals: {
+
+      },
     });
 
     const ingredient0 = await screen.findByRole('checkbox', { name: /hpnotiq/i });

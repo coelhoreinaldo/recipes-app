@@ -46,7 +46,7 @@ export const doneRecipesMock = [
     alcoholicOrNot: 'Alcoholic',
     name: 'Aquamarine',
     image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '2023-07-24T18:31:16.672Z',
+    doneDate: '2023-07-25T14:57:23.912Z',
     tags: [],
   },
   {
@@ -57,7 +57,7 @@ export const doneRecipesMock = [
     alcoholicOrNot: '',
     name: 'Spicy Arrabiata Penne',
     image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '2023-07-24T18:33:46.952Z',
+    doneDate: '2023-07-25T14:57:40.121Z',
     tags: [
       'Pasta',
       'Curry',

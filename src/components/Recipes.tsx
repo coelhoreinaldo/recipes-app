@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
-import CategoryButton from './CategoryButton';
+import CategoryButton from './Buttons/CategoryButton';
 import { RecipeContext } from '../context/RecipeProvider';
 import { Category, IDrink, IMeal } from '../types/recipeTypes';
 
