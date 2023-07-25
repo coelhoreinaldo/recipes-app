@@ -5,7 +5,7 @@ import renderWithRouter from './helpers/renderWith';
 import Provider from '../context/Provider';
 import fetchMock from '../../cypress/mocks/fetch.js';
 import App from '../App';
-import { favoriteRecipesMock } from './mocks/localStorageMocks';
+import { favoriteRecipesMock, recipesInProgressMock } from './mocks/localStorageMocks';
 
 const initialEntry = '/meals/52771';
 const favoriteBtnTestId = 'favorite-btn';
@@ -127,5 +127,20 @@ describe('recipe details page', () => {
     const updatedFavoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
     expect(updatedFavoriteRecipes).toHaveLength(1);
     expect(updatedFavoriteRecipes[0]).toEqual(favoriteRecipesMock[1]);
+  });
+  it('should show "continue recipe" instead if recipe is in progress', async () => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(recipesInProgressMock));
+    renderWithRouter(
+      <Provider>
+        <App />
+      </Provider>,
+      { initialEntries: ['/drinks/178319'] },
+    );
+
+    const loading = screen.getByTestId('loading');
+    await waitForElementToBeRemoved(loading);
+
+    const continueRecipeBtn = await screen.findByText(/continue recipe/i);
+    expect(continueRecipeBtn).toBeInTheDocument();
   });
 });
