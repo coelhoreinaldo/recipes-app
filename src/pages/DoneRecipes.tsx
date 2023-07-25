@@ -59,6 +59,14 @@ export default function DoneRecipes() {
       </section>
 
       <section className="flex flex-col relative m-6 gap-y-4 ">
+        {filteredRecipes.length === 0 && (
+          <p
+            className="text-center text-2xl font-bold"
+            data-testid="text-for-no-done-recipes"
+          >
+            {'You haven\'t finished any recipe yet'}
+          </p>
+        )}
         {filteredRecipes.map((recipe, index) => (
           <section
             className="grid grid-cols-2 relative
