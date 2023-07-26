@@ -51,28 +51,17 @@ export default function RecipeDetails() {
 
   return (
     <div className="pb-12">
-      {isMeal
-        ? <RecipeDetailsCard
-            strThumb={ strThumb }
-            strName={ strName }
-            strCategory={ strCategory }
-            strAlcoholic={ strAlcoholic }
-            recipeIngredients={ recipeIngredients }
-            recipeMeasures={ recipeMeasures }
-            strInstructions={ strInstructions }
-            strYoutube={ strYoutube }
-            isMeal
-        />
-        : <RecipeDetailsCard
-            strThumb={ strThumb }
-            strName={ strName }
-            strCategory={ strCategory }
-            strAlcoholic={ strAlcoholic }
-            recipeIngredients={ recipeIngredients }
-            recipeMeasures={ recipeMeasures }
-            strInstructions={ strInstructions }
-            strYoutube={ strYoutube }
-        />}
+      <RecipeDetailsCard
+        strThumb={ strThumb }
+        strName={ strName }
+        strCategory={ strCategory }
+        strAlcoholic={ strAlcoholic }
+        recipeIngredients={ recipeIngredients }
+        recipeMeasures={ recipeMeasures }
+        strInstructions={ strInstructions }
+        strYoutube={ strYoutube }
+        isMeal={ isMeal }
+      />
       <section
         className="flex items-center m-2 rounded-lg px-2
         min-h-[210px] overflow-x-auto max-w-full gap-x-4"
