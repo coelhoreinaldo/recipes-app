@@ -19,7 +19,7 @@ function RecipeCard({
         data-testid={ `${index}-card-img` }
         className="aspect-auto"
       />
-      <h3 data-testid={ dataTestIdTitle }>{strRecipe}</h3>
+      <h3 className="p-1 text-slate-900" data-testid={ dataTestIdTitle }>{strRecipe}</h3>
     </Link>
   );
 }

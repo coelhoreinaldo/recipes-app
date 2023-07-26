@@ -35,7 +35,7 @@ describe('recipe component', () => {
     expect(loading).toBeInTheDocument();
 
     const mealEl = await screen.findByRole('heading', { name: /corba/i });
-    const beefCategory = screen.getByRole('button', { name: /beef/i });
+    const beefCategory = screen.getByTestId('Beef-category-filter');
     expect(mealEl).toBeInTheDocument();
     expect(beefCategory).toBeInTheDocument();
 
@@ -47,7 +47,7 @@ describe('recipe component', () => {
     const beefEl = await screen.findByRole('heading', { name: /beef and mustard pie/i });
     expect(beefEl).toBeInTheDocument();
 
-    const allBtn = screen.getByRole('button', { name: /all/i });
+    const allBtn = screen.getByTestId('All-category-filter');
     expect(allBtn).toBeInTheDocument();
 
     userEvent.click(allBtn);
@@ -66,7 +66,7 @@ describe('recipe component', () => {
     expect(loading).toBeInTheDocument();
 
     const drinkEl = await screen.findByRole('link', { name: /gg gg/i });
-    const ordinaryCategory = screen.getByRole('button', { name: /ordinary drink/i });
+    const ordinaryCategory = screen.getByTestId('Ordinary Drink-category-filter');
     expect(drinkEl).toBeInTheDocument();
     expect(ordinaryCategory).toBeInTheDocument();
 

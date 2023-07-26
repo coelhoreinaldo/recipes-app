@@ -4,6 +4,7 @@ import RecipeCard from './RecipeCard';
 import CategoryButton from './Buttons/CategoryButton';
 import { RecipeContext } from '../context/RecipeProvider';
 import { Category, IDrink, IMeal } from '../types/recipeTypes';
+import Loading from './Loading';
 
 export default function Recipes() {
   const { pathname } = useLocation();
@@ -19,19 +20,19 @@ export default function Recipes() {
   }, []);
 
   if (isFetching) {
-    return <p data-testid="loading">Loading</p>;
+    return <Loading />;
   }
 
   return (
     <main className="mt-4 mb-16">
       <section className="flex justify-between px-2">
+        <CategoryButton strCategory="All" data-testid="All-category-filter" />
         {pathname === '/meals'
           ? mealsCategories.map(({ strCategory }:Category) => (
             <CategoryButton key={ strCategory } strCategory={ strCategory } />
           )) : drinksCategories.map(({ strCategory }:Category) => (
             <CategoryButton key={ strCategory } strCategory={ strCategory } />
           ))}
-        <CategoryButton strCategory="All" data-testid="All-category-filter" />
       </section>
       <section className="grid grid-cols-2 sm:grid-cols-3 gap-8 px-2 mt-4">
         {pathname === '/meals'
