@@ -5,7 +5,7 @@ import mealIcon from '../images/mealIcon.svg';
 export default function Footer() {
   return (
     <footer
-      className="fixed bottom-0 flex bg-primary w-full justify-between px-4 py-2"
+      className="fixed bottom-0 flex bg-primary w-full justify-between px-4 py-2 z-50"
       data-testid="footer"
     >
       <Link to="/drinks" data-testid="drink-btn-link">

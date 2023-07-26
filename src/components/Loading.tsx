@@ -5,9 +5,10 @@ export default function Loading() {
     <div
       role="status"
       data-testid="loading"
-      className="w-full h-screen -mt-16 flex items-center justify-center"
+      className="w-full h-screen flex items-center
+      justify-center bg-black bg-opacity-60 z-50"
     >
-      <img src={ rockGlass } alt="Loading" className="animate-ping h-36 w-36" />
+      <img src={ rockGlass } alt="Loading" className="animate-ping h-36 w-36 -mt-14 " />
     </div>
   );
 }

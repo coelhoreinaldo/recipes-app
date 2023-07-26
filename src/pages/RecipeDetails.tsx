@@ -7,6 +7,7 @@ import { IDrink, IMeal } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
+import Loading from '../components/Loading';
 
 export default function RecipeDetails() {
   const { id } = useParams();
@@ -43,7 +44,7 @@ export default function RecipeDetails() {
   }, []);
 
   if (isFetching) {
-    return <p data-testid="loading">Loading</p>;
+    return <Loading />;
   }
 
   return (
