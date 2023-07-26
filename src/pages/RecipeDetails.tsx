@@ -6,7 +6,6 @@ import RecipeDetailsCard from '../components/RecipeDetailsCard';
 import { IDrink, IMeal } from '../types/recipeTypes';
 import RecipeCard from '../components/RecipeCard';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
-import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
 import Loading from '../components/Loading';
 import Button from '../components/Buttons/Button';
 
@@ -61,6 +60,8 @@ export default function RecipeDetails() {
         strInstructions={ strInstructions }
         strYoutube={ strYoutube }
         isMeal={ isMeal }
+        recipeType={ recipeType }
+        recipeId={ recipeId }
       />
       <section
         className="flex items-center m-2 rounded-lg px-2
@@ -97,11 +98,6 @@ export default function RecipeDetails() {
           ))
       }
       </section>
-      <ShareFavoriteButtons
-        testId="share-btn"
-        recipeType={ recipeType }
-        recipeId={ recipeId }
-      />
       {!isDone
       && (
         <Button
