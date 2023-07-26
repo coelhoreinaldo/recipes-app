@@ -146,7 +146,7 @@ export default function RecipeInProgress() {
                     name={ ingredient }
                     value={ ingredient }
                     checked={ checkedIngredients.includes(ingredient) }
-                    className="form-checkbox h-5 w-5 text-primary"
+                    className="form-checkbox h-5 w-5 text-primary accent-secondary"
                     onChange={ (event) => handleIngredientClick(event, ingredient) }
                   />
                   {ingredient}
@@ -163,7 +163,7 @@ export default function RecipeInProgress() {
       <button
         className="border-primary rounded-lg border-2 p-1 w-full text-white
         bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
-        font-bold bottom-0 fixed text-center"
+        font-bold bottom-0 fixed text-center transition duration-700"
         disabled={ checkedIngredients.length !== noRepeatIngredients.length }
         type="submit"
         data-testid="finish-recipe-btn"

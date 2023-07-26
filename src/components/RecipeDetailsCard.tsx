@@ -40,7 +40,7 @@ function RecipeDetailsCard({
       </section>
       <section className="mx-4 text-sm">
         <h3 className="text-lg font-extrabold">Ingredients</h3>
-        <ul className="flex gap-2 px-6 py-2 border-primary border-2">
+        <ul className="flex gap-2 list-inside p-2 border-primary border-2">
           <div>
             {recipeIngredients.map((ing, i) => (
               <li
@@ -63,12 +63,13 @@ function RecipeDetailsCard({
       </section>
       <section className="mx-4">
         <h3 className="text-lg font-extrabold">Instructions</h3>
-        <p
-          className="flex gap-2 p-2 border-primary border-2"
+        <article
+          className="whitespace-pre-wrap flex gap-2 p-2 border-primary border-2
+          overflow-auto h-64"
           data-testid="instructions"
         >
           {strInstructions}
-        </p>
+        </article>
       </section>
       {isMeal && strYoutube && (
         <section>
