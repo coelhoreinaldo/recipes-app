@@ -20,7 +20,7 @@ function RecipeDetailsCard({
   recipeId,
 }:RecipeDetailsCardProps) {
   return (
-    <section className="text-sm flex flex-col gap-2 relative">
+    <section className="flex flex-col gap-2 relative">
       <RecipeImageTitle
         strThumb={ strThumb }
         strName={ strName }

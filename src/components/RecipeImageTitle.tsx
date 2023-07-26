@@ -26,21 +26,28 @@ export default function RecipeImageTitle({
         data-testid="recipe-photo"
         className="w-full h-full object-cover absolute"
       />
-      <h2
+      <div
         className="bottom-0 left-0 text-4xl font-bold w-full flex
           uppercase justify-center items-center text-center bg-black
-          bg-opacity-60 h-full text-white p-2 z-50"
+          bg-opacity-60 h-full p-2 z-50"
         data-testid="recipe-title"
       >
-        {strName}
+        <h2
+          className="bg-gradient-to-r from-slate-300 via-slate-50 to-slate-300
+          bg-clip-text text-transparent"
+        >
+          {strName}
+        </h2>
 
-      </h2>
+      </div>
       <div
         className="z-50 absolute flex justify-between w-full top-4
           text-secondary items-center font-bold px-4"
       >
         <h4
           data-testid="recipe-category"
+          className=" bg-gradient-to-r from-secondary via-slate-50 to-slate-100
+          bg-clip-text text-transparent"
         >
           {strCategory}
           {strAlcoholic && ` - ${strAlcoholic}`}
