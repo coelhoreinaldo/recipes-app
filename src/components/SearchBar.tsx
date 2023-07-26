@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { RecipeContext } from '../context/RecipeProvider';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo } from '../utils/apiFunctions';
+import Button from './Buttons/Button';
 
 const bgAndBorder = 'bg-primary border-primary';
 
@@ -28,7 +29,7 @@ export default function SearchBar() {
     return setSearchTag(value);
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const isMealsPage = pathname === '/meals';
     const { recipeApi, recipeType, recipeId } = getApiInfo(pathname);
@@ -50,7 +51,7 @@ export default function SearchBar() {
   };
 
   return (
-    <form onSubmit={ handleSubmit } className="w-full flex flex-col items-center mt-2">
+    <form className="w-full flex flex-col items-center mt-2">
       <label htmlFor="search-input" className="w-full">
         <input
           type="text"
@@ -128,17 +129,13 @@ export default function SearchBar() {
           />
           <span className="ml-2">First Letter</span>
         </label>
-        <button
-          className="border-primary rounded-lg border-2 p-1 w-full text-white
-        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
-        font-bold my-2 transition duration-700 uppercase"
-          type="submit"
-          data-testid="exec-search-btn"
-          disabled={ !searchInput }
-        >
-          Search
-
-        </button>
+        <Button
+          testId="exec-search-btn"
+          disabledCondition={ !searchInput }
+          text="Search"
+          onClick={ handleSubmit }
+          customClass="my-2"
+        />
       </fieldset>
 
     </form>

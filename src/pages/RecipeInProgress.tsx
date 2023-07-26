@@ -5,6 +5,7 @@ import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
 import { getApiInfo } from '../utils/apiFunctions';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { IDoneRecipe } from '../types/recipeTypes';
+import Button from '../components/Buttons/Button';
 
 export default function RecipeInProgress() {
   const { currRecipe, getRecipeDetailsById,
@@ -160,18 +161,13 @@ export default function RecipeInProgress() {
         recipeType={ recipeType }
         recipeId={ recipeId }
       />
-      <button
-        className="border-primary rounded-lg border-2 p-1 w-full text-white
-        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
-        font-bold bottom-0 fixed text-center transition duration-700"
-        disabled={ checkedIngredients.length !== noRepeatIngredients.length }
-        type="submit"
-        data-testid="finish-recipe-btn"
+      <Button
+        testId="finish-recipe-btn"
+        disabledCondition={ checkedIngredients.length !== noRepeatIngredients.length }
         onClick={ handleFinishRecipe }
-      >
-        Finish Recipe
-
-      </button>
+        text="Finish Recipe"
+        customClass="bottom-4 fixed mx-4 w-11/12"
+      />
     </div>
   );
 }

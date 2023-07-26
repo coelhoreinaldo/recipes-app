@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams, Link } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo } from '../utils/apiFunctions';
 import RecipeDetailsCard from '../components/RecipeDetailsCard';
@@ -8,6 +8,7 @@ import RecipeCard from '../components/RecipeCard';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
 import Loading from '../components/Loading';
+import Button from '../components/Buttons/Button';
 
 export default function RecipeDetails() {
   const { id } = useParams();
@@ -27,6 +28,7 @@ export default function RecipeDetails() {
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
+  const navigate = useNavigate();
 
   const getRecommendations = async () => {
     let recommendationsData = await fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -113,18 +115,15 @@ export default function RecipeDetails() {
       />
       {!isDone
       && (
-        <Link
-          to={ `/${recipeType}/${recipeId}/in-progress` }
-          className="border-primary rounded-lg border-2 p-1 w-full text-white
-        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
-        font-bold bottom-0 fixed text-center"
-          type="submit"
-          data-testid="start-recipe-btn"
-        >
+        <Button
+          testId="start-recipe-btn"
+          text={ isInProgress ? 'Continue Recipe' : 'Start Recipe' }
+          onClick={ () => navigate(`/${recipeType}/${recipeId}/in-progress`) }
+          disabledCondition={ false }
+          customClass="bottom-0 fixed mx-4 w-11/12"
 
-          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
-
-        </Link>)}
+        />
+      )}
 
     </div>
 
