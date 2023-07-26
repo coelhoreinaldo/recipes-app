@@ -88,6 +88,9 @@ export default function RecipeInProgress() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const noRepeatIngredients = recipeIngredients
+    .filter((ingredient, i) => recipeIngredients.indexOf(ingredient) === i);
+
   return (
     <div className="pb-12">
       <section className="relative h-64 flex items-center justify-center">
@@ -126,29 +129,30 @@ export default function RecipeInProgress() {
       <section className="mx-4">
         <h3 className="text-lg font-extrabold">Ingredients</h3>
         <ul className="flex flex-col gap-2 p-2 border-primary border-2">
-          {recipeIngredients.map((ingredient, index) => (
-            <li
-              key={ index }
-            >
-              <label
-                htmlFor={ ingredient }
-                className={ `flex items-center gap-2 
-                ${checkedIngredients.includes(ingredient) ? 'line-through' : ''}` }
-                data-testid={ `${index}-ingredient-step` }
+          {noRepeatIngredients
+            .map((ingredient, index) => (
+              <li
+                key={ index }
               >
-                <input
-                  type="checkbox"
-                  id={ ingredient }
-                  name={ ingredient }
-                  value={ ingredient }
-                  checked={ checkedIngredients.includes(ingredient) }
-                  className="form-checkbox h-5 w-5 text-primary"
-                  onChange={ (event) => handleIngredientClick(event, ingredient) }
-                />
-                {ingredient}
-              </label>
-            </li>
-          ))}
+                <label
+                  htmlFor={ ingredient }
+                  className={ `flex items-center gap-2 
+                ${checkedIngredients.includes(ingredient) ? 'line-through' : ''}` }
+                  data-testid={ `${index}-ingredient-step` }
+                >
+                  <input
+                    type="checkbox"
+                    id={ ingredient }
+                    name={ ingredient }
+                    value={ ingredient }
+                    checked={ checkedIngredients.includes(ingredient) }
+                    className="form-checkbox h-5 w-5 text-primary"
+                    onChange={ (event) => handleIngredientClick(event, ingredient) }
+                  />
+                  {ingredient}
+                </label>
+              </li>
+            ))}
         </ul>
       </section>
       <ShareFavoriteButtons
@@ -160,7 +164,7 @@ export default function RecipeInProgress() {
         className="border-primary rounded-lg border-2 p-1 w-full text-white
         bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
         font-bold bottom-0 fixed text-center"
-        disabled={ checkedIngredients.length !== recipeIngredients.length }
+        disabled={ checkedIngredients.length !== noRepeatIngredients.length }
         type="submit"
         data-testid="finish-recipe-btn"
         onClick={ handleFinishRecipe }
