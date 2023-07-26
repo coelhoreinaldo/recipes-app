@@ -72,8 +72,8 @@ export default function RecipeDetails() {
             strYoutube={ strYoutube }
         />}
       <section
-        className="flex items-center m-4 rounded-lg
-        min-h-[190px] overflow-x-auto max-w-full gap-x-4"
+        className="flex items-center m-2 rounded-lg px-2
+        min-h-[210px] overflow-x-auto max-w-full gap-x-4"
       >
         {
         !isMeal

@@ -7,9 +7,8 @@ function RecipeCard({
 }:IRecipeCard) {
   return (
     <Link
-      className={ `flex flex-col overflow-hidden items-center shadow-sm
-      shadow-primary rounded-md w-full group
-       hover:-translate-y-2 transition ${minWidth}` }
+      className={ `flex flex-col overflow-hidden rounded-md w-full group
+       shadow-md shadow-primary hover:-translate-y-2 transition ${minWidth}` }
       data-testid={ dataTestId }
       to={ `/${pathname}${idRecipe}` }
     >
@@ -19,7 +18,13 @@ function RecipeCard({
         data-testid={ `${index}-card-img` }
         className="aspect-auto"
       />
-      <h3 className="p-1 text-slate-900" data-testid={ dataTestIdTitle }>{strRecipe}</h3>
+      <h3
+        className="py-1 px-2 text-slate-900 truncate ... text-sm"
+        data-testid={ dataTestIdTitle }
+      >
+        {strRecipe}
+
+      </h3>
     </Link>
   );
 }

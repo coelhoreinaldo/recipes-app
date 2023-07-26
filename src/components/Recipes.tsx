@@ -24,7 +24,7 @@ export default function Recipes() {
   }
 
   return (
-    <main className="mt-4 mb-16">
+    <main className="mt-4 mb-20">
       <section className="flex justify-between px-2">
         <CategoryButton strCategory="All" data-testid="All-category-filter" />
         {pathname === '/meals'
