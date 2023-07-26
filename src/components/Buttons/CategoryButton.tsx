@@ -16,14 +16,16 @@ import dessert from '../../images/Meals/dessertIcon.svg';
 
 type Props = {
   strCategory: string,
+  testId?: string,
+  onClick: () => void,
 };
 
 interface IconMap {
   [key: string]: string;
 }
 
-export default function CategoryButton({ strCategory }: Props) {
-  const { handleCategoryClick, currCategory } = useContext(RecipeContext);
+export default function CategoryButton({ strCategory, testId = '', onClick }: Props) {
+  const { currCategory } = useContext(RecipeContext);
   const { pathname } = useLocation();
   const icons:IconMap = {
     All: allDrinks,
@@ -51,11 +53,12 @@ export default function CategoryButton({ strCategory }: Props) {
         className={ `rounded-full h-10 w-11 flex 
         items-center justify-center text-sm px-2 border-2
       ${isActive ? 'border-primary' : 'border-secondary'}` }
-        data-testid={ `${strCategory}-category-filter` }
-        onClick={ () => handleCategoryClick(strCategory) }
+        data-testid={ testId }
+        onClick={ onClick }
         role={ strCategory }
+        type="button"
       >
-        <img src={ icons[strCategory] } alt="" srcSet="" />
+        <img src={ icons[strCategory] } alt={ strCategory } />
       </button>
       <span
         className={ `h-10 text-xs absolute

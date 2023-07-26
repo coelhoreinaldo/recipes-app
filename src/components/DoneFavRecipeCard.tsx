@@ -102,6 +102,7 @@ export default function DoneFavRecipeCard({
                     src={ blackHeartIcon }
                     data-testid={ `${index}-horizontal-favorite-btn` }
                     alt="favorite icon"
+                    width={ 32 }
                   />
                 </button>)}
             </section>

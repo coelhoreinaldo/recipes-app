@@ -10,7 +10,7 @@ export default function Recipes() {
   const { pathname } = useLocation();
   const {
     filteredMeals, filteredDrinks, mealsCategories, drinksCategories,
-    isFetching, getData, getCategories,
+    isFetching, getData, getCategories, handleCategoryClick,
   } = useContext(RecipeContext);
 
   useEffect(() => {
@@ -26,12 +26,27 @@ export default function Recipes() {
   return (
     <main className="mt-4 mb-20">
       <section className="flex justify-between px-2">
-        <CategoryButton strCategory="All" data-testid="All-category-filter" />
+        <CategoryButton
+          strCategory="All"
+          testId="All-category-filter"
+          onClick={ () => handleCategoryClick('All') }
+
+        />
         {pathname === '/meals'
           ? mealsCategories.map(({ strCategory }:Category) => (
-            <CategoryButton key={ strCategory } strCategory={ strCategory } />
+            <CategoryButton
+              key={ strCategory }
+              strCategory={ strCategory }
+              testId={ `${strCategory}-category-filter` }
+              onClick={ () => handleCategoryClick(strCategory) }
+            />
           )) : drinksCategories.map(({ strCategory }:Category) => (
-            <CategoryButton key={ strCategory } strCategory={ strCategory } />
+            <CategoryButton
+              key={ strCategory }
+              strCategory={ strCategory }
+              testId={ `${strCategory}-category-filter` }
+              onClick={ () => handleCategoryClick(strCategory) }
+            />
           ))}
       </section>
       <section className="grid grid-cols-2 sm:grid-cols-3 gap-8 px-2 mt-4">
