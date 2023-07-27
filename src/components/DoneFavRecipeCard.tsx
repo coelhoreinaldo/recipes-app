@@ -24,7 +24,7 @@ export default function DoneFavRecipeCard({
   };
 
   return (
-    <section className="flex flex-col relative m-6 gap-y-4 ">
+    <section className="mx-4 flex flex-col relative gap-y-4 ">
       {filteredRecipes && filteredRecipes.length === 0 && (
         <p
           className="text-center text-2xl font-bold"
@@ -37,51 +37,54 @@ export default function DoneFavRecipeCard({
       )}
       {filteredRecipes && filteredRecipes.map((recipe, index) => (
         <section
-          className="grid grid-cols-2 relative
-           gap-4 items-center bg-slate-200 h-36"
+          className="flex relative border-slate-200 border-2
+           gap-4 items-center h-36 overflow-hidden"
           key={ index }
         >
           <Link
             to={ `/${recipe.type}s/${recipe.id}` }
+            className="overflow-hidden"
           >
             <img
               src={ recipe.image }
               alt={ recipe.name }
-              width={ 144 }
-              height={ 144 }
+              className=" h-36 object-cover aspect-auto"
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
-          <div className="pr-4 grid">
-            <Link
-              to={ `/${recipe.type}s/${recipe.id}` }
-              className="text-lg font-bold"
-              data-testid={ `${index}-horizontal-name` }
-            >
-              {recipe.name}
-            </Link>
+          <div
+            className="py-1 space-y-1 flex flex-col justify-between h-full w-1/2 text-xs"
+          >
+            <div className="flex flex-col space-y-2">
+              <Link
+                to={ `/${recipe.type}s/${recipe.id}` }
+                className="text-sm font-bold pr-16 flex flex-wrap"
+                data-testid={ `${index}-horizontal-name` }
+              >
+                {recipe.name}
+              </Link>
 
-            <h4
-              className="text-sm text-gray-400"
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {`${recipe.nationality} - ${recipe.category} ${recipe.alcoholicOrNot}`}
-            </h4>
+              <h4
+                className="text-gray-400"
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {`${recipe.nationality} - ${recipe.category} ${recipe.alcoholicOrNot}`}
+              </h4>
+            </div>
             {isDoneRecipe && (
               <p
-                className="text-sm"
                 data-testid={ `${index}-horizontal-done-date` }
               >
                 {recipe.doneDate}
 
               </p>
             )}
-            <div className="flex text-sm space-x-1 flex-wrap">
+            <div className="flex space-x-1">
               {isDoneRecipe
               && recipe.tags.map((tag, i) => (
                 <p
                   key={ i }
-                  className="bg-secondary rounded-full "
+                  className="bg-secondary rounded-full px-1"
                   data-testid={ `${index}-${tag}-horizontal-tag` }
                 >
                   {tag}
@@ -89,9 +92,8 @@ export default function DoneFavRecipeCard({
                 </p>
               ))}
             </div>
-            <section>
+            <section className="absolute top-0 right-2 z-50 flex gap-1">
               <ShareButton
-                customClass="absolute top-2 right-2 z-50"
                 recipeType={ `${recipe.type}s` }
                 recipeId={ recipe.id }
                 testId={ `${index}-horizontal-share-btn` }
