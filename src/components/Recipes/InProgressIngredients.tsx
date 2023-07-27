@@ -13,6 +13,7 @@ export default function InProgressIngredients({
 }: Props) {
   return (
     <section className="mx-4">
+      <h3 className="text-lg font-extrabold">Ingredients</h3>
       <ul className="flex flex-col gap-2 p-2 border-primary border">
         {recipeIngredients
           .map((ingredient, index) => (

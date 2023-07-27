@@ -96,20 +96,22 @@ export default function RecipeInProgress() {
 
   return (
     <div className="pb-16">
-      <RecipeImageTitle
-        strThumb={ strThumb }
-        strName={ strName }
-        strCategory={ strCategory }
-        strAlcoholic={ strAlcoholic }
-        recipeType={ recipeType }
-        recipeId={ recipeId }
-      />
-      <InProgressIngredients
-        recipeIngredients={ noRepeatIngredients }
-        checkedIngredients={ checkedIngredients }
-        handleIngredientClick={ handleIngredientClick }
-      />
-      <RecipeInstructions strInstructions={ strInstructions } />
+      <section className="flex flex-col gap-2 relative">
+        <RecipeImageTitle
+          strThumb={ strThumb }
+          strName={ strName }
+          strCategory={ strCategory }
+          strAlcoholic={ strAlcoholic }
+          recipeType={ recipeType }
+          recipeId={ recipeId }
+        />
+        <InProgressIngredients
+          recipeIngredients={ noRepeatIngredients }
+          checkedIngredients={ checkedIngredients }
+          handleIngredientClick={ handleIngredientClick }
+        />
+        <RecipeInstructions strInstructions={ strInstructions } />
+      </section>
       <div className="w-full flex justify-center">
         <Button
           testId="finish-recipe-btn"
