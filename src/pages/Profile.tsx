@@ -10,11 +10,11 @@ export default function Profile() {
   const userEmail = JSON.parse(localStorage.getItem('user')
    || '{"email": "test@test.com"}');
   return (
-    <div className="h-full mb-28">
+    <div>
       <Header title="Profile" />
       <PageTitle title="Profile" />
       <section
-        className="w-full flex flex-col items-center justify-evenly h-full px-12 pb-16"
+        className="w-full flex flex-col items-center justify-evenly h-full px-12"
       >
         <h3 data-testid="profile-email" className="font-bold">{userEmail.email}</h3>
         <section
