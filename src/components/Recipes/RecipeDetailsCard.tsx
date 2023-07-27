@@ -1,5 +1,7 @@
 import { IRecipeDetails } from '../../types/recipeTypes';
 import RecipeImageTitle from './RecipeImageTitle';
+import RecipeIngredients from './RecipeIngredients';
+import RecipeInstructions from './RecipeInstructions';
 
 interface RecipeDetailsCardProps extends IRecipeDetails {
   recipeType: string;
@@ -29,39 +31,11 @@ function RecipeDetailsCard({
         recipeType={ recipeType }
         recipeId={ recipeId }
       />
-      <section className="mx-4 text-sm">
-        <h3 className="text-lg font-extrabold">Ingredients</h3>
-        <ul className="flex gap-2 list-inside p-2 border-primary border">
-          <div>
-            {recipeIngredients.map((ing, i) => (
-              <li
-                className="list-disc"
-                data-testid={ `${i}-ingredient-name-and-measure` }
-                key={ i }
-              >
-                {ing}
-              </li>
-            ))}
-          </div>
-          <div>
-            {recipeMeasures.map((mea, i) => (
-              <li data-testid={ `${i}-ingredient-name-and-measure` } key={ i }>
-                {mea}
-              </li>
-            ))}
-          </div>
-        </ul>
-      </section>
-      <section className="mx-4">
-        <h3 className="text-lg font-extrabold">Instructions</h3>
-        <article
-          className="whitespace-pre-wrap flex gap-2 p-2 border-primary border
-          overflow-auto h-64"
-          data-testid="instructions"
-        >
-          {strInstructions}
-        </article>
-      </section>
+      <RecipeIngredients
+        recipeIngredients={ recipeIngredients }
+        recipeMeasures={ recipeMeasures }
+      />
+      <RecipeInstructions strInstructions={ strInstructions } />
       {isMeal && strYoutube && (
         <section>
           <h3 className="text-lg font-extrabold px-4 text-center">Video</h3>

@@ -6,6 +6,8 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import { IDoneRecipe } from '../types/recipeTypes';
 import Button from '../components/Buttons/Button';
 import RecipeImageTitle from '../components/Recipes/RecipeImageTitle';
+import RecipeInstructions from '../components/Recipes/RecipeInstructions';
+import InProgressIngredients from '../components/Recipes/InProgressIngredients';
 
 export default function RecipeInProgress() {
   const { currRecipe, getRecipeDetailsById,
@@ -102,44 +104,12 @@ export default function RecipeInProgress() {
         recipeType={ recipeType }
         recipeId={ recipeId }
       />
-      <section className="mx-4">
-        <h3 className="text-lg font-extrabold">Instructions</h3>
-        <p
-          className="flex gap-2 p-2 border-primary border"
-          data-testid="instructions"
-        >
-          {strInstructions}
-        </p>
-      </section>
-      <section className="mx-4">
-        <h3 className="text-lg font-extrabold">Ingredients</h3>
-        <ul className="flex flex-col gap-2 p-2 border-primary border">
-          {noRepeatIngredients
-            .map((ingredient, index) => (
-              <li
-                key={ index }
-              >
-                <label
-                  htmlFor={ ingredient }
-                  className={ `flex items-center gap-2 
-                ${checkedIngredients.includes(ingredient) ? 'line-through' : ''}` }
-                  data-testid={ `${index}-ingredient-step` }
-                >
-                  <input
-                    type="checkbox"
-                    id={ ingredient }
-                    name={ ingredient }
-                    value={ ingredient }
-                    checked={ checkedIngredients.includes(ingredient) }
-                    className="form-checkbox h-5 w-5 text-primary accent-secondary"
-                    onChange={ (event) => handleIngredientClick(event, ingredient) }
-                  />
-                  {ingredient}
-                </label>
-              </li>
-            ))}
-        </ul>
-      </section>
+      <InProgressIngredients
+        recipeIngredients={ noRepeatIngredients }
+        checkedIngredients={ checkedIngredients }
+        handleIngredientClick={ handleIngredientClick }
+      />
+      <RecipeInstructions strInstructions={ strInstructions } />
       <div className="w-full flex justify-center">
         <Button
           testId="finish-recipe-btn"
