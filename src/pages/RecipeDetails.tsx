@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo } from '../utils/apiFunctions';
-import RecipeDetailsCard from '../components/RecipeDetailsCard';
+import RecipeDetailsCard from '../components/Recipes/RecipeDetailsCard';
 import { IDrink, IMeal } from '../types/recipeTypes';
-import RecipeCard from '../components/RecipeCard';
+import RecipeCard from '../components/Recipes/RecipeCard';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
 import Loading from '../components/Loading';
 import Button from '../components/Buttons/Button';
@@ -100,14 +100,15 @@ export default function RecipeDetails() {
       </section>
       {!isDone
       && (
-        <Button
-          testId="start-recipe-btn"
-          text={ isInProgress ? 'Continue Recipe' : 'Start Recipe' }
-          onClick={ () => navigate(`/${recipeType}/${recipeId}/in-progress`) }
-          disabledCondition={ false }
-          customClass="bottom-0 fixed mx-4 w-11/12"
-
-        />
+        <div className="w-full flex justify-center">
+          <Button
+            testId="start-recipe-btn"
+            text={ isInProgress ? 'Continue Recipe' : 'Start Recipe' }
+            onClick={ () => navigate(`/${recipeType}/${recipeId}/in-progress`) }
+            disabledCondition={ false }
+            customClass="bottom-0 fixed w-11/12"
+          />
+        </div>
       )}
 
     </div>

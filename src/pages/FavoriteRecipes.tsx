@@ -3,7 +3,7 @@ import RecipeTypeButton from '../components/Buttons/RecipeTypeButton';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { IDoneRecipe } from '../types/recipeTypes';
-import DoneFavRecipeCard from '../components/DoneFavRecipeCard';
+import DoneFavRecipeCard from '../components/Recipes/DoneFavRecipeCard';
 
 export default function FavoriteRecipes() {
   const [recipes, setRecipes] = useState<IDoneRecipe[]>([]);

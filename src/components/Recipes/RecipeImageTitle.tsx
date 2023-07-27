@@ -1,5 +1,5 @@
 import React from 'react';
-import ShareFavoriteButtons from './Buttons/ShareFavoriteButtons';
+import ShareFavoriteButtons from '../Buttons/ShareFavoriteButtons';
 
 type Props = {
   strThumb: string;

@@ -1,6 +1,6 @@
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import Recipes from '../components/Recipes';
+import Recipes from '../components/Recipes/Recipes';
 
 export default function Drinks() {
   return (

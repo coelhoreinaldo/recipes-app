@@ -50,7 +50,7 @@ export default function CategoryButton({ strCategory, testId = '', onClick }: Pr
   return (
     <div className="flex flex-col items-center relative mb-8">
       <button
-        className={ `rounded-full h-10 w-11 flex 
+        className={ `rounded-full h-10 w-10 flex 
         items-center justify-center text-sm px-2 border-2
       ${isActive ? 'border-primary' : 'border-secondary'}` }
         data-testid={ testId }

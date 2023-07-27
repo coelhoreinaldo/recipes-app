@@ -5,7 +5,7 @@ import { getApiInfo } from '../utils/apiFunctions';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { IDoneRecipe } from '../types/recipeTypes';
 import Button from '../components/Buttons/Button';
-import RecipeImageTitle from '../components/RecipeImageTitle';
+import RecipeImageTitle from '../components/Recipes/RecipeImageTitle';
 
 export default function RecipeInProgress() {
   const { currRecipe, getRecipeDetailsById,
@@ -93,7 +93,7 @@ export default function RecipeInProgress() {
     .filter((ingredient, i) => recipeIngredients.indexOf(ingredient) === i);
 
   return (
-    <div className="pb-12">
+    <div className="pb-16">
       <RecipeImageTitle
         strThumb={ strThumb }
         strName={ strName }
@@ -105,7 +105,7 @@ export default function RecipeInProgress() {
       <section className="mx-4">
         <h3 className="text-lg font-extrabold">Instructions</h3>
         <p
-          className="flex gap-2 p-2 border-primary border-2"
+          className="flex gap-2 p-2 border-primary border"
           data-testid="instructions"
         >
           {strInstructions}
@@ -113,7 +113,7 @@ export default function RecipeInProgress() {
       </section>
       <section className="mx-4">
         <h3 className="text-lg font-extrabold">Ingredients</h3>
-        <ul className="flex flex-col gap-2 p-2 border-primary border-2">
+        <ul className="flex flex-col gap-2 p-2 border-primary border">
           {noRepeatIngredients
             .map((ingredient, index) => (
               <li
@@ -140,13 +140,15 @@ export default function RecipeInProgress() {
             ))}
         </ul>
       </section>
-      <Button
-        testId="finish-recipe-btn"
-        disabledCondition={ checkedIngredients.length !== noRepeatIngredients.length }
-        onClick={ handleFinishRecipe }
-        text="Finish Recipe"
-        customClass="bottom-4 fixed mx-4 w-11/12"
-      />
+      <div className="w-full flex justify-center">
+        <Button
+          testId="finish-recipe-btn"
+          disabledCondition={ checkedIngredients.length !== noRepeatIngredients.length }
+          onClick={ handleFinishRecipe }
+          text="Finish Recipe"
+          customClass="bottom-4 fixed w-11/12"
+        />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { IRecipeCard } from '../types/recipeTypes';
+import { IRecipeCard } from '../../types/recipeTypes';
 
 function RecipeCard({
   index, idRecipe, strRecipe, strRecipeThumb,

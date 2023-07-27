@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { IDoneRecipe } from '../types/recipeTypes';
-import ShareButton from './Buttons/ShareButton';
+import { IDoneRecipe } from '../../types/recipeTypes';
+import ShareButton from '../Buttons/ShareButton';
 
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import { RecipeDetailsContext } from '../../context/RecipeDetailsProvider';
 
 type Props = {
   filteredRecipes: IDoneRecipe[];

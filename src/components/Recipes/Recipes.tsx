@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
-import CategoryButton from './Buttons/CategoryButton';
-import { RecipeContext } from '../context/RecipeProvider';
-import { Category, IDrink, IMeal } from '../types/recipeTypes';
-import Loading from './Loading';
+import CategoryButton from '../Buttons/CategoryButton';
+import { RecipeContext } from '../../context/RecipeProvider';
+import { Category, IDrink, IMeal } from '../../types/recipeTypes';
+import Loading from '../Loading';
 
 export default function Recipes() {
   const { pathname } = useLocation();
