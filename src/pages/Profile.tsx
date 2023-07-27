@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import favoritesIcon from '../images/favoritesIcon.svg';
 import doneIcon from '../images/doneIcon.svg';
 import logoutIcon from '../images/logoutIcon.svg';
+import PageTitle from '../components/PageTitle';
 
 export default function Profile() {
   const userEmail = JSON.parse(localStorage.getItem('user')
@@ -11,6 +12,7 @@ export default function Profile() {
   return (
     <div className="h-full mb-28">
       <Header title="Profile" />
+      <PageTitle title="Profile" />
       <section
         className="w-full flex flex-col items-center justify-evenly h-full px-12 pb-16"
       >

@@ -4,13 +4,12 @@ import RecipeCard from './RecipeCard';
 import CategoryButton from '../Buttons/CategoryButton';
 import { RecipeContext } from '../../context/RecipeProvider';
 import { Category, IDrink, IMeal } from '../../types/recipeTypes';
-import Loading from '../Loading';
 
 export default function Recipes() {
   const { pathname } = useLocation();
   const {
     filteredMeals, filteredDrinks, mealsCategories, drinksCategories,
-    isFetching, getData, getCategories, handleCategoryClick,
+    getData, getCategories, handleCategoryClick,
   } = useContext(RecipeContext);
 
   useEffect(() => {
@@ -19,12 +18,8 @@ export default function Recipes() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isFetching) {
-    return <Loading />;
-  }
-
   return (
-    <main className="mt-4 mb-20">
+    <main className="mb-20">
       <section className="flex justify-between px-2">
         <CategoryButton
           strCategory="All"

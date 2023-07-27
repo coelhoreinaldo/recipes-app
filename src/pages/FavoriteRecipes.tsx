@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { IDoneRecipe } from '../types/recipeTypes';
 import DoneFavRecipeCard from '../components/Recipes/DoneFavRecipeCard';
+import PageTitle from '../components/PageTitle';
 
 export default function FavoriteRecipes() {
   const [recipes, setRecipes] = useState<IDoneRecipe[]>([]);
@@ -33,6 +34,7 @@ export default function FavoriteRecipes() {
   return (
     <div className="pb-16">
       <Header title="Favorite Recipes" />
+      <PageTitle title="Favorite Recipes" />
       <section className="flex gap-4 w-full items-center justify-center mt-6">
         <RecipeTypeButton
           handleFilterClick={ handleFilterClick }
