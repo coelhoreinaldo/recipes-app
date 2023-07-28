@@ -14,9 +14,10 @@
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.10.0"
   },
+  "homepage": "https://coelhoreinaldo.github.io/recipes-app",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "build": "vite build",
     "test": "vitest",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx,.ts,.tsx",
