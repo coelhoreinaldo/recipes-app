@@ -28,8 +28,12 @@ export default function Header({ title, showSearchIcon = false }:Props) {
             <span className="hidden sm:block">Search</span>
           </button>)
       }
-        <div className="text-primary font-bold text-center">
-          <h1>CookScript</h1>
+        <div className="text-primary text-center">
+          <h1 className="italic">
+            Recipes
+            {' '}
+            <span className="not-italic font-bold ">app</span>
+          </h1>
           <h1 data-testid="page-title">{title}</h1>
         </div>
         <Link to="/profile" className="flex gap-2 font-semibold items-center">
