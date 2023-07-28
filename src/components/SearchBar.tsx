@@ -51,7 +51,7 @@ export default function SearchBar() {
   };
 
   return (
-    <form className="w-full flex flex-col items-center mt-2">
+    <form className="w-full flex flex-col items-center mt-2 sm:max-w-lg">
       <label htmlFor="search-input" className="w-full">
         <input
           type="text"
@@ -64,71 +64,73 @@ export default function SearchBar() {
           placeholder:text-primary caret-primary outline-purple"
         />
       </label>
-      <fieldset className="flex justify-between flex-wrap mt-2">
-        <label
-          htmlFor="ingredient-search-radio"
-          className="inline-flex items-center cursor-pointer"
-        >
-          <input
-            name="searchTag"
-            type="radio"
-            id="ingredient-search-radio"
-            value="ingredient"
-            checked={ searchTag === 'ingredient' }
-            onChange={ handleSearchTag }
-            className="hidden"
-          />
-          <span
-            data-testid="ingredient-search-radio"
-            className={ `w-4 h-4 inline-block rounded-full 
+      <fieldset className="flex flex-col mt-2 w-full">
+        <div className="flex justify-between">
+          <label
+            htmlFor="ingredient-search-radio"
+            className="inline-flex items-center cursor-pointer"
+          >
+            <input
+              name="searchTag"
+              type="radio"
+              id="ingredient-search-radio"
+              value="ingredient"
+              checked={ searchTag === 'ingredient' }
+              onChange={ handleSearchTag }
+              className="hidden"
+            />
+            <span
+              data-testid="ingredient-search-radio"
+              className={ `w-4 h-4 inline-block rounded-full 
             border border-purple transition-all duration-700
              ${searchTag === 'ingredient' ? bgAndBorder : ''}` }
-          />
-          <span className="ml-2">Ingredient</span>
-        </label>
+            />
+            <span className="ml-2">Ingredient</span>
+          </label>
 
-        <label
-          htmlFor="name-search-radio"
-          className="inline-flex items-center cursor-pointer"
-        >
-          <input
-            name="searchTag"
-            type="radio"
-            id="name-search-radio"
-            value="name"
-            checked={ searchTag === 'name' }
-            onChange={ handleSearchTag }
-            className="hidden"
-          />
-          <span
-            data-testid="name-search-radio"
-            className={ `w-4 h-4 inline-block rounded-full border border-purple 
+          <label
+            htmlFor="name-search-radio"
+            className="inline-flex items-center cursor-pointer"
+          >
+            <input
+              name="searchTag"
+              type="radio"
+              id="name-search-radio"
+              value="name"
+              checked={ searchTag === 'name' }
+              onChange={ handleSearchTag }
+              className="hidden"
+            />
+            <span
+              data-testid="name-search-radio"
+              className={ `w-4 h-4 inline-block rounded-full border border-purple 
             transition-all duration-700 ${searchTag === 'name' ? bgAndBorder : ''}` }
-          />
-          <span className="ml-2">Name</span>
-        </label>
+            />
+            <span className="ml-2">Name</span>
+          </label>
 
-        <label
-          htmlFor="first-letter-search-radio"
-          className="inline-flex items-center cursor-pointer"
-        >
-          <input
-            name="searchTag"
-            type="radio"
-            id="first-letter-search-radio"
-            value="firstLetter"
-            checked={ searchTag === 'firstLetter' }
-            onChange={ handleSearchTag }
-            className="hidden"
-          />
-          <span
-            data-testid="first-letter-search-radio"
-            className={ `w-4 h-4 inline-block rounded-full border border-purple 
+          <label
+            htmlFor="first-letter-search-radio"
+            className="inline-flex items-center cursor-pointer"
+          >
+            <input
+              name="searchTag"
+              type="radio"
+              id="first-letter-search-radio"
+              value="firstLetter"
+              checked={ searchTag === 'firstLetter' }
+              onChange={ handleSearchTag }
+              className="hidden"
+            />
+            <span
+              data-testid="first-letter-search-radio"
+              className={ `w-4 h-4 inline-block rounded-full border border-purple 
             transition-all duration-700 
             ${searchTag === 'firstLetter' ? bgAndBorder : ''}` }
-          />
-          <span className="ml-2">First Letter</span>
-        </label>
+            />
+            <span className="ml-2">First Letter</span>
+          </label>
+        </div>
         <Button
           testId="exec-search-btn"
           disabledCondition={ !searchInput }

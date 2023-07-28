@@ -8,6 +8,7 @@ import App from '../App';
 
 const searchTopBtnTestId = 'search-top-btn';
 const searchInput = 'search-input';
+const searchBtnTestId = 'exec-search-btn';
 
 describe('searchBar component', () => {
   beforeEach(() => {
@@ -31,7 +32,7 @@ describe('searchBar component', () => {
     const ingredientTag = await screen.findByText(/ingredient/i);
     const nameTag = screen.getByText(/name/i);
     const inputField = screen.getByTestId(searchInput);
-    const searchBtn = screen.getByRole('button', { name: /search/i });
+    const searchBtn = await screen.findByTestId(searchBtnTestId);
     expect(ingredientTag).toBeInTheDocument();
     expect(nameTag).toBeInTheDocument();
     expect(inputField).toBeInTheDocument();
@@ -60,7 +61,7 @@ describe('searchBar component', () => {
 
     const ingredientTag = await screen.findByText(/ingredient/i);
     const inputField = screen.getByTestId(searchInput);
-    const searchBtn = screen.getByRole('button', { name: /search/i });
+    const searchBtn = await screen.findByTestId(searchBtnTestId);
 
     await userEvent.click(ingredientTag);
     await userEvent.type(inputField, 'Light rum');
@@ -108,7 +109,7 @@ describe('searchBar component', () => {
     const ingredientTag = await screen.findByText(/ingredient/i);
     const nameTag = screen.getByText(/name/i);
     const inputField = screen.getByTestId(searchInput);
-    const searchBtn = screen.getByRole('button', { name: /search/i });
+    const searchBtn = await screen.findByTestId(searchBtnTestId);
     expect(ingredientTag).toBeInTheDocument();
     expect(nameTag).toBeInTheDocument();
     expect(inputField).toBeInTheDocument();
@@ -135,7 +136,7 @@ describe('searchBar component', () => {
     const ingredientTag = await screen.findByText(/ingredient/i);
     const nameTag = screen.getByText(/name/i);
     const inputField = screen.getByTestId(searchInput);
-    const searchBtn = screen.getByRole('button', { name: /search/i });
+    const searchBtn = await screen.findByTestId(searchBtnTestId);
     expect(ingredientTag).toBeInTheDocument();
     expect(nameTag).toBeInTheDocument();
     expect(inputField).toBeInTheDocument();

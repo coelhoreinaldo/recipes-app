@@ -36,13 +36,13 @@ export default function Login() {
   return (
     <main
       className="h-screen w-full flex flex-col
-     justify-center items-center"
+     justify-center items-center md:flex-row"
     >
       <div
-        className="h-1/2 bg-primary w-full text-white
+        className="h-1/2 md:h-full bg-primary w-full text-white
        flex justify-center items-center"
       >
-        <h1 className="text-4xl text-center font-bold">Recipes App</h1>
+        <h1 className="text-4xl md:text-6xl text-center font-bold">Recipes App</h1>
 
       </div>
 
@@ -51,7 +51,7 @@ export default function Login() {
         className="flex flex-col items-center gap-4 h-1/2 justify-center p-6 w-full"
       >
         <h3 className="text-primary font-bold italic text-lg">LOGIN</h3>
-        <label htmlFor="password-input" className="flex flex-col w-full">
+        <label htmlFor="password-input" className="flex flex-col w-full md:w-96">
           <input
             type="email"
             name="emailInput"
@@ -64,7 +64,7 @@ export default function Login() {
           />
         </label>
 
-        <label htmlFor="password-input" className="flex flex-col w-full">
+        <label htmlFor="password-input" className="flex flex-col w-full md:w-96">
           <input
             type="password"
             name="passwordInput"
@@ -80,8 +80,9 @@ export default function Login() {
         <button
           type="submit"
           data-testid="login-submit-btn"
-          className="border-secondary rounded-lg border-2 p-2 w-full text-white
-          bg-secondary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
+          className="border-secondary rounded-lg border-2 p-2 w-full md:w-96 text-white
+          bg-secondary disabled:bg-gray-200 disabled:text-gray-500
+           hover:bg-purple transition
           font-bold"
           disabled={ invalidInputs }
         >

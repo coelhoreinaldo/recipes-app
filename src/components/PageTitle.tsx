@@ -25,9 +25,9 @@ export default function PageTitle({ title }: Props) {
       <img
         src={ icons[title] }
         alt={ title }
-        width={ 48 }
-        height={ 48 }
-        className="h-10"
+        width={ 64 }
+        height={ 64 }
+        className="h-10 w-10 md:h-16 md:w-16"
       />
       <p className="uppercase font-bold text-primary">{title}</p>
     </section>
