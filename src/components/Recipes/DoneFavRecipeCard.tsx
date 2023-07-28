@@ -23,21 +23,24 @@ export default function DoneFavRecipeCard({
     setFilteredRecipes(newFavorites);
   };
 
+  if (filteredRecipes && filteredRecipes.length === 0) {
+    return (
+      <p
+        className="text-center text-2xl font-bold md:w-full"
+        data-testid="text-for-no-done-recipes"
+      >
+        {isDoneRecipe
+          ? 'You haven\'t finished any recipe yet'
+          : 'You don\'t have any favorite recipe yet'}
+      </p>
+    );
+  }
+
   return (
     <section
       className="mx-4 flex flex-col relative gap-y-4 md:flex-row md:gap-8
       md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
-      {filteredRecipes && filteredRecipes.length === 0 && (
-        <p
-          className="text-center text-2xl font-bold"
-          data-testid="text-for-no-done-recipes"
-        >
-          {isDoneRecipe
-            ? 'You haven\'t finished any recipe yet'
-            : 'You don\'t have any favorite recipe yet'}
-        </p>
-      )}
       {filteredRecipes && filteredRecipes.map((recipe, index) => (
         <section
           className="flex relative border-slate-200 border-2
