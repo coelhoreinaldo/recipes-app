@@ -14,6 +14,9 @@ module.exports = {
         green: '#A2FAE1'
       }
     },
+    fontFamily: {
+      abc: ["Epilogue", "sans-serif"]
+    }
   },
   plugins: [],
 }

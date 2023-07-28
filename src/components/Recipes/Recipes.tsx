@@ -1,15 +1,15 @@
 import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
-import CategoryButton from './Buttons/CategoryButton';
-import { RecipeContext } from '../context/RecipeProvider';
-import { Category, IDrink, IMeal } from '../types/recipeTypes';
+import CategoryButton from '../Buttons/CategoryButton';
+import { RecipeContext } from '../../context/RecipeProvider';
+import { Category, IDrink, IMeal } from '../../types/recipeTypes';
 
 export default function Recipes() {
   const { pathname } = useLocation();
   const {
     filteredMeals, filteredDrinks, mealsCategories, drinksCategories,
-    isFetching, getData, getCategories,
+    getData, getCategories, handleCategoryClick,
   } = useContext(RecipeContext);
 
   useEffect(() => {
@@ -18,22 +18,36 @@ export default function Recipes() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isFetching) {
-    return <p data-testid="loading">Loading</p>;
-  }
-
   return (
-    <main className="mt-4 mb-16">
-      <section className="flex justify-between px-2">
+    <main className="mb-20">
+      <section className="flex justify-between px-2 lg:justify-center lg:gap-32">
+        <CategoryButton
+          strCategory="All"
+          testId="All-category-filter"
+          onClick={ () => handleCategoryClick('All') }
+
+        />
         {pathname === '/meals'
           ? mealsCategories.map(({ strCategory }:Category) => (
-            <CategoryButton key={ strCategory } strCategory={ strCategory } />
+            <CategoryButton
+              key={ strCategory }
+              strCategory={ strCategory }
+              testId={ `${strCategory}-category-filter` }
+              onClick={ () => handleCategoryClick(strCategory) }
+            />
           )) : drinksCategories.map(({ strCategory }:Category) => (
-            <CategoryButton key={ strCategory } strCategory={ strCategory } />
+            <CategoryButton
+              key={ strCategory }
+              strCategory={ strCategory }
+              testId={ `${strCategory}-category-filter` }
+              onClick={ () => handleCategoryClick(strCategory) }
+            />
           ))}
-        <CategoryButton strCategory="All" data-testid="All-category-filter" />
       </section>
-      <section className="grid grid-cols-2 sm:grid-cols-3 gap-8 px-2 mt-4">
+      <section
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4
+        lg:grid-cols-5 xl:grid-cols-6 gap-8 px-2 mt-4"
+      >
         {pathname === '/meals'
           ? filteredMeals.map((meal:IMeal, index:number) => (
             <RecipeCard

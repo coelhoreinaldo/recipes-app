@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
-import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
 import { getApiInfo } from '../utils/apiFunctions';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { IDoneRecipe } from '../types/recipeTypes';
+import Button from '../components/Buttons/Button';
+import RecipeImageTitle from '../components/Recipes/RecipeImageTitle';
+import RecipeInstructions from '../components/Recipes/RecipeInstructions';
+import InProgressIngredients from '../components/Recipes/InProgressIngredients';
 
 export default function RecipeInProgress() {
   const { currRecipe, getRecipeDetailsById,
@@ -88,86 +91,36 @@ export default function RecipeInProgress() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const noRepeatIngredients = recipeIngredients
+    .filter((ingredient, i) => recipeIngredients.indexOf(ingredient) === i);
+
   return (
-    <div className="pb-12">
-      <section className="relative h-64 flex items-center justify-center">
-        <img
-          src={ strThumb }
-          alt={ strName }
-          data-testid="recipe-photo"
-          className="w-full h-full object-cover absolute"
+    <div className="pb-16">
+      <section className="flex flex-col gap-2 relative">
+        <RecipeImageTitle
+          strThumb={ strThumb }
+          strName={ strName }
+          strCategory={ strCategory }
+          strAlcoholic={ strAlcoholic }
+          recipeType={ recipeType }
+          recipeId={ recipeId }
         />
-        <h2
-          className="bottom-0 left-0 text-4xl font-bold w-full flex
-          uppercase justify-center items-center text-center bg-black
-          bg-opacity-60 h-full text-white p-2 z-50"
-          data-testid="recipe-title"
-        >
-          {strName}
-
-        </h2>
-        <h4
-          data-testid="recipe-category"
-          className="z-50 absolute top-4 text-secondary font-bold left-4"
-        >
-          {strCategory}
-          {strAlcoholic && ` - ${strAlcoholic}`}
-        </h4>
+        <InProgressIngredients
+          recipeIngredients={ noRepeatIngredients }
+          checkedIngredients={ checkedIngredients }
+          handleIngredientClick={ handleIngredientClick }
+        />
+        <RecipeInstructions strInstructions={ strInstructions } />
       </section>
-      <section className="mx-4">
-        <h3 className="text-lg font-extrabold">Instructions</h3>
-        <p
-          className="flex gap-2 p-2 border-primary border-2"
-          data-testid="instructions"
-        >
-          {strInstructions}
-        </p>
-      </section>
-      <section className="mx-4">
-        <h3 className="text-lg font-extrabold">Ingredients</h3>
-        <ul className="flex flex-col gap-2 p-2 border-primary border-2">
-          {recipeIngredients.map((ingredient, index) => (
-            <li
-              key={ index }
-            >
-              <label
-                htmlFor={ ingredient }
-                className={ `flex items-center gap-2 
-                ${checkedIngredients.includes(ingredient) ? 'line-through' : ''}` }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  type="checkbox"
-                  id={ ingredient }
-                  name={ ingredient }
-                  value={ ingredient }
-                  checked={ checkedIngredients.includes(ingredient) }
-                  className="form-checkbox h-5 w-5 text-primary"
-                  onChange={ (event) => handleIngredientClick(event, ingredient) }
-                />
-                {ingredient}
-              </label>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <ShareFavoriteButtons
-        testId="share-btn"
-        recipeType={ recipeType }
-        recipeId={ recipeId }
-      />
-      <button
-        className="border-primary rounded-lg border-2 p-1 w-full text-white
-        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
-        font-bold bottom-0 fixed text-center"
-        disabled={ checkedIngredients.length !== recipeIngredients.length }
-        type="submit"
-        data-testid="finish-recipe-btn"
-        onClick={ handleFinishRecipe }
-      >
-        Finish Recipe
-
-      </button>
+      <div className="w-full flex justify-center lg:px-96">
+        <Button
+          testId="finish-recipe-btn"
+          disabledCondition={ checkedIngredients.length !== noRepeatIngredients.length }
+          onClick={ handleFinishRecipe }
+          text="Finish Recipe"
+          customClass="bottom-4 fixed w-11/12"
+        />
+      </div>
     </div>
   );
 }

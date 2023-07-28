@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import renderWithRouter from './helpers/renderWith';
@@ -9,33 +9,27 @@ import App from '../App';
 describe('recipe component', () => {
   beforeEach(() => {
     vi.spyOn(global, 'fetch').mockImplementation(fetchMock);
-  });
-  it('should exist on Meals page', async () => {
     renderWithRouter(
       <Provider>
         <App />
       </Provider>,
       { initialEntries: ['/meals'] },
     );
+  });
 
+  it('should exist on Meals page', async () => {
     const loading = screen.getByTestId('loading');
-    expect(loading).toBeInTheDocument();
+    await waitForElementToBeRemoved(loading);
     const mealEl = await screen.findByRole('heading', { name: /corba/i });
     expect(mealEl).toBeInTheDocument();
   });
-  it('should filter meals by category', async () => {
-    renderWithRouter(
-      <Provider>
-        <App />
-      </Provider>,
-      { initialEntries: ['/meals'] },
-    );
 
+  it('should filter meals by category', async () => {
     const loading = screen.getByTestId('loading');
-    expect(loading).toBeInTheDocument();
+    await waitForElementToBeRemoved(loading);
 
     const mealEl = await screen.findByRole('heading', { name: /corba/i });
-    const beefCategory = screen.getByRole('button', { name: /beef/i });
+    const beefCategory = screen.getByTestId('Beef-category-filter');
     expect(mealEl).toBeInTheDocument();
     expect(beefCategory).toBeInTheDocument();
 
@@ -47,26 +41,39 @@ describe('recipe component', () => {
     const beefEl = await screen.findByRole('heading', { name: /beef and mustard pie/i });
     expect(beefEl).toBeInTheDocument();
 
-    const allBtn = screen.getByRole('button', { name: /all/i });
+    const allBtn = screen.getByTestId('All-category-filter');
     expect(allBtn).toBeInTheDocument();
 
     userEvent.click(allBtn);
     const mealAllEl = await screen.findByRole('img', { name: /corba/i });
     expect(mealAllEl).toBeInTheDocument();
   });
-  it('should filter drinks by category', async () => {
+});
+
+describe('recipe component', () => {
+  beforeEach(() => {
+    vi.spyOn(global, 'fetch').mockImplementation(fetchMock);
     renderWithRouter(
       <Provider>
         <App />
       </Provider>,
       { initialEntries: ['/drinks'] },
     );
+  });
 
+  it('should exist on Drinks page', async () => {
     const loading = screen.getByTestId('loading');
-    expect(loading).toBeInTheDocument();
+    await waitForElementToBeRemoved(loading);
+    const drinkEl = await screen.findByRole('link', { name: /gg gg/i });
+    expect(drinkEl).toBeInTheDocument();
+  });
+
+  it('should filter drinks by category', async () => {
+    const loading = screen.getByTestId('loading');
+    await waitForElementToBeRemoved(loading);
 
     const drinkEl = await screen.findByRole('link', { name: /gg gg/i });
-    const ordinaryCategory = screen.getByRole('button', { name: /ordinary drink/i });
+    const ordinaryCategory = screen.getByTestId('Ordinary Drink-category-filter');
     expect(drinkEl).toBeInTheDocument();
     expect(ordinaryCategory).toBeInTheDocument();
 

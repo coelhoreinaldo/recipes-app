@@ -3,7 +3,8 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { IDoneRecipe } from '../types/recipeTypes';
 import RecipeTypeButton from '../components/Buttons/RecipeTypeButton';
-import DoneFavRecipeCard from '../components/DoneFavRecipeCard';
+import DoneFavRecipeCard from '../components/Recipes/DoneFavRecipeCard';
+import PageTitle from '../components/PageTitle';
 
 export default function DoneRecipes() {
   const [recipes, setRecipes] = useState<IDoneRecipe[]>([]);
@@ -33,7 +34,8 @@ export default function DoneRecipes() {
   return (
     <div className="pb-16">
       <Header title="Done Recipes" />
-      <section className="flex gap-4 w-full items-center justify-center mt-6">
+      <PageTitle title="Done Recipes" />
+      <section className="flex gap-4 w-full items-center justify-center">
         <RecipeTypeButton
           handleFilterClick={ handleFilterClick }
           filterType="All"

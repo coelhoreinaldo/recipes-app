@@ -19,6 +19,7 @@ export interface RecipeContextProps {
   getData: () => Promise<void>;
   getCategories: () => Promise<void>;
   handleCategoryClick: (query:string) => Promise<void>;
+  setCurrCategory: (value: string) => void;
 }
 
 export const RecipeContext = createContext<RecipeContextProps>({} as RecipeContextProps);
@@ -88,6 +89,7 @@ export default function RecipeProvider({ children }: { children: React.ReactNode
     currCategory,
     setFilteredDrinks,
     setFilteredMeals,
+    setCurrCategory,
   }), [drinksCategories, drinksData, filteredDrinks,
     filteredMeals, getCategories, currCategory,
     getData, isFetching, mealsCategories,

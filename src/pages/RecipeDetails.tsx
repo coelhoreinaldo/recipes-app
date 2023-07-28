@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams, Link } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { getApiInfo } from '../utils/apiFunctions';
-import RecipeDetailsCard from '../components/RecipeDetailsCard';
+import RecipeDetailsCard from '../components/Recipes/RecipeDetailsCard';
 import { IDrink, IMeal } from '../types/recipeTypes';
-import RecipeCard from '../components/RecipeCard';
+import RecipeCard from '../components/Recipes/RecipeCard';
 import { RecipeDetailsContext } from '../context/RecipeDetailsProvider';
-import ShareFavoriteButtons from '../components/Buttons/ShareFavoriteButtons';
+import Loading from '../components/Loading';
+import Button from '../components/Buttons/Button';
 
 export default function RecipeDetails() {
   const { id } = useParams();
@@ -26,6 +27,7 @@ export default function RecipeDetails() {
     recipeMeasures, strInstructions, strYoutube, strAlcoholic,
   } = currRecipe;
   const [recommendations, setRecommendations] = useState([]);
+  const navigate = useNavigate();
 
   const getRecommendations = async () => {
     let recommendationsData = await fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -43,36 +45,27 @@ export default function RecipeDetails() {
   }, []);
 
   if (isFetching) {
-    return <p data-testid="loading">Loading</p>;
+    return <Loading />;
   }
 
   return (
     <div className="pb-12">
-      {isMeal
-        ? <RecipeDetailsCard
-            strThumb={ strThumb }
-            strName={ strName }
-            strCategory={ strCategory }
-            strAlcoholic={ strAlcoholic }
-            recipeIngredients={ recipeIngredients }
-            recipeMeasures={ recipeMeasures }
-            strInstructions={ strInstructions }
-            strYoutube={ strYoutube }
-            isMeal
-        />
-        : <RecipeDetailsCard
-            strThumb={ strThumb }
-            strName={ strName }
-            strCategory={ strCategory }
-            strAlcoholic={ strAlcoholic }
-            recipeIngredients={ recipeIngredients }
-            recipeMeasures={ recipeMeasures }
-            strInstructions={ strInstructions }
-            strYoutube={ strYoutube }
-        />}
+      <RecipeDetailsCard
+        strThumb={ strThumb }
+        strName={ strName }
+        strCategory={ strCategory }
+        strAlcoholic={ strAlcoholic }
+        recipeIngredients={ recipeIngredients }
+        recipeMeasures={ recipeMeasures }
+        strInstructions={ strInstructions }
+        strYoutube={ strYoutube }
+        isMeal={ isMeal }
+        recipeType={ recipeType }
+        recipeId={ recipeId }
+      />
       <section
-        className="flex items-center m-4 rounded-lg
-        min-h-[190px] overflow-x-auto max-w-full gap-x-4"
+        className="flex items-center m-2 rounded-lg px-2
+        min-h-[210px] overflow-x-auto max-w-full gap-x-4"
       >
         {
         !isMeal
@@ -105,25 +98,18 @@ export default function RecipeDetails() {
           ))
       }
       </section>
-      <ShareFavoriteButtons
-        testId="share-btn"
-        recipeType={ recipeType }
-        recipeId={ recipeId }
-      />
       {!isDone
       && (
-        <Link
-          to={ `/${recipeType}/${recipeId}/in-progress` }
-          className="border-primary rounded-lg border-2 p-1 w-full text-white
-        bg-primary disabled:bg-gray-200 disabled:text-gray-500 hover:bg-purple
-        font-bold bottom-0 fixed text-center"
-          type="submit"
-          data-testid="start-recipe-btn"
-        >
-
-          {isInProgress ? 'Continue Recipe' : 'Start Recipe'}
-
-        </Link>)}
+        <div className="w-full flex justify-center">
+          <Button
+            testId="start-recipe-btn"
+            text={ isInProgress ? 'Continue Recipe' : 'Start Recipe' }
+            onClick={ () => navigate(`/${recipeType}/${recipeId}/in-progress`) }
+            disabledCondition={ false }
+            customClass="bottom-0 fixed w-11/12"
+          />
+        </div>
+      )}
 
     </div>
 

@@ -25,10 +25,11 @@ export default function ShareButton({
       type="button"
       onClick={ handleShareClick }
     >
-      { showLinkCopied === recipeId ? <p>Link copied!</p> : <img
+      { showLinkCopied === recipeId ? <p className="text-xs">Link copied!</p> : <img
         src={ shareIcon }
         alt="Share"
         data-testid={ testId }
+        width={ 24 }
       />}
     </button>
   );

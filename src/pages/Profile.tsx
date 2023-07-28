@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import favoritesIcon from '../images/favoritesIcon.svg';
+import doneIcon from '../images/doneIcon.svg';
+import logoutIcon from '../images/logoutIcon.svg';
+import PageTitle from '../components/PageTitle';
 
 export default function Profile() {
   const userEmail = JSON.parse(localStorage.getItem('user')
@@ -8,35 +12,42 @@ export default function Profile() {
   return (
     <div>
       <Header title="Profile" />
-      <section className="w-full flex flex-col items-center">
-        <h3 data-testid="profile-email">{userEmail.email}</h3>
+      <PageTitle title="Profile" />
+      <section
+        className="w-full flex flex-col items-center justify-evenly h-full px-12 lg:px-96"
+      >
+        <h3 data-testid="profile-email" className="font-bold">{userEmail.email}</h3>
         <section
           className="flex flex-col justify-center items-center
-          section divide-y-4 divide-primary gap-4"
+          section divide-y-2 divide-primary gap-4 w-full text-lg lg:w-1/2"
         >
           <Link
             to="/done-recipes"
-            className="w-full text-center"
+            className="w-full pt-4 flex items-center gap-2 px-2
+             hover:border-primary hover:text-primary transition"
             data-testid="profile-done-btn"
           >
-            Done Recipes
-
+            <img width="40" src={ doneIcon } alt="" />
+            <span>Done Recipes</span>
           </Link>
           <Link
             to="/favorite-recipes"
-            className="w-full text-center"
+            className="w-full pt-4 flex items-center gap-2 px-2
+             hover:border-primary hover:text-primary transition"
             data-testid="profile-favorite-btn"
           >
-            Favorite Recipes
+            <img width="40" src={ favoritesIcon } alt="" />
+            <span>Favorite Recipes</span>
           </Link>
           <Link
             to="/"
-            className="w-full text-center"
+            className="w-full pt-4 flex items-center gap-2 px-2
+             hover:border-primary hover:text-primary transition"
             data-testid="profile-logout-btn"
             onClick={ () => localStorage.clear() }
           >
-            Logout
-
+            <img width="40" src={ logoutIcon } alt="" />
+            <span>Logout</span>
           </Link>
         </section>
       </section>

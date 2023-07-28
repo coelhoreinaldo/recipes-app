@@ -142,5 +142,10 @@ describe('recipe details page', () => {
 
     const continueRecipeBtn = await screen.findByText(/continue recipe/i);
     expect(continueRecipeBtn).toBeInTheDocument();
+
+    await userEvent.click(continueRecipeBtn);
+
+    const finishRecipeBtn = await screen.findByText(/finish recipe/i);
+    expect(finishRecipeBtn).toBeInTheDocument();
   });
 });
