@@ -36,4 +36,4 @@ const drinkCategories = {
   ],
 };
 
-module.exports = drinkCategories;
+export default drinkCategories;

@@ -58,4 +58,4 @@ const oneDrink = {
   ],
 };
 
-module.exports = oneDrink;
+export default oneDrink;

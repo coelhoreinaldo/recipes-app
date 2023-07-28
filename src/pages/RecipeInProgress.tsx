@@ -78,7 +78,7 @@ export default function RecipeInProgress() {
       alcoholicOrNot: currRecipe.strAlcoholic,
       name: currRecipe.strName,
       image: currRecipe.strThumb,
-      doneDate: doneDate.toISOString(),
+      doneDate: doneDate.toLocaleDateString('pt-BR'),
       tags: currRecipe.strTags,
     };
     setDoneRecipes([...doneRecipes, doneRecipe]);

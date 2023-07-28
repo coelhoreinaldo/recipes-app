@@ -56,4 +56,4 @@ const oneMeal = {
   ],
 };
 
-module.exports = oneMeal;
+export default oneMeal;

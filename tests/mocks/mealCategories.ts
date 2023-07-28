@@ -17,4 +17,4 @@ const mealCategories = {
   ],
 };
 
-module.exports = mealCategories;
+export default mealCategories;
