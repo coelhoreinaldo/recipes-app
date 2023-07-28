@@ -37,12 +37,12 @@ function RecipeDetailsCard({
       />
       <RecipeInstructions strInstructions={ strInstructions } />
       {isMeal && strYoutube && (
-        <section>
+        <section className="justify-center flex flex-col lg:px-96">
           <h3 className="text-lg font-extrabold px-4 text-center">Video</h3>
           <iframe
             title="Recipe"
             data-testid="video"
-            className="aspect-auto w-full"
+            className="aspect-auto lg:h-96 lg:w-auto"
             allowFullScreen
             src={ strYoutube }
           />

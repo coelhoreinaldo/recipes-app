@@ -10,7 +10,7 @@ export default function RecipeIngredients({
   recipeMeasures,
 }: Props) {
   return (
-    <section className="mx-4">
+    <section className="mx-4 lg:px-96">
       <h3 className="text-lg font-extrabold">Ingredients</h3>
       <ul className="flex gap-2 list-inside p-2 border-primary border text-sm">
         <div>

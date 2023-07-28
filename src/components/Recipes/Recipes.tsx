@@ -20,7 +20,7 @@ export default function Recipes() {
 
   return (
     <main className="mb-20">
-      <section className="flex justify-between px-2">
+      <section className="flex justify-between px-2 lg:justify-center lg:gap-32">
         <CategoryButton
           strCategory="All"
           testId="All-category-filter"
@@ -44,7 +44,10 @@ export default function Recipes() {
             />
           ))}
       </section>
-      <section className="grid grid-cols-2 sm:grid-cols-3 gap-8 px-2 mt-4">
+      <section
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4
+        lg:grid-cols-5 xl:grid-cols-6 gap-8 px-2 mt-4"
+      >
         {pathname === '/meals'
           ? filteredMeals.map((meal:IMeal, index:number) => (
             <RecipeCard

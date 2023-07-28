@@ -22,7 +22,7 @@ export default function Header({ title, showSearchIcon = false }:Props) {
             type="button"
             onClick={ () => setSearchBar(!searchBar) }
             className="flex gap-2
-           font-semibold"
+           font-semibold items-center"
           >
             <img src={ searchIcon } alt="pesquisar" data-testid="search-top-btn" />
             <span className="hidden sm:block">Search</span>
@@ -32,7 +32,7 @@ export default function Header({ title, showSearchIcon = false }:Props) {
           <h1>CookScript</h1>
           <h1 data-testid="page-title">{title}</h1>
         </div>
-        <Link to="/profile" className="flex gap-2 font-semibold">
+        <Link to="/profile" className="flex gap-2 font-semibold items-center">
           <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
           <span className="hidden sm:block">Profile</span>
         </Link>

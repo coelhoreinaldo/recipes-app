@@ -12,7 +12,7 @@ export default function InProgressIngredients({
   handleIngredientClick,
 }: Props) {
   return (
-    <section className="mx-4">
+    <section className="mx-4 lg:px-96">
       <h3 className="text-lg font-extrabold">Ingredients</h3>
       <ul className="flex flex-col gap-2 p-2 border-primary border">
         {recipeIngredients

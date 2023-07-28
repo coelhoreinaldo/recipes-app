@@ -48,9 +48,9 @@ export default function CategoryButton({ strCategory, testId = '', onClick }: Pr
   const isActive = currCategory === strCategory;
 
   return (
-    <div className="flex flex-col items-center relative mb-8">
+    <div className="flex flex-col items-center relative mb-8 group">
       <button
-        className={ `hover:border-primary 
+        className={ `group-hover:border-primary 
         transition rounded-full h-10 w-10 flex md:h-16 md:w-16
         items-center justify-center text-sm px-2 border-2
       ${isActive ? 'border-primary' : 'border-secondary'}` }
@@ -62,7 +62,7 @@ export default function CategoryButton({ strCategory, testId = '', onClick }: Pr
         <img src={ icons[strCategory] } alt={ strCategory } />
       </button>
       <span
-        className={ `hover:border-primary transition h-10 text-xs md:text-sm absolute
+        className={ `group-hover:text-primary transition h-10 text-xs md:text-sm absolute
       text-center -bottom-10 ${isActive ? 'text-primary' : 'text-slate-500'}` }
       >
         {strCategory}

@@ -19,12 +19,12 @@ export default function RecipeImageTitle({
   recipeId,
 }: Props) {
   return (
-    <section className="relative h-64 flex items-center justify-center">
+    <section className="relative h-64 flex items-center justify-center md:h-96">
       <img
         src={ strThumb }
         alt={ strName }
         data-testid="recipe-photo"
-        className="w-full h-full object-cover absolute"
+        className="w-full h-full object-cover absolute md:object-scale-down"
       />
       <div
         className="bottom-0 left-0 text-4xl font-bold w-full flex

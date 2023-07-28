@@ -14,16 +14,17 @@ export default function Profile() {
       <Header title="Profile" />
       <PageTitle title="Profile" />
       <section
-        className="w-full flex flex-col items-center justify-evenly h-full px-12"
+        className="w-full flex flex-col items-center justify-evenly h-full px-12 lg:px-96"
       >
         <h3 data-testid="profile-email" className="font-bold">{userEmail.email}</h3>
         <section
           className="flex flex-col justify-center items-center
-          section divide-y-2 divide-primary gap-4 w-full text-lg"
+          section divide-y-2 divide-primary gap-4 w-full text-lg lg:w-1/2"
         >
           <Link
             to="/done-recipes"
-            className="w-full pt-4 flex items-center gap-2 px-2"
+            className="w-full pt-4 flex items-center gap-2 px-2
+             hover:border-primary hover:text-primary transition"
             data-testid="profile-done-btn"
           >
             <img width="40" src={ doneIcon } alt="" />
@@ -31,7 +32,8 @@ export default function Profile() {
           </Link>
           <Link
             to="/favorite-recipes"
-            className="w-full pt-4 flex items-center gap-2 px-2"
+            className="w-full pt-4 flex items-center gap-2 px-2
+             hover:border-primary hover:text-primary transition"
             data-testid="profile-favorite-btn"
           >
             <img width="40" src={ favoritesIcon } alt="" />
@@ -39,7 +41,8 @@ export default function Profile() {
           </Link>
           <Link
             to="/"
-            className="w-full pt-4 flex items-center gap-2 px-2"
+            className="w-full pt-4 flex items-center gap-2 px-2
+             hover:border-primary hover:text-primary transition"
             data-testid="profile-logout-btn"
             onClick={ () => localStorage.clear() }
           >

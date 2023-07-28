@@ -112,7 +112,7 @@ export default function RecipeInProgress() {
         />
         <RecipeInstructions strInstructions={ strInstructions } />
       </section>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center lg:px-96">
         <Button
           testId="finish-recipe-btn"
           disabledCondition={ checkedIngredients.length !== noRepeatIngredients.length }
