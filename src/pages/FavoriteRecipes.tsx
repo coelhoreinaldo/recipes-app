@@ -33,7 +33,7 @@ export default function FavoriteRecipes() {
 
   return (
     <div className="pb-16">
-      <Header title="Favorite Recipes" />
+      <Header />
       <PageTitle title="Favorites" />
       <section className="flex gap-4 w-full items-center justify-center mt-6">
         <RecipeTypeButton

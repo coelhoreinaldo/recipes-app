@@ -6,6 +6,7 @@ import Meals from '../src/pages/Meals';
 import Drinks from '../src/pages/Drinks';
 import fetchMock from './mocks/fetch.js';
 import Provider from '../src/context/Provider';
+import App from '../src/App';
 
 describe('header component', () => {
   beforeEach(() => {
@@ -14,8 +15,8 @@ describe('header component', () => {
   it('should exist on Meals page', () => {
     renderWithRouter(
       <Provider>
-        <Meals />
-      </Provider>,
+        <App />
+      </Provider>, { initialEntries: ['/meals']}
     );
 
     const title = screen.getByRole('heading', { name: /meals/i });
@@ -24,8 +25,8 @@ describe('header component', () => {
   it('should exist on Drinks page', () => {
     renderWithRouter(
       <Provider>
-        <Drinks />
-      </Provider>,
+        <App />
+      </Provider>, { initialEntries: ['/drinks']}
     );
 
     const title = screen.getByRole('heading', { name: /drinks/i });
@@ -34,8 +35,8 @@ describe('header component', () => {
   it('should show search bar on search button click', async () => {
     renderWithRouter(
       <Provider>
-        <Drinks />
-      </Provider>,
+        <App />
+      </Provider>, { initialEntries: ['/meals']}
 
     );
 

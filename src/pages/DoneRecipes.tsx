@@ -33,7 +33,7 @@ export default function DoneRecipes() {
 
   return (
     <div className="pb-16">
-      <Header title="Done Recipes" />
+      <Header />
       <PageTitle title="Done Recipes" />
       <section className="flex gap-4 w-full items-center justify-center">
         <RecipeTypeButton

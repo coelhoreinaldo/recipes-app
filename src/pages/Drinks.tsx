@@ -10,7 +10,7 @@ export default function Drinks() {
   const { isFetching } = useContext(RecipeContext);
   return (
     <div>
-      <Header title="Drinks 🍹" showSearchIcon />
+      <Header showSearchIcon />
       {isFetching && <Loading />}
       <PageTitle title="Drinks" />
       <Recipes />

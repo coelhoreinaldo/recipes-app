@@ -15,8 +15,6 @@
     "react-router-dom": "^6.10.0"
   },
   "scripts": {
-    "cy": "env CY_CLI=true cypress run",
-    "cy:open": "cypress open --e2e --browser chrome",
     "build": "vite build",
     "test": "vitest",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx,.ts,.tsx",
@@ -24,8 +22,7 @@
     "dev": "vite --open --port 3000",
     "start": "vite --open --port 3000",
     "preview": "vite preview",
-    "coverage": "vitest run --coverage --watch=false",
-    "cy-coverage": "cross-env NODE_OPTIONS=- vitest run --coverage --watch=false"
+    "coverage": "vitest run --coverage --watch=false"
   },
   "browserslist": {
     "production": [

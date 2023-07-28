@@ -29,7 +29,13 @@ export default function PageTitle({ title }: Props) {
         height={ 64 }
         className="h-10 w-10 md:h-16 md:w-16"
       />
-      <p className="uppercase font-bold text-primary">{title}</p>
+      <h2
+        className="uppercase font-bold text-primary"
+        data-testid="page-title"
+      >
+        {title}
+
+      </h2>
     </section>
   );
 }

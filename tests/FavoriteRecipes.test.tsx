@@ -28,7 +28,7 @@ describe('favorite recipes page', () => {
   });
 
   it('should show the elements', async () => {
-    const pageTitle = screen.getByRole('heading', { name: /favorite recipes/i });
+    const pageTitle = screen.getByRole('heading', { name: /favorites/i });
     const filterAllBtn = screen.getByTestId('filter-by-all-btn');
     const filterMealBtn = screen.getByTestId('filter-by-meal-btn');
     const filterDrinkBtn = screen.getByTestId('filter-by-drink-btn');

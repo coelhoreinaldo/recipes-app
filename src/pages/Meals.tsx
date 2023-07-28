@@ -10,7 +10,7 @@ export default function Meals() {
   const { isFetching } = useContext(RecipeContext);
   return (
     <main>
-      <Header title="Meals 🥗" showSearchIcon />
+      <Header showSearchIcon />
       {isFetching && <Loading />}
       <PageTitle title="Meals" />
       <Recipes />

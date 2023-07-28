@@ -11,7 +11,7 @@ export default function Profile() {
    || '{"email": "test@test.com"}');
   return (
     <div>
-      <Header title="Profile" />
+      <Header />
       <PageTitle title="Profile" />
       <section
         className="w-full flex flex-col items-center justify-evenly h-full px-12 lg:px-96"
