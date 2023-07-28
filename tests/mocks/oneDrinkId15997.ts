@@ -56,4 +56,4 @@ const oneDrinkId15997 = {
   ],
 };
 
-module.exports = oneDrinkId15997;
+export default oneDrinkId15997;

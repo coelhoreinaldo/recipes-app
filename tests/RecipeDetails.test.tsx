@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import renderWithRouter from './helpers/renderWith';
 import Provider from '../src/context/Provider';
-import fetchMock from './mocks/fetch.js';
+import fetchMock from './mocks/fetch';
 import App from '../src/App';
 import { favoriteRecipesMock, recipesInProgressMock } from './localStorageMocks/localStorageMocks';
 
@@ -64,11 +64,11 @@ describe('recipe details page', () => {
     await waitForElementToBeRemoved(loading);
 
     const favoriteBtn = screen.getByTestId(favoriteBtnTestId);
-    expect(favoriteBtn).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/images/whiteHeartIcon.svg');
     await userEvent.click(favoriteBtn);
-    expect(favoriteBtn).toHaveAttribute('src', '/src/images/blackHeartIcon.svg');
+    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/images/blackHeartIcon.svg');
     await userEvent.click(favoriteBtn);
-    expect(favoriteBtn).toHaveAttribute('src', '/src/images/whiteHeartIcon.svg');
+    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/images/whiteHeartIcon.svg');
   });
   it('should show ingredients and measures', async () => {
     renderWithRouter(

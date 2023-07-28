@@ -1,33 +1,33 @@
-const meals = require('./meals');
-const oneMeal = require('./oneMeal');
-const soupMeals = require('./soupMeals');
-const beefMeals = require('./beefMeals');
-const breakfastMeals = require('./breakfastMeals');
-const chickenMeals = require('./chickenMeals');
-const dessertMeals = require('./dessertMeals');
-const goatMeals = require('./goatMeals');
-const emptyMeals = require('./emptyMeals');
-const mealCategories = require('./mealCategories');
-const mealIngredients = require('./mealIngredients');
-const mealsByIngredient = require('./mealsByIngredient');
-const drinks = require('./drinks');
-const oneDrink = require('./oneDrink');
-const ginDrinks = require('./ginDrinks');
-const ordinaryDrinks = require('./ordinaryDrinks');
-const cocktailDrinks = require('./cocktailDrinks');
-const milkDrinks = require('./milkDrinks');
-const otherDrinks = require('./otherDrinks');
-const cocoaDrinks = require('./cocoaDrinks');
-const emptyDrinks = require('./emptyDrinks');
-const drinkCategories = require('./drinkCategories');
-const drinkIngredients = require('./drinkIngredients');
-const drinksByIngredient = require('./drinksByIngredient');
-const areas = require('./areas');
-const japaneseMeals = require('./japaneseMeals');
-const italianMeals = require('./italianMeals');
-const oneDrinkId15997 = require('./oneDrinkId15997');
+import meals  from './meals';
+import oneMeal  from './oneMeal';
+import soupMeals  from './soupMeals';
+import beefMeals  from './beefMeals';
+import breakfastMeals  from './breakfastMeals';
+import chickenMeals  from './chickenMeals';
+import dessertMeals  from './dessertMeals';
+import goatMeals  from './goatMeals';
+import emptyMeals  from './emptyMeals';
+import mealCategories  from './mealCategories';
+import mealIngredients  from './mealIngredients';
+import mealsByIngredient  from './mealsByIngredient';
+import drinks  from './drinks';
+import oneDrink  from './oneDrink';
+import ginDrinks  from './ginDrinks';
+import ordinaryDrinks  from './ordinaryDrinks';
+import cocktailDrinks  from './cocktailDrinks';
+import milkDrinks  from './milkDrinks';
+import otherDrinks  from './otherDrinks';
+import cocoaDrinks  from './cocoaDrinks';
+import emptyDrinks  from './emptyDrinks';
+import drinkCategories  from './drinkCategories';
+import drinkIngredients  from './drinkIngredients';
+import drinksByIngredient  from './drinksByIngredient';
+import areas  from './areas';
+import japaneseMeals  from './japaneseMeals';
+import italianMeals  from './italianMeals';
+import oneDrinkId15997  from './oneDrinkId15997';
 
-const fetch = (url) => Promise.resolve({
+const fetch = (url: string) => Promise.resolve({
   status: 200,
   ok: true,
   json: () => {
@@ -98,6 +98,6 @@ const fetch = (url) => Promise.resolve({
 
     return Promise.reject(new Error('Invalid url'));
   },
-});
+}) as unknown as (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 
 export default fetch;
