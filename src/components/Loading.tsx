@@ -1,4 +1,4 @@
-import rockGlass from '../images/rockGlass.svg';
+import rockGlass from '../assets/rockGlass.svg';
 
 export default function Loading() {
   return (

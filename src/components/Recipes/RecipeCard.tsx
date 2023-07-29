@@ -8,7 +8,7 @@ function RecipeCard({
   return (
     <Link
       className={ `flex flex-col overflow-hidden rounded-md w-full group
-       shadow-md shadow-primary hover:-translate-y-2 transition ${minWidth}` }
+       shadow-md shadow-indigo-300 hover:-translate-y-2 transition ${minWidth}` }
       data-testid={ dataTestId }
       to={ `/${pathname}${idRecipe}` }
     >

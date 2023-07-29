@@ -64,11 +64,11 @@ describe('recipe details page', () => {
     await waitForElementToBeRemoved(loading);
 
     const favoriteBtn = screen.getByTestId(favoriteBtnTestId);
-    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/images/whiteHeartIcon.svg');
+    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/assets/whiteHeartIcon.svg');
     await userEvent.click(favoriteBtn);
-    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/images/blackHeartIcon.svg');
+    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/assets/blackHeartIcon.svg');
     await userEvent.click(favoriteBtn);
-    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/images/whiteHeartIcon.svg');
+    expect(favoriteBtn).toHaveAttribute('src', '/recipes-app/src/assets/whiteHeartIcon.svg');
   });
   it('should show ingredients and measures', async () => {
     renderWithRouter(

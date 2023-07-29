@@ -1,18 +1,18 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { RecipeContext } from '../../context/RecipeProvider';
-import allDrinks from '../../images/Drinks/allIcon.svg';
-import ordinaryDrink from '../../images/Drinks/ordinaryDrinkIcon.svg';
-import cocktail from '../../images/Drinks/cocktailIcon.svg';
-import shake from '../../images/Drinks/shakeIcon.svg';
-import other from '../../images/Drinks/otherIcon.svg';
-import cocoa from '../../images/Drinks/cocoaIcon.svg';
-import allMeals from '../../images/Meals/allIcon.svg';
-import beef from '../../images/Meals/beefIcon.svg';
-import goat from '../../images/Meals/goatIcon.svg';
-import chicken from '../../images/Meals/chickenIcon.svg';
-import breakfast from '../../images/Meals/breakfastIcon.svg';
-import dessert from '../../images/Meals/dessertIcon.svg';
+import allDrinks from '../../assets/Drinks/allIcon.svg';
+import ordinaryDrink from '../../assets/Drinks/ordinaryDrinkIcon.svg';
+import cocktail from '../../assets/Drinks/cocktailIcon.svg';
+import shake from '../../assets/Drinks/shakeIcon.svg';
+import other from '../../assets/Drinks/otherIcon.svg';
+import cocoa from '../../assets/Drinks/cocoaIcon.svg';
+import allMeals from '../../assets/Meals/allIcon.svg';
+import beef from '../../assets/Meals/beefIcon.svg';
+import goat from '../../assets/Meals/goatIcon.svg';
+import chicken from '../../assets/Meals/chickenIcon.svg';
+import breakfast from '../../assets/Meals/breakfastIcon.svg';
+import dessert from '../../assets/Meals/dessertIcon.svg';
 
 type Props = {
   strCategory: string,
@@ -59,7 +59,11 @@ export default function CategoryButton({ strCategory, testId = '', onClick }: Pr
         role={ strCategory }
         type="button"
       >
-        <img src={ icons[strCategory] } alt={ strCategory } />
+        <img
+          src={ icons[strCategory] }
+          alt={ strCategory }
+          className={ `${isActive ? 'hue-rotate-30' : ''} group-hover:hue-rotate-30` }
+        />
       </button>
       <span
         className={ `group-hover:text-primary transition h-10 text-xs md:text-sm absolute

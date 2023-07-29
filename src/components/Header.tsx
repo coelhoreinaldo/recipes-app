@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import profileIcon from '../assets/profileIcon.svg';
+import searchIcon from '../assets/searchIcon.svg';
 import SearchBar from './SearchBar';
-import logoIcon from '../images/logoIcon.svg';
+import logoIcon from '../assets/logoIcon.svg';
 
 interface Props {
   showSearchIcon?:boolean
@@ -34,12 +34,22 @@ export default function Header({ showSearchIcon = false }:Props) {
             className="flex gap-2
            font-semibold items-center"
           >
-            <img src={ searchIcon } alt="pesquisar" data-testid="search-top-btn" />
+            <img
+              src={ searchIcon }
+              alt="pesquisar"
+              data-testid="search-top-btn"
+              className="hover:hue-rotate-15"
+            />
             <span className="hidden sm:block">Search</span>
           </button>)
       }
           <Link to="/profile" className="flex gap-2 font-semibold items-center">
-            <img src={ profileIcon } alt="profile icon" data-testid="profile-top-btn" />
+            <img
+              src={ profileIcon }
+              alt="profile icon"
+              data-testid="profile-top-btn"
+              className="hover:hue-rotate-15"
+            />
             <span className="hidden sm:block">Profile</span>
           </Link>
         </div>

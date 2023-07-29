@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { IDoneRecipe } from '../../types/recipeTypes';
 import ShareButton from '../Buttons/ShareButton';
 
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import blackHeartIcon from '../../assets/blackHeartIcon.svg';
 import { RecipeDetailsContext } from '../../context/RecipeDetailsProvider';
 
 type Props = {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
-import shareIcon from '../../images/shareIcon.svg';
+import shareIcon from '../../assets/shareIcon.svg';
 
 type Props = {
   customClass?: string;

@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import drinkIcon from '../images/drinkIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
+import drinkIcon from '../assets/drinkIcon.svg';
+import mealIcon from '../assets/mealIcon.svg';
 import { RecipeContext } from '../context/RecipeProvider';
 
 export default function Footer() {
