@@ -33,7 +33,13 @@ export default function Footer() {
         data-testid="meal-btn-link"
         onClick={ handleClick }
       >
-        <img src={ mealIcon } alt="drink icon" data-testid="meals-bottom-btn" />
+        <img
+          src={ mealIcon }
+          alt="drink icon"
+          data-testid="meals-bottom-btn"
+          width={ 40 }
+          height={ 40 }
+        />
       </Link>
     </footer>
   );

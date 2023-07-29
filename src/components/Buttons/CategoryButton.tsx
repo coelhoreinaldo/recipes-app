@@ -56,7 +56,6 @@ export default function CategoryButton({ strCategory, testId = '', onClick }: Pr
       ${isActive ? 'border-primary' : 'border-secondary'}` }
         data-testid={ testId }
         onClick={ onClick }
-        role={ strCategory }
         type="button"
       >
         <img

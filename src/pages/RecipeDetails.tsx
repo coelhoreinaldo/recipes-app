@@ -42,7 +42,7 @@ export default function RecipeDetails() {
     getRecipeDetailsById();
     getRecommendations();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [recipeId]);
 
   if (isFetching) {
     return <Loading />;
@@ -74,7 +74,7 @@ export default function RecipeDetails() {
               minWidth="min-w-[160px]"
               dataTestId={ `${index}-recommendation-card` }
               dataTestIdTitle={ `${index}-recommendation-title` }
-              key={ meal.idMeal }
+              key={ `${meal.idMeal}${index}` }
               index={ index }
               idRecipe={ meal.idMeal }
               strRecipe={ meal.strMeal }
@@ -87,7 +87,7 @@ export default function RecipeDetails() {
               minWidth="min-w-[160px]"
               dataTestId={ `${index}-recommendation-card` }
               dataTestIdTitle={ `${index}-recommendation-title` }
-              key={ drink.idDrink }
+              key={ `${drink.idDrink}${index}` }
               index={ index }
               idRecipe={ drink.idDrink }
               strRecipe={ drink.strDrink }
