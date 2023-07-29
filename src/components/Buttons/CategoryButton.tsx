@@ -59,7 +59,11 @@ export default function CategoryButton({ strCategory, testId = '', onClick }: Pr
         role={ strCategory }
         type="button"
       >
-        <img src={ icons[strCategory] } alt={ strCategory } />
+        <img
+          src={ icons[strCategory] }
+          alt={ strCategory }
+          className={ `${isActive ? 'hue-rotate-30' : ''} group-hover:hue-rotate-30` }
+        />
       </button>
       <span
         className={ `group-hover:text-primary transition h-10 text-xs md:text-sm absolute
