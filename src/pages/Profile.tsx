@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import favoritesIcon from '../images/favoritesIcon.svg';
-import doneIcon from '../images/doneIcon.svg';
-import logoutIcon from '../images/logoutIcon.svg';
+import favoritesIcon from '../assets/favoritesIcon.svg';
+import doneIcon from '../assets/doneIcon.svg';
+import logoutIcon from '../assets/logoutIcon.svg';
 import PageTitle from '../components/PageTitle';
 
 export default function Profile() {

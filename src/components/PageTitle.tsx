@@ -1,9 +1,9 @@
 import React from 'react';
-import mealsIcon from '../images/Meals/allIcon.svg';
-import drinksIcon from '../images/Drinks/allIcon.svg';
-import doneRecipes from '../images/doneIcon.svg';
-import favorites from '../images/favoritesIcon.svg';
-import profile from '../images/profilePageIcon.svg';
+import mealsIcon from '../assets/Meals/allIcon.svg';
+import drinksIcon from '../assets/Drinks/allIcon.svg';
+import doneRecipes from '../assets/doneIcon.svg';
+import favorites from '../assets/favoritesIcon.svg';
+import profile from '../assets/profilePageIcon.svg';
 
 type Props = { title : string };
 

@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import profileIcon from '../assets/profileIcon.svg';
+import searchIcon from '../assets/searchIcon.svg';
 import SearchBar from './SearchBar';
-import logoIcon from '../images/logoIcon.svg';
+import logoIcon from '../assets/logoIcon.svg';
 
 interface Props {
   showSearchIcon?:boolean

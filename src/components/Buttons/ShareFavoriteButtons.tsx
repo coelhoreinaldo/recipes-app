@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { RecipeDetailsContext } from '../../context/RecipeDetailsProvider';
 
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../assets/blackHeartIcon.svg';
+import whiteHeartIcon from '../../assets/whiteHeartIcon.svg';
 import ShareButton from './ShareButton';
 
 type Props = {

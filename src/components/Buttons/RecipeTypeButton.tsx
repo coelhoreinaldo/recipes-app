@@ -1,6 +1,6 @@
-import all from '../../images/allRecipes.svg';
-import allDrinks from '../../images/Drinks/allIcon.svg';
-import allMeals from '../../images/Meals/allIcon.svg';
+import all from '../../assets/allRecipes.svg';
+import allDrinks from '../../assets/Drinks/allIcon.svg';
+import allMeals from '../../assets/Meals/allIcon.svg';
 
 type Props = {
   filterType: string,
