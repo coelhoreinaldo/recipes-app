@@ -34,7 +34,11 @@ export default function RecipeTypeButton({
         data-testid={ testId }
         onClick={ () => handleFilterClick(filterType) }
       >
-        <img src={ icons[filterName] } alt={ filterName } />
+        <img
+          src={ icons[filterName] }
+          alt={ filterName }
+          className={ `${isActive ? 'hue-rotate-30' : ''} group-hover:hue-rotate-30` }
+        />
       </button>
       <span
         className={ `h-10 text-xs absolute group-hover:text-primary
