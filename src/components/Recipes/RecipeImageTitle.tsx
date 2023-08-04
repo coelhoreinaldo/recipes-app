@@ -1,4 +1,6 @@
 import React from 'react';
+import { RiReplyFill } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 import ShareFavoriteButtons from '../Buttons/ShareFavoriteButtons';
 
 type Props = {
@@ -18,6 +20,11 @@ export default function RecipeImageTitle({
   recipeType,
   recipeId,
 }: Props) {
+  const navigate = useNavigate();
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <section className="relative h-64 flex items-center justify-center md:h-96">
       <img
@@ -44,14 +51,19 @@ export default function RecipeImageTitle({
         className="z-50 absolute flex justify-between w-full top-4
           text-secondary items-center font-bold px-4"
       >
-        <h4
-          data-testid="recipe-category"
-          className=" bg-gradient-to-r from-secondary via-slate-50 to-slate-100
+        <div className="flex gap-2">
+          <button onClick={ handleBackClick }>
+            <RiReplyFill />
+          </button>
+          <h4
+            data-testid="recipe-category"
+            className=" bg-gradient-to-r from-secondary via-slate-50 to-slate-100
           bg-clip-text text-transparent"
-        >
-          {strCategory}
-          {strAlcoholic && ` - ${strAlcoholic}`}
-        </h4>
+          >
+            {strCategory}
+            {strAlcoholic && ` - ${strAlcoholic}`}
+          </h4>
+        </div>
         <ShareFavoriteButtons
           testId="share-btn"
           recipeType={ recipeType }
