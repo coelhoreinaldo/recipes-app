@@ -106,7 +106,7 @@ export default function RecipeDetails() {
             text={ isInProgress ? 'Continue Recipe' : 'Start Recipe' }
             onClick={ () => navigate(`/${recipeType}/${recipeId}/in-progress`) }
             disabledCondition={ false }
-            customClass="bottom-4 fixed w-11/12"
+            customClass="bottom-4 fixed w-11/12 z-50"
           />
         </div>
       )}
